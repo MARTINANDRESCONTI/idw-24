@@ -1,0 +1,107 @@
+/* ----- HEADER ----- */
+
+header {
+  background: var(--color-primary);
+  color: var(--color-light);
+  padding: var(--spacing-md) var(--spacing-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo h1 {
+  font-size: var(--font-size-h1);
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+/* ----- NAVBAR ----- */
+
+nav a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--color-primary-dark);
+  color: var(--color-bg);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background: var(--color-secondary);
+  color: var(--color-light);
+  transform: scale(1.05);
+}
+
+/* ----- PORTADA ----- */
+
+.portada {
+  flex: 1;
+  position: relative;
+  text-align: center;
+  background: url("../img/imagen_fondo.png") center/contain no-repeat
+    var(--color-primary-dark);
+  color: var(--color-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.portada .overlay {
+  background: var(--color-overlay);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+}
+
+.portada h2 {
+  font-size: var(--font-size-h2);
+  margin-bottom: var(--spacing-md);
+}
+
+.portada .btn {
+  display: inline-block;
+  margin-top: var(--spacing-md);
+  padding: 0.7rem 1.5rem;
+  background: var(--color-secondary);
+  color: var(--color-light);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.portada .btn:hover {
+  background: var(--color-secondary-dark);
+  transform: scale(1.05);
+}
+
+/* ----- FOOTER ----- */
+
+footer {
+  background: var(--color-primary);
+  color: var(--color-light);
+  text-align: center;
+  padding: var(--spacing-md);
+}
+
+/* ----- RESPONSIVE ----- */
+
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .portada h2 {
+    font-size: 2rem;
+  }
+
+  .portada .overlay {
+    padding: var(--spacing-md);
+  }
+}
