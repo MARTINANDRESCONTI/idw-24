@@ -1,0 +1,189 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Asegurar altura completa */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  background-color: #f5f5f5;
+  color: #333;
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+header {
+  background: #2e8be9ff;
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo h1 {
+  font-size: 1.5rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* MAIN ocupa el espacio entre header y footer */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/*SECCIÓN CONTACTO titulos gral */
+.contacto h2 {
+  font-size: 24px;
+  color: #2e8be9;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+ /*Subtitulos*/
+ .contacto h4 {
+  font-size: 18px;
+  color: #2e8be9;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+
+
+
+/*DATOS DE CONTACTO*/
+
+.informacion {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  gap: 20px;
+}
+
+.informacion div {
+  text-align: center;
+  padding: 10px;
+  flex: 1 1 200px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.informacion img {
+  margin-bottom: 10px;
+}
+
+.informacion h4{
+font-size: 18px;
+color: #2e8be9;
+margin: bottom 5px; ;
+}
+
+.informacion p {
+  font-size: 16px;
+  color: #333;
+}
+
+
+
+
+/*MAPA */
+.mapouter {
+  margin: 20px auto;
+  max-width: 800px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.gmap_canvas {
+  width: 100%;
+  height: 400px;
+  background-color: #eaeaea;
+}
+
+.gmap_iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+
+
+
+
+
+/*FORMULARIO*/
+
+.input {
+  display: block;
+  width: 90%;
+  max-width: 500px;
+  margin: 10px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+textarea.input {
+  resize: vertical;
+  min-height: 80px;
+}
+
+button[type="submit"] {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #2e8be9;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button[type="submit"]:hover {
+  background-color: #1c6dc1;
+}
+
+
+
+
+
+
+
+
+
+/* FOOTER */
+footer {
+  background: #2e8be9ff;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}
