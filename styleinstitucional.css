@@ -1,0 +1,90 @@
+/* ----- HEADER ----- */
+header {
+  background: var(--color-primary);
+  color: var(--color-light);
+  padding: var(--spacing-md) var(--spacing-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo h1 {
+  font-size: var(--font-size-h1);
+  text-align: center;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+}
+
+/* ----- NAVBAR ----- */
+nav a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--color-primary-dark);
+  color: var(--color-bg);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background: var(--color-secondary);
+  color: var(--color-light);
+  transform: scale(1.05);
+}
+
+/* ----- MAIN ----- */
+main {
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main section {
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+main h1 {
+  font-size: var(--font-size-h1);
+  margin-bottom: var(--spacing-md);
+}
+
+main h2 {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-md);
+}
+
+main h3 {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-md);
+}
+
+main p {
+  margin-bottom: var(--spacing-md);
+}
+
+/* ----- FOOTER ----- */
+footer {
+  background: var(--color-primary);
+  color: var(--color-light);
+  text-align: center;
+  padding: var(--spacing-md);
+}
+
+/* ----- RESPONSIVE ----- */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  main {
+    padding: var(--spacing-md);
+  }
+}
