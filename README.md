@@ -1,6 +1,6 @@
 # idw-24
 
-Trabajo final integrador Introduccion al Desarrollo Web
+Trabajo Final Integrador Introduccion al Desarrollo Web
 
 Integrantes:
 
