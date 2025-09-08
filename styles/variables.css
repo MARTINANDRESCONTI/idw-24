@@ -1,0 +1,46 @@
+/* ----- RESET GLOBAL ----- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ----- VARIABLES GLOBALES ----- */
+:root {
+  /* Colores principales */
+  --color-primary: #2e8be9;
+  --color-primary-dark: #1c6fc7;
+  --color-secondary: #2ecc71;
+  --color-secondary-dark: #27ae60;
+
+  /* Colores neutros */
+  --color-bg: #f5f5f5;
+  --color-text: #333;
+  --color-light: #fff;
+  --color-overlay: rgba(0, 0, 0, 0.5);
+
+  /* Tipografía */
+  --font-family: "Arial", Helvetica, sans-serif;
+  --font-size-base: 16px;
+  --font-size-h1: 1.5rem;
+  --font-size-h2: 2.5rem;
+
+  /* Bordes y espaciado */
+  --radius-sm: 5px;
+  --radius-md: 10px;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+}
