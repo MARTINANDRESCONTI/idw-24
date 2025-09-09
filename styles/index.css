@@ -40,6 +40,10 @@ body::-webkit-scrollbar {
   background-color: var(--color-primary-dark);
 }
 
+.navbar-toggler-icon {
+  filter: invert(100%);
+}
+
 /* ---------- CARDS ---------- */
 .service-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
