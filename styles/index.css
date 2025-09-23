@@ -1,19 +1,21 @@
-/* ----QUITAR BARRA DE DESPLAZAMIENTO y----*/
-
+/* ----QUITAR BARRA DE DESPLAZAMIENTO ---- */
+/* Comentado reemplazado por Bootstrap
 html,
 body {
   height: 100%;
-  overflow-y: scroll; /* asegura desplazamiento */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE y Edge */
+  overflow-y: scroll; 
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
 }
 
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none; 
 }
+*/
 
 /* ---------- NAVBAR ---------- */
+/* Antes teníamos: 
 .navbar-custom {
   background-color: var(--color-primary);
 }
@@ -43,8 +45,36 @@ body::-webkit-scrollbar {
 .navbar-toggler-icon {
   filter: invert(100%);
 }
+*/
+
+/* Versión 100% Bootstrap con navbar-dark y bg-primary */
+.navbar-custom {
+  background-color: var(--color-primary); /* se mantiene color primario */
+}
+
+.navbar-custom .navbar-brand {
+  font-size: var(--font-size-h1);
+  font-weight: bold; /* opcional */
+}
+
+.navbar-custom .navbar-nav .nav-link {
+  color: #fff !important; /* fuerza blanco a todos los links */
+  transition: background-color 0.3s ease;
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.navbar-custom .navbar-nav .nav-link:hover {
+  background-color: var(--color-primary-dark);
+  color: #fff !important; /* fuerza blanco al hacer hover */
+}
+
+.navbar-toggler-icon {
+  filter: invert(100%);
+}
 
 /* ---------- CARDS ---------- */
+/* Antes teníamos:
 .service-card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   height: 100%;
@@ -98,15 +128,68 @@ body::-webkit-scrollbar {
   line-height: 1.4;
   margin: 0;
 }
+*/
+
+/* Bootstrap version: */
+.service-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; /* Bootstrap shadow */
+}
+
+.card-img-container {
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* en lugar de container */
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 1rem;
+}
+
+.service-card:hover .card-overlay {
+  opacity: 1;
+}
+
+.overlay-text {
+  color: var(--color-light);
+  text-align: center;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+}
 
 /* ---------- FOOTER ---------- */
+/* Antes teníamos:
 .footer-custom {
   background-color: var(--color-primary);
   color: var(--color-light);
   font-size: 0.9rem;
 }
 
-/* Links del footer */
 .footer-custom a {
   color: var(--color-light);
   text-decoration: none;
@@ -117,7 +200,33 @@ body::-webkit-scrollbar {
   color: var(--color-primary-dark);
 }
 
-/* Centrar contenido en pantallas pequeñas */
+@media (max-width: 768px) {
+  .footer-custom .row {
+    text-align: center;
+  }
+  .footer-custom .col-12 {
+    margin-bottom: 0.5rem;
+  }
+}
+*/
+
+/* Bootstrap version: */
+.footer-custom {
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  font-size: 0.9rem;
+}
+
+.footer-custom a {
+  color: var(--color-light);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-custom a:hover {
+  color: var(--color-primary-dark);
+}
+
 @media (max-width: 768px) {
   .footer-custom .row {
     text-align: center;
