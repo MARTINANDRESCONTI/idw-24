@@ -1,14 +1,6 @@
 .bg-dark {
   background-color: var(--color-header-footer, #004080) !important;
 }
-/*
-main {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-  font-family: Arial, sans-serif;
-}
-*/
 
 main h1,
 main h2,
