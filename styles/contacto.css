@@ -42,17 +42,19 @@ nav ul {
   list-style: none;
   display: flex;
   gap: 1rem;
+  @media (max-width: 576px) { 
+  display: flex;
+  flex-direction: column;
+  }
 }
 
 nav a {
   color: #fff;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: bold;  
 }
 
-nav a:hover {
-  text-decoration: underline;
-}
+
 
 /* MAIN ocupa el espacio entre header y footer */
 main {
@@ -67,6 +69,7 @@ main {
   color: #2e8be9;
   margin-bottom: 10px;
   margin-left: 20px;
+  margin-right: 20px;
   font-weight: bold;
 }
  /*Subtitulos*/
@@ -92,6 +95,10 @@ p {
   flex-wrap: wrap;
   margin: 20px 0;
   gap: 20px;
+  @media (max-width: 576px) { 
+  display: flex;
+  flex-direction: column;
+  }
 }
 
 .informacion div {
@@ -115,17 +122,25 @@ margin: bottom 5px;
 .informacion p {
   font-size: 16px;
   color: #333;
+  margin-right: 20px;
 }
 
-
+p {
+  font-size: 16px;
+  color: #333;
+  margin-right: 20px;
+}
 
 /*--MAPA-- */
 .mapouter {
-  margin: 20px auto;
+  margin: 10px auto;
   max-width: 800px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  overflow: hidden;
+  overflow: hidden;  
+  @media (max-width: 576px) { 
+  max-width: 400px; 
+ }   
 }
 
 .gmap_canvas {
