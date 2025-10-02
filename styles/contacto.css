@@ -8,159 +8,41 @@
 
 
 /* - SECCIÓN CONTACTO - */
+/* ===== CONTACTO ===== */
 .contacto {
-  padding: var(--spacing-lg) var(--spacing-md);
-  background-color: var(--color-bg);
+  background-color: #f8f9fa; /* gris claro */
 }
 
-/* --- TÍTULO Y PÁRRAFO --- */
-.contacto .seccion-titulo h2 {
-  text-align: center;
-  color: var(--color-primary);
-  font-size: var(--font-size-h2); /* usar h2 definido en variables */
-  margin-bottom: var(--spacing-sm);
+/* Tarjetas de contacto */
+.info-card {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
 }
 
-.contacto .seccion-titulo p {
-  text-align: center;
-  color: var(--color-primary-dark);
-  font-size: var(--font-size-base);
-  margin-bottom: var(--spacing-lg);
-  max-width: 700px;
-  margin-inline: auto; 
-
-}/* SECCIÓN CONTACTO */
-.contacto {
-  padding: var(--spacing-lg) var(--spacing-md);
-  background-color: var(--color-bg);
+/* Inputs */
+.contacto .form-control {
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
-
-/*  TÍTULO Y PÁRRAFO  */
-
-.contacto .seccion-titulo h2 {
-
-  text-align: center; 
-  color: var(--color-primary);
-  font-size: var(--font-size-h2); /* usa la variable */
-  margin-bottom: var(--spacing-sm); 
-  font-weight: 700; 
-}
-
-.contacto .seccion-titulo p {
-  text-align: center;
-  color: var(--color-text, #333);
-  font-size: var(--font-size-base); 
-  margin-bottom: var(--spacing-lg); 
-  margin-inline: auto; 
-}
-
-
-/* INFORMACIÓN CONTACTO */
-.contacto .informacion {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
-}
-
-.contacto .informacion > div {
-  flex: 1 1 200px;
-  background-color: var(--color-light);
-  border-radius: var(--radius-sm);
-  padding: var(--spacing-md);
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-sm);
-}
-
-/* ICONOS */
-.contacto .informacion img {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
-}
-
-/* TÍTULOS Y PÁRRAFOS */
-.contacto .informacion h4 {
-  color: var(--color-primary);
-  margin: 0;
-  font-size: 1.1rem;
-}
-
-.contacto .informacion p {
-  font-size: 0.9rem;
-  margin: 0;
-  color: var(--color-text);
-}
-
-/* CONTENEDOR DEL FORMULARIO */
-.contacto form {
-  max-width: 400px;
-  margin: 0 auto var(--spacing-lg) auto;
-  background-color: var(--color-light);
-  padding: var(--spacing-lg);
-  border-radius: var(--radius-sm);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-md);
-}
-
-/* Inputs y textarea */
-.contacto .input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--color-primary);
-  border-radius: var(--radius-sm);
-  font-size: 1rem;
-  font-family: var(--font-family);
-  box-sizing: border-box;
-}
-
-/* Textarea */
-.contacto textarea.input {
-  min-height: 120px;
-  resize: vertical;
+.contacto .form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0px 0px 8px rgba(13, 110, 253, 0.3);
 }
 
 /* Botón */
-.contacto button[type="submit"] {
-  background-color: var(--color-primary);
-  color: var(--color-light);
-  font-size: 1rem;
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.contacto button {
+  border-radius: 25px;
+  font-weight: 600;
+  box-shadow: 0px 4px 10px rgba(13, 110, 253, 0.3);
 }
-
-.contacto button[type="submit"]:hover {
-  background-color: var(--color-primary-dark);
+.contacto button:hover {
+  background-color: #0b5ed7;
+  box-shadow: 0px 6px 14px rgba(13, 110, 253, 0.5);
 }
-
-/* --MAPA-- */
-.contacto .mapouter,
-.contacto .gmap_canvas,
-.contacto .gmap_iframe {
-  width: 100%;
-  max-width: 600px;
-  height: 400px;
-  margin: 0 auto var(--spacing-lg) auto;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-
-
-
-
-
-
-
