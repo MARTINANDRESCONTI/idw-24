@@ -2,13 +2,6 @@
   background-color: var(--color-header-footer, #004080) !important;
 }
 
-main {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-  font-family: Arial, sans-serif;
-}
-
 main h1,
 main h2,
 main h3 {
@@ -57,27 +50,25 @@ main .container img {
 .carousel-indicators .active {
   background-color: #007bff;
 }
-/* Comentado, reemplazado por bootstrap
-@media (max-width: 768px) {
-    main { margin: 1rem auto; padding: 0 0.5rem; }
-    main h1, main h2, main h3 { margin-top: 1rem; font-size: 1.5rem; }
-    main p { font-size: 0.9rem; }
-    main .container section { margin-bottom: 1rem; padding: 1rem; }
-    main .container img { margin-bottom: 0.8rem; }
-}
 
-@media (max-width: 576px) {
-    main { margin: 0.5rem auto; padding: 0 0.25rem; }
-    main h1, main h2, main h3 { font-size: 1.2rem; }
-    main p { font-size: 0.85rem; }
-    main .container section { margin-bottom: 0.5rem; padding: 0.5rem; }
-    main .container img { margin-bottom: 0.5rem; }
-}
-*/
 footer .bi {
   color: white;
 }
 
 .py-3 h1 {
   text-transform: uppercase;
+}
+
+main section:nth-of-type(odd) {
+  background-color: #dbf0f8;
+}
+
+main section:nth-of-type(even) {
+  background-color: #fff7f0;
+}
+
+.mision p {
+  max-width: 280px;  
+  margin: 0 auto; 
+  text-align: center;
 }
