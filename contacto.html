@@ -1,29 +1,43 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"/>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
 
     <link rel="stylesheet" href="./styles/variables.css" />
     <link rel="stylesheet" href="./styles/index.css" />
-<link rel="stylesheet" href="./styles/contacto.css" />
+    <link rel="stylesheet" href="./styles/contacto.css" />
     <link rel="icon" href="Iconos/logo.png" />
     <title>Clínica IDW S.A.</title>
   </head>
   <body class="d-flex flex-column min-vh-100">
-  
+    <!-- Comentado reemplazado 100% Bootstrap -->
+
+    <!-- NAVBAR -->
     <header>
-      <nav class="navbar navbar-expand-lg navbar-custom">
+      <!-- Código original navbar comentado -->
+      <!--
+    <nav class="navbar navbar-expand-lg navbar-custom">
+      ...
+    </nav>
+    -->
+      <!-- Navbar 100% Bootstrap -->
+      <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
         <div class="container">
-          <a class="navbar-brand fw-bold text-light" href="index.html">
-            Centro Médico Integral S.A.
-          </a>
+          <a class="navbar-brand fw-bold" href="index.html"
+            >Centro Médico Integral S.A.</a
+          >
           <button
-            class="navbar-toggler text-white"
+            class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarID"
@@ -34,28 +48,28 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarID">
-            <ul class="navbar-nav ms-auto d-flex text-center">
+            <ul class="navbar-nav ms-auto text-center">
               <li class="nav-item">
-                <a class="nav-link text-light" href="index.html">Inicio</a>
+                <a class="nav-link" href="index.html">Inicio</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-light" href="institucional.html">Institucional</a>
+                <a class="nav-link" href="institucional.html">Institucional</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-light" href="contacto.html">Contacto</a>
+                <a class="nav-link" href="contacto.html">Contacto</a>
               </li>
-                <li class="nav-item d-none" id="adminLink">
-                <a class="nav-link text-light" href="admin.html">
-                  <i class="bi bi-gear-fill"></i> Admin
-                </a>
+              <li class="nav-item d-none" id="adminLink">
+                <a class="nav-link" href="admin.html"
+                  ><i class="bi bi-gear-fill"></i> Admin</a
+                >
               </li>
               <li class="nav-item d-none" id="reservasLink">
-                <a class="nav-link text-light" href="#">Reservas</a>
+                <a class="nav-link" href="#">Reservas</a>
               </li>
               <li class="nav-item">
-                <span class="text-light" id="userIcon">
-                  <i class="bi bi-person-circle fs-4"></i>
-                </span>
+                <span id="userIcon" class="fs-4"
+                  ><i class="bi bi-person-circle"></i
+                ></span>
               </li>
               <li class="nav-item ms-2">
                 <button
@@ -73,87 +87,211 @@
       </nav>
     </header>
 
-  <!-- CONTACTO -->
-<section class="contacto">
-  <div class="contenedor">
-    <div class="seccion-titulo">
-      <h2>CONTACTO</h2>
-      <p>Nuestra ubicación nos permie ofrecerte atención médica personalizada  de alta calidad en un entorno seguro y adecuado.</p>
-    </div>
-
-  <!-- GOOGLE MAP -->
-    <div class="mapouter"><div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Palamer, godoy cruz, Mendoza &amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a href="https://sprunkin.com/">Sprunki Phases</a></div><style>.mapouter{position:relative;text-align:right;width:100%;height:400px;}.gmap_canvas {overflow:hidden;background:none!important;width:100%;height:400px;}.gmap_iframe {height:400px!important;}</style></div>
-
-  <!-- DATOS CONTACTO -->
-    <div class="contenedor">
-    <div class="informacion">
-
-      <div class="direccion">
-          <img src="./Iconos/ubicacion.svg" alt="icono ubicacion"width="40" height="40">        
-          <h4>Ubicacion</h4>
-          <p>Av. San Martín Sur 2875, M5501 Godoy Cruz, Mendoza</p>
-      </div>
-
-      <div class="email">
-          <img src="./Iconos/sobre.svg" alt="icono email"width="40" height="40">     
-          <h4>Email</h4>
-          <p>idwsa@ejemplo.com</p>
-      </div>
-
-      <div class="telefono">
-          <img src="./Iconos/telefono.svg" alt="icono telefono"width="40" height="40">
-          <h4>Telefono</h4>
-          <p>+54 9 261 5123456</p>
-      </div>
-
-    </div>  
-    </div>
-    </div>
-
-
-  <!-- FORMULARIO -->
-    <div class="seccion-titulo">
-      <h2>FORMULARIO</h2>
-      <p>Nuestro equipo está comprometido con tu salud y bienesar. No dudes en contactarnos para obtener más información.</p>
-      <div>
-        <input type="text" name="name" class="input" id="name" placeholder="Tu nombre"required>
-      </div>
-      <div>
-        <input type="email" name="email" class="input" id="email" placeholder="Tu email"required>
-      </div>
-      <div>
-        <input type="text" name="consulta" class="input" id="consulta" placeholder="Tu consulta"required>
-      </div>
-      <div>
-        <textarea name="mensaje" class="input" placeholder="mensaje(opcional)"></textarea>
-      </div>
-      <button type="submit">Enviar Mensaje</button>
-
-    </div>
-
-  </div>
-</section>
-
-
-
- <!-- FOOTER -->
-<footer class="footer-custom mt-auto border-top">
-  <div class="container p-3">
-    <div class="row">
-      <div class="col-12 col-md-6 text-md-start text-center mb-2 mb-md-0">
-        <span>&copy; 2025 By IDW S.A. - UNER IDW Grupo 24</span>
-      </div>
-      <div class="col-12 col-md-6 text-md-end text-center">
-        <a href="#" class="me-3"><i class="bi bi-facebook"></i></a>
-        <a href="#" class="me-3"><i class="bi bi-twitter-x"></i></a>
-        <a href="#"><i class="bi bi-instagram"></i></a>
+    <!-- MODAL LOGIN -->
+    <!-- Código original comentado -->
+    <!--
+  <div class="modal fade" id="loginModal">...</div>
+  -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-light">
+            <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="loginForm">
+              <div class="mb-3">
+                <label for="usernameInput" class="form-label">Usuario</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="usernameInput"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="passwordInput" class="form-label">Contraseña</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="passwordInput"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary w-100">
+                Ingresar
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
 
+    <!-- TOASTS -->
+    <div
+      id="toastContainer"
+      class="position-fixed top-50 start-50 translate-middle"
+      style="z-index: 9999"
+    ></div>
 
+    <!-- CONTACTO -->
+
+    <section class="contacto py-5 bg-info-subtle">
+      <div class="container">
+        <!-- TÍTULO -->
+        <div class="text-center mb-5">
+          <h2 class="fw-bold text-primary">CONTACTO</h2>
+          <p class="text-muted">
+            Nuestra ubicación nos permite ofrecerte atención médica
+            personalizada de alta calidad en un entorno seguro y adecuado.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <!-- GOOGLE MAP -->
+          <div class="col-lg-6">
+            <div class="ratio ratio-16x9 rounded shadow">
+              <iframe
+                src="https://maps.google.com/maps?hl=es&q=Palamer, godoy cruz, Mendoza&z=14&output=embed"
+                style="border: 0"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+
+          <!-- DATOS CONTACTO -->
+          <div class="col-lg-6">
+            <div class="row g-3">
+              <div
+                class="col-md-12 info-card text-center p-3 bg-white rounded shadow-sm"
+              >
+                <img
+                  src="./Iconos/ubicacion.svg"
+                  alt="Ubicación"
+                  width="40"
+                  height="40"
+                  class="mb-2"
+                />
+                <h4 class="fw-bold text-primary">Ubicación</h4>
+                <p>Av. San Martín Sur 2875, M5501 Godoy Cruz, Mendoza</p>
+              </div>
+              <div
+                class="col-md-12 info-card text-center p-3 bg-white rounded shadow-sm"
+              >
+                <img
+                  src="./Iconos/sobre.svg"
+                  alt="Email"
+                  width="40"
+                  height="40"
+                  class="mb-2"
+                />
+                <h4 class="fw-bold text-primary">Email</h4>
+                <p>idwsa@ejemplo.com</p>
+              </div>
+              <div
+                class="col-md-12 info-card text-center p-3 bg-white rounded shadow-sm"
+              >
+                <img
+                  src="./Iconos/telefono.svg"
+                  alt="Teléfono"
+                  width="40"
+                  height="40"
+                  class="mb-2"
+                />
+                <h4 class="fw-bold text-primary">Teléfono</h4>
+                <p>+54 9 261 5123456</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORMULARIO -->
+        <div class="mt-5">
+          <div class="text-center mb-4">
+            <h2 class="fw-bold text-primary">FORMULARIO</h2>
+            <p class="text-muted">
+              Nuestro equipo está comprometido con tu salud y bienestar. No
+              dudes en contactarnos para obtener más información.
+            </p>
+          </div>
+
+          <form class="row g-3 justify-content-center">
+            <div class="col-md-6">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Tu nombre"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Tu email"
+                required
+              />
+            </div>
+            <div class="col-12">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Tu consulta"
+                required
+              />
+            </div>
+            <div class="col-12">
+              <textarea
+                class="form-control"
+                rows="4"
+                placeholder="Mensaje (opcional)"
+              ></textarea>
+            </div>
+            <div class="col-12 text-center">
+              <button type="submit" class="btn btn-primary px-4">
+                Enviar Mensaje
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-primary text-light mt-auto border-top">
+      <div class="container p-3">
+        <div class="row">
+          <div class="col-12 col-md-6 text-md-start text-center mb-2 mb-md-0">
+            &copy; 2025 By IDW S.A. - UNER IDW Grupo 24
+          </div>
+          <div class="col-12 col-md-6 text-md-end text-center">
+            <a href="#" class="text-light me-3"
+              ><i class="bi bi-facebook"></i
+            ></a>
+            <a href="#" class="text-light me-3"
+              ><i class="bi bi-twitter-x"></i
+            ></a>
+            <a href="#" class="text-light"><i class="bi bi-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
     <script src="js/auth.js"></script>
     <script src="js/cards.js"></script>
-</body>
+  </body>
 </html>

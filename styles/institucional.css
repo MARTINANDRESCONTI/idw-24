@@ -1,83 +1,74 @@
 .bg-dark {
-    background-color: var(--color-header-footer, #004080) !important;
-}
-
-main {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-    font-family: Arial, sans-serif;
+  background-color: var(--color-header-footer, #004080) !important;
 }
 
 main h1,
 main h2,
 main h3 {
-    color: var(--color-header-footer, #004080);
-    margin-top: 1.5rem;
-    font-size: 1.8rem;
-    font-weight: bold;
+  color: var(--color-header-footer, #004080);
+  margin-top: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
 
 main p {
-    margin-bottom: 1rem;
-    text-align: justify;
-    font-size: 1rem;
-    color: var(--color-texto-principal, #333333);
-    line-height: 1.6;
+  margin-bottom: 1rem;
+  text-align: justify;
+  font-size: 1rem;
+  color: var(--color-texto-principal, #333333);
+  line-height: 1.6;
 }
 
 main .container section {
-    margin-bottom: 2rem;
-    padding: 1.5rem;
-    background-color: var(--color-fondo-seccion-claro, #fff7f0);
-    border: 1px solid var(--color-borde, #dddddd);
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: var(--color-fondo-seccion-claro, #fff7f0);
+  border: 1px solid var(--color-borde, #dddddd);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 main .container section:nth-child(odd) {
-    background-color: var(--color-fondo-seccion-crema, #f9f5f0);
+  background-color: var(--color-fondo-seccion-crema, #f9f5f0);
 }
 
 main .container img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .carousel-indicators [data-bs-target] {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: #333;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #333;
 }
 
 .carousel-indicators .active {
-    background-color: #007bff;
-}
-
-@media (max-width: 768px) {
-    main { margin: 1rem auto; padding: 0 0.5rem; }
-    main h1, main h2, main h3 { margin-top: 1rem; font-size: 1.5rem; }
-    main p { font-size: 0.9rem; }
-    main .container section { margin-bottom: 1rem; padding: 1rem; }
-    main .container img { margin-bottom: 0.8rem; }
-}
-
-@media (max-width: 576px) {
-    main { margin: 0.5rem auto; padding: 0 0.25rem; }
-    main h1, main h2, main h3 { font-size: 1.2rem; }
-    main p { font-size: 0.85rem; }
-    main .container section { margin-bottom: 0.5rem; padding: 0.5rem; }
-    main .container img { margin-bottom: 0.5rem; }
+  background-color: #007bff;
 }
 
 footer .bi {
-    color: white;
+  color: white;
 }
 
 .py-3 h1 {
-    text-transform: uppercase;
+  text-transform: uppercase;
+}
+
+main section:nth-of-type(odd) {
+  background-color: #dbf0f8;
+}
+
+main section:nth-of-type(even) {
+  background-color: #fff7f0;
+}
+
+.mision p {
+  max-width: 280px;  
+  margin: 0 auto; 
+  text-align: center;
 }
