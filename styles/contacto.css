@@ -8,22 +8,21 @@
 
 
 /* - SECCIÓN CONTACTO - */
-/* ===== CONTACTO ===== */
+
 .contacto {
-  background-color: #f8f9fa; /* gris claro */
+  padding: var(--spacing-lg) var(--spacing-md);
+  background-color: var(--color-bg);
 }
 
-/* Tarjetas de contacto */
-.info-card {
-  background: #ffffff;
-  border: 1px solid #dee2e6;
-  border-radius: 12px;
-  box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.info-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+/*  TÍTULO Y PÁRRAFO  */
+
+.contacto .seccion-titulo h2 {
+
+  text-align: center; 
+  color: var(--color-primary);
+  font-size: var(--font-size-h2); /* usa la variable */
+  margin-bottom: var(--spacing-sm); 
+  font-weight: 700; 
 }
 
 /* Inputs */
