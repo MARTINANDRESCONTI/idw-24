@@ -8,28 +8,7 @@
 
 
 /* - SECCIÓN CONTACTO - */
-.contacto {
-  padding: var(--spacing-lg) var(--spacing-md);
-  background-color: var(--color-bg);
-}
-
-/* --- TÍTULO Y PÁRRAFO --- */
-.contacto .seccion-titulo h2 {
-  text-align: center;
-  color: var(--color-primary);
-  font-size: var(--font-size-h2); /* usar h2 definido en variables */
-  margin-bottom: var(--spacing-sm);
-}
-
-.contacto .seccion-titulo p {
-  text-align: center;
-  color: var(--color-primary-dark);
-  font-size: var(--font-size-base);
-  margin-bottom: var(--spacing-lg);
-  max-width: 700px;
-  margin-inline: auto; 
-
-}/* SECCIÓN CONTACTO */
+/* ===== CONTACTO ===== */
 .contacto {
   padding: var(--spacing-lg) var(--spacing-md);
   background-color: var(--color-bg);
