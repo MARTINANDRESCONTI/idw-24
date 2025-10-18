@@ -8,7 +8,8 @@ const MEDICOS_INICIALES = [
     matricula: "MP-12345",
     telefono: "341-4567890",
     email: "jperez@clinica.com",
-    horario: "Lunes a Viernes 9:00-17:00"
+    horario: "Lunes a Viernes 9:00-17:00",
+    foto: "assets/medico1.png"
   },
   {
     id: 2,
@@ -18,7 +19,8 @@ const MEDICOS_INICIALES = [
     matricula: "MP-23456",
     telefono: "341-4567891",
     email: "mgonzalez@clinica.com",
-    horario: "Lunes a Viernes 8:00-14:00"
+    horario: "Lunes a Viernes 8:00-14:00",
+    foto: "assets/medico2.png"
   },
   {
     id: 3,
@@ -28,7 +30,8 @@ const MEDICOS_INICIALES = [
     matricula: "MP-34567",
     telefono: "341-4567892",
     email: "rmartinez@clinica.com",
-    horario: "Martes y Jueves 14:00-20:00"
+    horario: "Martes y Jueves 14:00-20:00",
+    foto: "assets/medico3.png"
   },
   {
     id: 4,
@@ -38,7 +41,8 @@ const MEDICOS_INICIALES = [
     matricula: "MP-45678",
     telefono: "341-4567893",
     email: "arodriguez@clinica.com",
-    horario: "Lunes, Miércoles y Viernes 10:00-16:00"
+    horario: "Lunes, Miércoles y Viernes 10:00-16:00",
+    foto: "assets/medico4.png"
   },
   {
     id: 5,
@@ -48,7 +52,8 @@ const MEDICOS_INICIALES = [
     matricula: "MP-56789",
     telefono: "341-4567894",
     email: "clopez@clinica.com",
-    horario: "Lunes a Viernes 8:00-12:00"
+    horario: "Lunes a Viernes 8:00-12:00",
+    foto: "assets/medico5.png"
   }
 ];
 
@@ -56,7 +61,7 @@ const MEDICOS_INICIALES = [
 function inicializarMedicos() {
   if (!localStorage.getItem("medicos")) {
     localStorage.setItem("medicos", JSON.stringify(MEDICOS_INICIALES));
-    console.log("Médicos inicializados en LocalStorage");
+    console.log("Médicos inicializados en LocalStorage con imágenes");
   }
 }
 

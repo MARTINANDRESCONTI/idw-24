@@ -16,6 +16,8 @@ const medicoForm = document.getElementById("medicoForm");
 const btnGuardarMedico = document.getElementById("btnGuardarMedico");
 const btnNuevoMedico = document.getElementById("btnNuevoMedico");
 const medicoModalLabel = document.getElementById("medicoModalLabel");
+const fotoInput = document.getElementById("foto");
+const previewImg = document.getElementById("previewImg");
 
 // Función para mostrar toast
 function showToast(message, color = "success") {
@@ -23,8 +25,6 @@ function showToast(message, color = "success") {
   const toastEl = document.createElement("div");
   toastEl.className = `toast align-items-center text-white bg-${color} border-0`;
   toastEl.setAttribute("role", "alert");
-  toastEl.setAttribute("aria-live", "assertive");
-  toastEl.setAttribute("aria-atomic", "true");
   toastEl.innerHTML = `
     <div class="d-flex">
       <div class="toast-body">${message}</div>
@@ -58,9 +58,15 @@ function renderizarTabla(medicosAMostrar) {
   }
 
   noResults.classList.add("d-none");
-  
+
   medicosTableBody.innerHTML = medicosAMostrar.map(medico => `
     <tr>
+      <td>
+        <img src="${medico.foto || 'assets/default.png'}" 
+             class="rounded-circle border" 
+             width="50" height="50" 
+             alt="Foto del médico">
+      </td>
       <td>${medico.id}</td>
       <td>${medico.nombre}</td>
       <td>${medico.apellido}</td>
@@ -69,26 +75,47 @@ function renderizarTabla(medicosAMostrar) {
       <td>${medico.telefono}</td>
       <td>${medico.email}</td>
       <td class="text-center">
-        <div class="btn-group btn-group-sm" role="group">
-          <button class="btn btn-info" onclick="verMedico(${medico.id})" title="Ver">
-            <i class="bi bi-eye"></i>
-          </button>
-          <button class="btn btn-warning" onclick="editarMedico(${medico.id})" title="Editar">
-            <i class="bi bi-pencil"></i>
-          </button>
-          <button class="btn btn-danger" onclick="confirmarEliminar(${medico.id})" title="Eliminar">
-            <i class="bi bi-trash"></i>
-          </button>
+        <div class="btn-group btn-group-sm">
+          <button class="btn btn-info" onclick="verMedico(${medico.id})" title="Ver"><i class="bi bi-eye"></i></button>
+          <button class="btn btn-warning" onclick="editarMedico(${medico.id})" title="Editar"><i class="bi bi-pencil"></i></button>
+          <button class="btn btn-danger" onclick="confirmarEliminar(${medico.id})" title="Eliminar"><i class="bi bi-trash"></i></button>
         </div>
       </td>
     </tr>
   `).join("");
 }
 
+// Convertir imagen a Base64
+function convertirABase64(file, callback) {
+  const reader = new FileReader();
+  reader.onload = () => callback(reader.result);
+  reader.readAsDataURL(file);
+}
+
+// ✅ Preview de imagen (con validación de tipo y fallback a default)
+if (fotoInput) {
+  fotoInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+      previewImg.src = "assets/default.png";
+      return;
+    }
+    if (!file.type.startsWith("image/")) {
+      showToast("⚠ Solo se permiten archivos JPG o PNG", "warning");
+      fotoInput.value = "";
+      previewImg.src = "assets/default.png";
+      return;
+    }
+    convertirABase64(file, (base64) => {
+      previewImg.src = base64;
+    });
+  });
+}
+
 // Buscar médicos
 searchInput.addEventListener("input", (e) => {
   const termino = e.target.value.toLowerCase();
-  const medicosFiltrados = medicos.filter(medico => 
+  const medicosFiltrados = medicos.filter(medico =>
     medico.nombre.toLowerCase().includes(termino) ||
     medico.apellido.toLowerCase().includes(termino) ||
     medico.especialidad.toLowerCase().includes(termino)
@@ -100,17 +127,20 @@ searchInput.addEventListener("input", (e) => {
 btnNuevoMedico.addEventListener("click", () => {
   medicoEditando = null;
   medicoForm.reset();
-  document.getElementById("medicoId").value = "";
+  previewImg.src = "assets/default.png"; // 👈 imagen por defecto
   medicoModalLabel.innerHTML = '<i class="bi bi-person-plus"></i> Nuevo Médico';
 });
 
-// Guardar médico (crear o editar)
+// Guardar médico
 btnGuardarMedico.addEventListener("click", () => {
-  // Validar formulario
   if (!medicoForm.checkValidity()) {
     medicoForm.reportValidity();
     return;
   }
+
+  const baseFoto = previewImg.src && previewImg.src !== window.location.origin + "/undefined"
+    ? previewImg.src
+    : "assets/default.png";
 
   const medico = {
     id: medicoEditando ? medicoEditando.id : generarId(),
@@ -120,24 +150,22 @@ btnGuardarMedico.addEventListener("click", () => {
     matricula: document.getElementById("matricula").value.trim(),
     telefono: document.getElementById("telefono").value.trim(),
     email: document.getElementById("email").value.trim(),
-    horario: document.getElementById("horario").value.trim() || "No especificado"
+    horario: document.getElementById("horario").value.trim() || "No especificado",
+    foto: baseFoto
   };
 
   if (medicoEditando) {
-    // Editar
     const index = medicos.findIndex(m => m.id === medicoEditando.id);
     medicos[index] = medico;
-    showToast(`✔ Médico ${medico.nombre} ${medico.apellido} actualizado correctamente`, "success");
+    showToast(`✔ Médico ${medico.nombre} actualizado`, "success");
   } else {
-    // Crear
     medicos.push(medico);
-    showToast(`✔ Médico ${medico.nombre} ${medico.apellido} agregado correctamente`, "success");
+    showToast(`✔ Médico ${medico.nombre} agregado`, "success");
   }
 
   guardarMedicos();
   cargarMedicos();
   medicoModal.hide();
-  medicoForm.reset();
 });
 
 // Ver médico
@@ -145,6 +173,7 @@ function verMedico(id) {
   const medico = medicos.find(m => m.id === id);
   if (!medico) return;
 
+  document.getElementById("verFoto").src = medico.foto || "assets/default.png";
   document.getElementById("verNombre").textContent = medico.nombre;
   document.getElementById("verApellido").textContent = medico.apellido;
   document.getElementById("verEspecialidad").textContent = medico.especialidad;
@@ -162,8 +191,7 @@ function editarMedico(id) {
   if (!medico) return;
 
   medicoEditando = medico;
-  
-  document.getElementById("medicoId").value = medico.id;
+
   document.getElementById("nombre").value = medico.nombre;
   document.getElementById("apellido").value = medico.apellido;
   document.getElementById("especialidad").value = medico.especialidad;
@@ -171,6 +199,7 @@ function editarMedico(id) {
   document.getElementById("telefono").value = medico.telefono;
   document.getElementById("email").value = medico.email;
   document.getElementById("horario").value = medico.horario;
+  previewImg.src = medico.foto || "assets/default.png";
 
   medicoModalLabel.innerHTML = '<i class="bi bi-pencil"></i> Editar Médico';
   medicoModal.show();
@@ -180,7 +209,6 @@ function editarMedico(id) {
 function confirmarEliminar(id) {
   const medico = medicos.find(m => m.id === id);
   if (!medico) return;
-
   medicoAEliminar = medico;
   document.getElementById("nombreEliminar").textContent = `${medico.nombre} ${medico.apellido}`;
   confirmarEliminarModal.show();
@@ -189,13 +217,10 @@ function confirmarEliminar(id) {
 // Eliminar médico
 document.getElementById("btnConfirmarEliminar").addEventListener("click", () => {
   if (!medicoAEliminar) return;
-
   medicos = medicos.filter(m => m.id !== medicoAEliminar.id);
   guardarMedicos();
   cargarMedicos();
-  
-  showToast(`✔ Médico ${medicoAEliminar.nombre} ${medicoAEliminar.apellido} eliminado correctamente`, "danger");
-  
+  showToast(`✔ Médico ${medicoAEliminar.nombre} eliminado`, "danger");
   confirmarEliminarModal.hide();
   medicoAEliminar = null;
 });
@@ -208,19 +233,17 @@ function generarId() {
 // Control de acceso
 function verificarAcceso() {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  
   if (!currentUser || currentUser.role !== "admin") {
     window.location.href = "admin.html";
   }
 }
 
-// Inicializar al cargar la página
+// Inicializar
 document.addEventListener("DOMContentLoaded", () => {
   verificarAcceso();
   cargarMedicos();
 });
 
-// Exponer funciones al scope global para los onclick
 window.verMedico = verMedico;
 window.editarMedico = editarMedico;
 window.confirmarEliminar = confirmarEliminar;
