@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="./styles/variables.css" />
+  <link rel="stylesheet" href="./styles/index.css" />
+  <link rel="icon" href="Iconos/logo.png" />
+  <title>Gestión de Staff Médico - Clínica IDW S.A.</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+  
+  <!-- NAVBAR -->
+  <header>
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">Centro Médico Integral S.A.</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarID" aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarID">
+          <ul class="navbar-nav ms-auto text-center">
+            <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="institucional.html">Institucional</a></li>
+            <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+            <li class="nav-item d-none" id="adminLink">
+              <a class="nav-link" href="admin.html"><i class="bi bi-gear-fill"></i> Admin</a>
+            </li>
+            <li class="nav-item d-none" id="reservasLink">
+              <a class="nav-link" href="#">Reservas</a>
+            </li>
+            <li class="nav-item ms-2">
+              <button class="btn btn-light btn-sm" id="loginBtn">Login</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MODAL LOGIN -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-light">
+          <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="usernameInput" class="form-label">Usuario</label>
+              <input type="text" class="form-control" id="usernameInput" required />
+            </div>
+            <div class="mb-3">
+              <label for="passwordInput" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="passwordInput" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOASTS -->
+  <div id="toastContainer" class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999"></div>
+
+  <!-- CONTENIDO PRINCIPAL - ABM MÉDICOS -->
+  <main class="flex-grow-1">
+    <section class="py-4 bg-light">
+      <div class="container">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="admin.html">Admin</a></li>
+            <li class="breadcrumb-item active">Staff Médico</li>
+          </ol>
+        </nav>
+
+        <!-- Título -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="text-primary">
+            <i class="bi bi-person-badge"></i> Gestión de Staff Médico
+          </h2>
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#medicoModal" id="btnNuevoMedico">
+            <i class="bi bi-plus-circle"></i> Nuevo Médico
+          </button>
+        </div>
+
+        <!-- Buscador -->
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-search"></i></span>
+              <input type="text" class="form-control" id="searchInput" placeholder="Buscar por nombre, apellido o especialidad...">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabla de Médicos -->
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover table-striped align-middle">
+                <thead class="table-primary">
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Especialidad</th>
+                    <th>Matrícula</th>
+                    <th>Teléfono</th>
+                    <th>Email</th>
+                    <th class="text-center">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="medicosTableBody">
+                  <!-- Filas generadas dinámicamente -->
+                </tbody>
+              </table>
+            </div>
+            <div id="noResults" class="text-center text-muted py-4 d-none">
+              <i class="bi bi-inbox fs-1"></i>
+              <p>No se encontraron médicos</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL CREAR/EDITAR MÉDICO -->
+  <div class="modal fade" id="medicoModal" tabindex="-1" aria-labelledby="medicoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-light">
+          <h5 class="modal-title" id="medicoModalLabel">
+            <i class="bi bi-person-plus"></i> Nuevo Médico
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="medicoForm">
+            <input type="hidden" id="medicoId">
+
+            <!-- 🖼️ CARGA DE FOTO Y PREVISUALIZACIÓN -->
+            <div class="mb-3 text-center">
+              <img id="previewImg" src="assets/default.png" class="rounded-circle mb-2" width="100" height="100" alt="Previsualización">
+              <input type="file" class="form-control" id="foto" accept="image/png, image/jpeg">
+            </div>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="nombre" class="form-label">Nombre *</label>
+                <input type="text" class="form-control" id="nombre" required>
+              </div>
+              <div class="col-md-6">
+                <label for="apellido" class="form-label">Apellido *</label>
+                <input type="text" class="form-control" id="apellido" required>
+              </div>
+              <div class="col-md-6">
+                <label for="especialidad" class="form-label">Especialidad *</label>
+                <input type="text" class="form-control" id="especialidad" required>
+              </div>
+              <div class="col-md-6">
+                <label for="matricula" class="form-label">Matrícula *</label>
+                <input type="text" class="form-control" id="matricula" required>
+              </div>
+              <div class="col-md-6">
+                <label for="telefono" class="form-label">Teléfono *</label>
+                <input type="tel" class="form-control" id="telefono" required>
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label">Email *</label>
+                <input type="email" class="form-control" id="email" required>
+              </div>
+              <div class="col-12">
+                <label for="horario" class="form-label">Horario de Atención</label>
+                <textarea class="form-control" id="horario" rows="2" placeholder="Ej: Lunes a Viernes 9:00-17:00"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btnGuardarMedico">
+            <i class="bi bi-save"></i> Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL VISUALIZAR MÉDICO -->
+  <div class="modal fade" id="verMedicoModal" tabindex="-1" aria-labelledby="verMedicoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-light">
+          <h5 class="modal-title" id="verMedicoModalLabel">
+            <i class="bi bi-eye"></i> Detalle del Médico
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <strong>Nombre:</strong>
+              <p id="verNombre" class="text-muted"></p>
+            </div>
+            <div class="col-md-6">
+              <strong>Apellido:</strong>
+              <p id="verApellido" class="text-muted"></p>
+            </div>
+            <div class="col-md-6">
+              <strong>Especialidad:</strong>
+              <p id="verEspecialidad" class="text-muted"></p>
+            </div>
+            <div class="col-md-6">
+              <strong>Matrícula:</strong>
+              <p id="verMatricula" class="text-muted"></p>
+            </div>
+            <div class="col-md-6">
+              <strong>Teléfono:</strong>
+              <p id="verTelefono" class="text-muted"></p>
+            </div>
+            <div class="col-md-6">
+              <strong>Email:</strong>
+              <p id="verEmail" class="text-muted"></p>
+            </div>
+            <div class="col-12">
+              <strong>Horario de Atención:</strong>
+              <p id="verHorario" class="text-muted"></p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CONFIRMAR ELIMINACIÓN -->
+  <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-light">
+          <h5 class="modal-title" id="confirmarEliminarLabel">
+            <i class="bi bi-exclamation-triangle"></i> Confirmar Eliminación
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>¿Está seguro que desea eliminar al Dr./Dra. <strong id="nombreEliminar"></strong>?</p>
+          <p class="text-muted small">Esta acción no se puede deshacer.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" id="btnConfirmarEliminar">
+            <i class="bi bi-trash"></i> Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-primary text-light mt-auto border-top">
+    <div class="container p-3">
+      <div class="row">
+        <div class="col-12 col-md-6 text-md-start text-center mb-2 mb-md-0">
+          &copy; 2025 By IDW S.A. - UNER IDW Grupo 24
+        </div>
+        <div class="col-12 col-md-6 text-md-end text-center">
+          <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="text-light me-3"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="text-light"><i class="bi bi-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/medicosData.js"></script>
+  <script src="js/medicosAbm.js"></script>
+</body>
+</html>

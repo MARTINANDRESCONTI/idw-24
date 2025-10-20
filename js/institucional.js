@@ -1,0 +1,43 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const carouselInner = document.getElementById("carouselMedicosInner");
+
+  function createStaffCard(medico) {
+    return `
+      <div class="col-6 col-md-3 text-center mb-4">
+        <img src="${medico.foto}" alt="${medico.nombre} ${medico.apellido}" 
+          class="img-fluid rounded shadow-sm" style="max-height: 180px; width: auto">
+        <p class="mt-2 mb-0 fw-bold">${medico.nombre} ${medico.apellido}</p>
+        <small class="text-muted">${medico.especialidad}</small>
+      </div>
+    `;
+  }
+
+  function loadStaffCarousel() {
+    if (!carouselInner) return;
+
+    const medicosJSON = localStorage.getItem("medicos");
+    const medicos = medicosJSON ? JSON.parse(medicosJSON) : [];
+
+    if (medicos.length === 0) return;
+
+    const itemsPerSlide = 4;
+    let carouselHTML = "";
+
+    for (let i = 0; i < medicos.length; i += itemsPerSlide) {
+      const slice = medicos.slice(i, i + itemsPerSlide);
+      const cardsHTML = slice.map(createStaffCard).join("");
+
+      carouselHTML += `
+        <div class="carousel-item ${i === 0 ? "active" : ""}">
+          <div class="row justify-content-center">
+            ${cardsHTML}
+          </div>
+        </div>
+      `;
+    }
+
+    carouselInner.innerHTML = carouselHTML;
+  }
+
+  loadStaffCarousel();
+});
