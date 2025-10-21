@@ -56,15 +56,14 @@
               </li>
               <li class="nav-item">
                 <span id="userIcon" class="fs-4"
-                  ><i class="bi bi-person-circle"></i
+
                 ></span>
               </li>
               <li class="nav-item ms-2">
                 <button
                   class="btn btn-light btn-sm"
                   id="loginBtn"
-                  data-bs-toggle="modal"
-                  data-bs-target="#loginModal"
+
                 >
                   Login
                 </button>
@@ -225,60 +224,53 @@
       </section>
 
       <!-- NUESTRO EQUIPO -->
-      <section class="py-5 bg-warning-subtle">
-        <div class="text-center mb-4">
-          <h3 class="fs-2 fw-bold text-primary">Nuestro Equipo</h3>
-          <p class="fs-5 px-4">
-            Contamos con un equipo interdisciplinario de profesionales altamente
-            capacitados, que trabajan con vocación y compromiso para cuidar lo
-            más importante: tu salud.
-          </p>
-        </div>
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-6 col-md-2 text-center mb-4">
-              <img
-                src="assets/medico1.png"
-                alt="Médico 1"
-                class="img-fluid rounded shadow-sm"
-                style="max-height: 180px; width: auto"
-              />
-            </div>
-            <div class="col-6 col-md-2 text-center mb-4">
-              <img
-                src="assets/medico2.png"
-                alt="Médico 2"
-                class="img-fluid rounded shadow-sm"
-                style="max-height: 180px; width: auto"
-              />
-            </div>
-            <div class="col-6 col-md-2 text-center mb-4">
-              <img
-                src="assets/medico3.png"
-                alt="Médico 3"
-                class="img-fluid rounded shadow-sm"
-                style="max-height: 180px; width: auto"
-              />
-            </div>
-            <div class="col-6 col-md-2 text-center mb-4">
-              <img
-                src="assets/medico4.png"
-                alt="Médico 4"
-                class="img-fluid rounded shadow-sm"
-                style="max-height: 180px; width: auto"
-              />
-            </div>
-            <div class="col-6 col-md-2 text-center mb-4">
-              <img
-                src="assets/medico5.png"
-                alt="Médico 5"
-                class="img-fluid rounded shadow-sm"
-                style="max-height: 180px; width: auto"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+
+
+<section class="py-5 bg-warning-subtle">
+  <div class="text-center mb-4">
+    <h3 class="fs-2 fw-bold text-primary">Nuestro Equipo</h3>
+    <p class="fs-5 px-4">
+      Contamos con un equipo interdisciplinario de profesionales altamente
+      capacitados, que trabajan con vocación y compromiso para cuidar lo
+      más importante: tu salud.
+    </p>
+  </div>
+
+  <div class="container">
+    <div id="carouselMedicos" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner" id="carouselMedicosInner"></div>
+
+      <!-- Controles afuera del inner, a los lados -->
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselMedicos"
+        data-bs-slide="prev"
+      >
+        <span
+          class="carousel-control-prev-icon bg-primary rounded-circle p-2"
+          aria-hidden="true"
+        ></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselMedicos"
+        data-bs-slide="next"
+      >
+        <span
+          class="carousel-control-next-icon bg-primary rounded-circle p-2"
+          aria-hidden="true"
+        ></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+
+
 
       <!-- INSTALACIONES Y TECNOLOGÍA -->
       <section class="py-5 bg-info-subtle">
@@ -431,7 +423,7 @@
             data-bs-slide="prev"
           >
             <span
-              class="carousel-control-prev-icon bg-dark rounded-circle p-2"
+              class="carousel-control-prev-icon bg-primary rounded-circle p-2"
               aria-hidden="true"
             ></span>
             <span class="visually-hidden">Anterior</span>
@@ -443,7 +435,7 @@
             data-bs-slide="next"
           >
             <span
-              class="carousel-control-next-icon bg-dark rounded-circle p-2"
+              class="carousel-control-next-icon bg-primary rounded-circle p-2"
               aria-hidden="true"
             ></span>
             <span class="visually-hidden">Siguiente</span>
@@ -486,6 +478,8 @@
 
     <!-- Scripts -->
     <script src="js/auth.js"></script>
+    <script src="js/medicosData.js"></script>
     <script src="js/cards.js"></script>
+    <script src="js/institucional.js"></script>
   </body>
 </html>
