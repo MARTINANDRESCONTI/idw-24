@@ -10,7 +10,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     const data = await res.json();
     const usuarios = data.users;
 
-    usuarios.forEach(element => {
+    let usuariosAdmin = usuarios.find(item => item.role == 'admin');
+    let administradores = usuarios.slice(usuariosAdmin.id, usuariosAdmin.id + 2);
+
+    let usuariosUser = usuarios.find(item => item.role == 'user');
+    let use = usuarios.slice(usuariosUser.id, usuariosUser.id + 4);
+
+    let adminAndUser = administradores.concat(use)
+
+    adminAndUser.forEach(element => {
       const fila = document.createElement('tr');
       fila.innerHTML = `
         <td>${element.firstName}</td>
