@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       fila.innerHTML = `
         <td>${element.firstName}</td>
         <td>${element.username}</td>
+        <td>${element.password}</td>
         <td>${element.email}</td>
         <td>${element.phone}</td>
         <td>${element.role}</td>

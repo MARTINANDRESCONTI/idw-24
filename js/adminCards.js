@@ -43,9 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
     { 
       id: 6, 
       image: "assets/reportes.png", 
-      title: "Reportes",
+      title: "Reportes de Usuaios",
       description: "Visualizar reportes y estadísticas del sistema.",
-      link: "abm-reportes.html",
+      link: "users.html",
       icon: "bi-graph-up"
     },
   ];
