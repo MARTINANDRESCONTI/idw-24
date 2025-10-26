@@ -69,48 +69,7 @@ const MEDICOS_INICIALES = [
 ];
 
 
-// Inicializar LocalStorage - SIEMPRE actualiza con datos nuevos
-function inicializarMedicos() {
-  const medicosEnStorage = localStorage.getItem("medicos");
-  
-  if (!medicosEnStorage) {
-    // Primera carga: inicializa con datos nuevos
-    localStorage.setItem("medicos", JSON.stringify(MEDICOS_INICIALES));
-    console.log("✅ Médicos inicializados en LocalStorage");
-  } else {
-    // Ya hay datos: FUSIONA con nuevos datos (mantiene ediciones del usuario)
-    const medicosGuardados = JSON.parse(medicosEnStorage);
-    const medicosActualizados = [];
-    
-    // Mantener médicos existentes (para preservar cambios del usuario)
-    medicosGuardados.forEach(medico => {
-      const medicoActualizado = MEDICOS_INICIALES.find(m => m.id === medico.id);
-      if (medicoActualizado) {
-        // Si existe en datos nuevos, usa el médico guardado (con cambios del usuario)
-        medicosActualizados.push(medico);
-      } else {
-        // Si no existe en datos nuevos, elimínalo
-        // (el usuario lo borró o se quitó de los datos)
-      }
-    });
-    
-    // Agregar médicos nuevos (que no están en storage)
-    MEDICOS_INICIALES.forEach(medico => {
-      if (!medicosGuardados.find(m => m.id === medico.id)) {
-        medicosActualizados.push(medico);
-      }
-    });
-    
-    // Actualizar localStorage con la fusión
-    localStorage.setItem("medicos", JSON.stringify(medicosActualizados));
-    console.log("✅ Médicos actualizados en LocalStorage - Nuevos médicos agregados");
-  }
-}
-
-// Ejecutar al cargar el script
-inicializarMedicos();
-
-/*// Inicializar LocalStorage si no existe
+// Inicializar LocalStorage si no existe
 function inicializarMedicos() {
   if (!localStorage.getItem("medicos")) {
     localStorage.setItem("medicos", JSON.stringify(MEDICOS_INICIALES));
@@ -120,4 +79,4 @@ function inicializarMedicos() {
 
 // Ejecutar al cargar el script
 inicializarMedicos();
-*/
+
