@@ -9,7 +9,7 @@ const MEDICOS_INICIALES = [
     telefono: "341-4567890",
     email: "jperez@clinica.com",
     horario: "Lunes a Viernes 9:00-17:00",
-    foto: "assets/medico1.png"
+    foto: "/assets/medico1.png"
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const MEDICOS_INICIALES = [
     telefono: "341-4567891",
     email: "mgonzalez@clinica.com",
     horario: "Lunes a Viernes 8:00-14:00",
-    foto: "assets/medico2.png"
+    foto: "/assets/medico2.png"
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ const MEDICOS_INICIALES = [
     telefono: "341-4567892",
     email: "rmartinez@clinica.com",
     horario: "Martes y Jueves 14:00-20:00",
-    foto: "assets/medico3.png"
+    foto: "/assets/medico3.png"
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ const MEDICOS_INICIALES = [
     telefono: "341-4567893",
     email: "arodriguez@clinica.com",
     horario: "Lunes, Miércoles y Viernes 10:00-16:00",
-    foto: "assets/medico4.png"
+    foto: "/assets/medico4.png"
   },
   {
     id: 5,
@@ -53,11 +53,64 @@ const MEDICOS_INICIALES = [
     telefono: "341-4567894",
     email: "clopez@clinica.com",
     horario: "Lunes a Viernes 8:00-12:00",
-    foto: "assets/medico5.png"
+    foto: "/assets/medico5.png"
+  },
+  {
+    id: 6,
+    nombre: "Sofía",
+    apellido: "Sánchez",
+    especialidad: "Gastroenterología",
+    matricula: "MP-67890",
+    telefono: "341-4567895",
+    email: "ssanchez@clinica.com",
+    horario: "Martes y Jueves 9:00-13:00",
+    foto: "assets/medico6.png"
   }
 ];
 
-// Inicializar LocalStorage si no existe
+
+// Inicializar LocalStorage - SIEMPRE actualiza con datos nuevos
+function inicializarMedicos() {
+  const medicosEnStorage = localStorage.getItem("medicos");
+  
+  if (!medicosEnStorage) {
+    // Primera carga: inicializa con datos nuevos
+    localStorage.setItem("medicos", JSON.stringify(MEDICOS_INICIALES));
+    console.log("✅ Médicos inicializados en LocalStorage");
+  } else {
+    // Ya hay datos: FUSIONA con nuevos datos (mantiene ediciones del usuario)
+    const medicosGuardados = JSON.parse(medicosEnStorage);
+    const medicosActualizados = [];
+    
+    // Mantener médicos existentes (para preservar cambios del usuario)
+    medicosGuardados.forEach(medico => {
+      const medicoActualizado = MEDICOS_INICIALES.find(m => m.id === medico.id);
+      if (medicoActualizado) {
+        // Si existe en datos nuevos, usa el médico guardado (con cambios del usuario)
+        medicosActualizados.push(medico);
+      } else {
+        // Si no existe en datos nuevos, elimínalo
+        // (el usuario lo borró o se quitó de los datos)
+      }
+    });
+    
+    // Agregar médicos nuevos (que no están en storage)
+    MEDICOS_INICIALES.forEach(medico => {
+      if (!medicosGuardados.find(m => m.id === medico.id)) {
+        medicosActualizados.push(medico);
+      }
+    });
+    
+    // Actualizar localStorage con la fusión
+    localStorage.setItem("medicos", JSON.stringify(medicosActualizados));
+    console.log("✅ Médicos actualizados en LocalStorage - Nuevos médicos agregados");
+  }
+}
+
+// Ejecutar al cargar el script
+inicializarMedicos();
+
+/*// Inicializar LocalStorage si no existe
 function inicializarMedicos() {
   if (!localStorage.getItem("medicos")) {
     localStorage.setItem("medicos", JSON.stringify(MEDICOS_INICIALES));
@@ -67,3 +120,4 @@ function inicializarMedicos() {
 
 // Ejecutar al cargar el script
 inicializarMedicos();
+*/

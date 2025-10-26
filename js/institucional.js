@@ -1,43 +1,55 @@
+// institucional.js - Consume datos de medicosData.js desde localStorage
 document.addEventListener("DOMContentLoaded", () => {
-  const carouselInner = document.getElementById("carouselMedicosInner");
+  const equipoContainer = document.getElementById("equipoContainer");
 
-  function createStaffCard(medico) {
+  // Función para crear una tarjeta de profesional (más pequeña, sin foto grande)
+  function createProfessionalCard(medico) {
     return `
-      <div class="col-6 col-md-3 text-center mb-4">
-        <img src="${medico.foto}" alt="${medico.nombre} ${medico.apellido}" 
-          class="img-fluid rounded shadow-sm" style="max-height: 180px; width: auto">
-        <p class="mt-2 mb-0 fw-bold">${medico.nombre} ${medico.apellido}</p>
-        <small class="text-muted">${medico.especialidad}</small>
+      <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+        <div class="card h-100 shadow-sm border-0 text-center">
+          <div class="card-body d-flex flex-column align-items-center p-2">
+            <img 
+              src="${medico.foto || 'assets/default.png'}" 
+              alt="${medico.nombre} ${medico.apellido}" 
+              class="img-fluid rounded mb-2" 
+              style="width: 100%; height: auto; max-height: 150px; object-fit: contain;" 
+            />
+            <h6 class="card-title fw-bold text-primary mb-1" style="font-size: 0.9rem;">
+              ${medico.nombre} ${medico.apellido}
+            </h6>
+            <p class="card-text text-muted flex-grow-1 mb-0" style="font-size: 0.8rem;">
+              ${medico.especialidad}
+            </p>
+            <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">
+              ${medico.matricula || 'Sin matrícula'}
+            </small>
+          </div>
+        </div>
       </div>
     `;
   }
 
-  function loadStaffCarousel() {
-    if (!carouselInner) return;
+  function loadEquipo() {
+    if (!equipoContainer) return;
 
+    // Obtener médicos desde LocalStorage (inicializado por medicosData.js)
     const medicosJSON = localStorage.getItem("medicos");
     const medicos = medicosJSON ? JSON.parse(medicosJSON) : [];
 
-    if (medicos.length === 0) return;
-
-    const itemsPerSlide = 4;
-    let carouselHTML = "";
-
-    for (let i = 0; i < medicos.length; i += itemsPerSlide) {
-      const slice = medicos.slice(i, i + itemsPerSlide);
-      const cardsHTML = slice.map(createStaffCard).join("");
-
-      carouselHTML += `
-        <div class="carousel-item ${i === 0 ? "active" : ""}">
-          <div class="row justify-content-center">
-            ${cardsHTML}
-          </div>
+    if (medicos.length === 0) {
+      equipoContainer.innerHTML = `
+        <div class="col-12 text-center">
+          <p class="text-muted">No hay médicos registrados</p>
         </div>
       `;
+      return;
     }
 
-    carouselInner.innerHTML = carouselHTML;
+    // Renderizar todas las tarjetas de profesionales
+    const cardsHTML = medicos.map(createProfessionalCard).join("");
+    equipoContainer.innerHTML = cardsHTML;
   }
 
-  loadStaffCarousel();
+  // Cargar el equipo cuando el DOM esté listo
+  loadEquipo();
 });
