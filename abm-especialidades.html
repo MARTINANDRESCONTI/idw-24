@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="./styles/variables.css" />
   <link rel="stylesheet" href="./styles/index.css" />
   <link rel="icon" href="Iconos/logo.png" />
-  <title>Gestión de Staff Médico - Clínica IDW S.A.</title>
+  <title>Gestión de Especialidades - Clínica IDW S.A.</title>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -29,9 +29,6 @@
             <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
             <li class="nav-item d-none" id="adminLink">
               <a class="nav-link" href="admin.html"><i class="bi bi-gear-fill"></i> Admin</a>
-            </li>
-            <li class="nav-item d-none" id="reservasLink">
-              <a class="nav-link" href="#">Reservas</a>
             </li>
             <li class="nav-item ms-2">
               <button class="btn btn-light btn-sm" id="loginBtn">Login</button>
@@ -70,7 +67,7 @@
   <!-- TOASTS -->
   <div id="toastContainer" class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999"></div>
 
-  <!-- CONTENIDO PRINCIPAL - ABM MÉDICOS -->
+  <!-- CONTENIDO PRINCIPAL - ABM ESPECIALIDADES -->
   <main class="flex-grow-1">
     <section class="py-4 bg-light">
       <div class="container">
@@ -79,17 +76,17 @@
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
             <li class="breadcrumb-item"><a href="admin.html">Admin</a></li>
-            <li class="breadcrumb-item active">Staff Médico</li>
+            <li class="breadcrumb-item active">Especialidades</li>
           </ol>
         </nav>
 
         <!-- Título -->
         <div class="d-flex justify-content-between align-items-center mb-4">
           <h2 class="text-primary">
-            <i class="bi bi-person-badge"></i> Gestión de Staff Médico
+            <i class="bi bi-hospital"></i> Gestión de Especialidades
           </h2>
-          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#medicoModal" id="btnNuevoMedico">
-            <i class="bi bi-plus-circle"></i> Nuevo Médico
+          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#especialidadModal" id="btnNuevaEspecialidad">
+            <i class="bi bi-plus-circle"></i> Nueva Especialidad
           </button>
         </div>
 
@@ -98,37 +95,33 @@
           <div class="col-md-6">
             <div class="input-group">
               <span class="input-group-text"><i class="bi bi-search"></i></span>
-              <input type="text" class="form-control" id="searchInput" placeholder="Buscar por nombre, apellido o especialidad...">
+              <input type="text" class="form-control" id="searchInput" placeholder="Buscar especialidad...">
             </div>
           </div>
         </div>
 
-        <!-- Tabla de Médicos -->
+        <!-- Tabla de Especialidades -->
         <div class="card shadow-sm">
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-hover table-striped align-middle">
                 <thead class="table-primary">
                   <tr>
-                    <th>Foto</th>
                     <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Especialidad</th>
-                    <th>Matrícula</th>
-                    <th>Teléfono</th>
-                    <th>Email</th>
+                    <th>Descripción</th>
+                    <th>Médicos Asociados</th>
+                    <th>Fecha Creación</th>
                     <th class="text-center">Acciones</th>
                   </tr>
                 </thead>
-                <tbody id="medicosTableBody">
+                <tbody id="especialidadesTableBody">
                   <!-- Filas generadas dinámicamente -->
                 </tbody>
               </table>
             </div>
             <div id="noResults" class="text-center text-muted py-4 d-none">
               <i class="bi bi-inbox fs-1"></i>
-              <p>No se encontraron médicos</p>
+              <p>No se encontraron especialidades</p>
             </div>
           </div>
         </div>
@@ -136,65 +129,35 @@
     </section>
   </main>
 
-  <!-- MODAL CREAR/EDITAR MÉDICO -->
-  <div class="modal fade" id="medicoModal" tabindex="-1" aria-labelledby="medicoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+  <!-- MODAL CREAR/EDITAR ESPECIALIDAD -->
+  <div class="modal fade" id="especialidadModal" tabindex="-1" aria-labelledby="especialidadModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header bg-primary text-light">
-          <h5 class="modal-title" id="medicoModalLabel">
-            <i class="bi bi-person-plus"></i> Nuevo Médico
+          <h5 class="modal-title" id="especialidadModalLabel">
+            <i class="bi bi-plus-circle"></i> Nueva Especialidad
           </h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <form id="medicoForm">
-            <input type="hidden" id="medicoId">
+          <form id="especialidadForm">
+            <input type="hidden" id="especialidadId">
 
-            <!-- 🖼️ CARGA DE FOTO Y PREVISUALIZACIÓN -->
-            <div class="mb-3 text-center">
-              <img id="previewImg" src="assets/default.png" class="rounded-circle mb-2" width="100" height="100" alt="Previsualización">
-              <input type="file" class="form-control" id="foto" accept="image/png, image/jpeg">
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripción *</label>
+              <input type="text" class="form-control" id="descripcion" placeholder="Ej: Cardiología, Pediatría, etc." required>
+              <small class="text-muted">Nombre de la especialidad</small>
             </div>
 
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label for="nombre" class="form-label">Nombre *</label>
-                <input type="text" class="form-control" id="nombre" required>
-              </div>
-              <div class="col-md-6">
-                <label for="apellido" class="form-label">Apellido *</label>
-                <input type="text" class="form-control" id="apellido" required>
-              </div>
-              <div class="col-md-6">
-                <label for="especialidad" class="form-label">Especialidad *</label>
-                <select class="form-select" id="especialidad" required>
-                  <option value="">Seleccionar especialidad</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label for="matricula" class="form-label">Matrícula *</label>
-                <input type="text" class="form-control" id="matricula" required>
-              </div>
-              <div class="col-md-6">
-                <label for="telefono" class="form-label">Teléfono *</label>
-                <input type="tel" class="form-control" id="telefono" required>
-              </div>
-              <div class="col-md-6">
-                <label for="email" class="form-label">Email *</label>
-                <input type="email" class="form-control" id="email" required>
-              </div>
-               <!--
-              <div class="col-12">
-                <label for="horario" class="form-label">Horario de Atención</label>
-                <textarea class="form-control" id="horario" rows="2" placeholder="Ej: Lunes a Viernes 9:00-17:00"></textarea>
-              </div>
-             -->
+            <div class="mb-3">
+              <label for="detalles" class="form-label">Detalles Adicionales</label>
+              <textarea class="form-control" id="detalles" rows="3" placeholder="Breve descripción de la especialidad..."></textarea>
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" id="btnGuardarMedico">
+          <button type="button" class="btn btn-primary" id="btnGuardarEspecialidad">
             <i class="bi bi-save"></i> Guardar
           </button>
         </div>
@@ -202,48 +165,34 @@
     </div>
   </div>
 
-  <!-- MODAL VISUALIZAR MÉDICO -->
-  <div class="modal fade" id="verMedicoModal" tabindex="-1" aria-labelledby="verMedicoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+  <!-- MODAL VISUALIZAR ESPECIALIDAD -->
+  <div class="modal fade" id="verEspecialidadModal" tabindex="-1" aria-labelledby="verEspecialidadModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header bg-info text-light">
-          <h5 class="modal-title" id="verMedicoModalLabel">
-            <i class="bi bi-eye"></i> Detalle del Médico
+          <h5 class="modal-title" id="verEspecialidadModalLabel">
+            <i class="bi bi-eye"></i> Detalle de Especialidad
           </h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <div class="row g-3">
-            <div class="col-md-6">
-              <strong>Nombre:</strong>
-              <p id="verNombre" class="text-muted"></p>
-            </div>
-            <div class="col-md-6">
-              <strong>Apellido:</strong>
-              <p id="verApellido" class="text-muted"></p>
-            </div>
-            <div class="col-md-6">
-              <strong>Especialidad:</strong>
-              <p id="verEspecialidad" class="text-muted"></p>
-            </div>
-            <div class="col-md-6">
-              <strong>Matrícula:</strong>
-              <p id="verMatricula" class="text-muted"></p>
-            </div>
-            <div class="col-md-6">
-              <strong>Teléfono:</strong>
-              <p id="verTelefono" class="text-muted"></p>
-            </div>
-            <div class="col-md-6">
-              <strong>Email:</strong>
-              <p id="verEmail" class="text-muted"></p>
-            </div>
-               <!-- 
             <div class="col-12">
-              <strong>Horario de Atención:</strong>
-              <p id="verHorario" class="text-muted"></p>
+              <strong>Descripción:</strong>
+              <p id="verDescripcion" class="text-muted"></p>
             </div>
-              -->
+            <div class="col-12">
+              <strong>Detalles:</strong>
+              <p id="verDetalles" class="text-muted"></p>
+            </div>
+            <div class="col-12">
+              <strong>Médicos Asociados:</strong>
+              <div id="verMedicos" class="text-muted"></div>
+            </div>
+            <div class="col-12">
+              <strong>Fecha de Creación:</strong>
+              <p id="verFechaCreacion" class="text-muted"></p>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -264,8 +213,8 @@
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <p>¿Está seguro que desea eliminar al Dr./Dra. <strong id="nombreEliminar"></strong>?</p>
-          <p class="text-muted small">Esta acción no se puede deshacer.</p>
+          <p>¿Está seguro que desea eliminar la especialidad <strong id="nombreEspecialidadEliminar"></strong>?</p>
+          <p class="text-muted small" id="advertenciaEliminar"></p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -275,7 +224,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </modal>
 
   <!-- FOOTER -->
   <footer class="bg-primary text-light mt-auto border-top">
@@ -296,7 +245,6 @@
   <!-- Scripts -->
   <script src="js/auth.js"></script>
   <script src="js/especialidadesData.js"></script>
-  <script src="js/medicosData.js"></script>
-  <script src="js/medicosAbm.js"></script>
+  <script src="js/especialidadesAbm.js"></script>
 </body>
 </html>

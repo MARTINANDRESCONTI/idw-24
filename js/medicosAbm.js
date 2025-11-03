@@ -1,5 +1,6 @@
-// Variables globales
+// ================== VARIABLES GLOBALES ==================
 let medicos = [];
+let especialidades = [];
 let medicoEditando = null;
 let medicoAEliminar = null;
 
@@ -19,6 +20,8 @@ const medicoModalLabel = document.getElementById("medicoModalLabel");
 const fotoInput = document.getElementById("foto");
 const previewImg = document.getElementById("previewImg");
 
+// ================== FUNCIONES AUXILIARES ==================
+
 // Función para mostrar toast
 function showToast(message, color = "success") {
   const toastContainer = document.getElementById("toastContainer");
@@ -37,6 +40,8 @@ function showToast(message, color = "success") {
   toastEl.addEventListener("hidden.bs.toast", () => toastEl.remove());
 }
 
+// ================== CARGA Y ALMACENAMIENTO ==================
+
 // Cargar médicos desde LocalStorage
 function cargarMedicos() {
   const medicosJSON = localStorage.getItem("medicos");
@@ -49,7 +54,38 @@ function guardarMedicos() {
   localStorage.setItem("medicos", JSON.stringify(medicos));
 }
 
-// Renderizar tabla
+// Cargar especialidades desde LocalStorage
+function cargarEspecialidades() {
+  const especialidadesJSON = localStorage.getItem("especialidades");
+  especialidades = especialidadesJSON ? JSON.parse(especialidadesJSON) : [];
+  llenarSelectEspecialidades();
+}
+
+// Llenar el select de especialidades
+function llenarSelectEspecialidades() {
+  const selectEspecialidad = document.getElementById("especialidad");
+  
+  // Guardar valor actual si está editando
+  const valorActual = selectEspecialidad.value;
+  
+  selectEspecialidad.innerHTML = '<option value="">Seleccionar especialidad</option>';
+  
+  especialidades.forEach(esp => {
+    const option = document.createElement("option");
+    option.value = esp.especialidadId;
+    option.textContent = esp.descripcion;
+    selectEspecialidad.appendChild(option);
+  });
+  
+  // Restaurar valor actual
+  if (valorActual) {
+    selectEspecialidad.value = valorActual;
+  }
+}
+
+// ================== FUNCIONES DE TABLA ==================
+
+// Renderizar tabla de médicos
 function renderizarTabla(medicosAMostrar) {
   if (medicosAMostrar.length === 0) {
     medicosTableBody.innerHTML = "";
@@ -59,31 +95,38 @@ function renderizarTabla(medicosAMostrar) {
 
   noResults.classList.add("d-none");
 
-  medicosTableBody.innerHTML = medicosAMostrar.map(medico => `
-    <tr>
-      <td>
-        <img src="${medico.foto || 'assets/default.png'}" 
-             class="rounded-circle border" 
-             width="50" height="50" 
-             alt="Foto del médico">
-      </td>
-      <td>${medico.id}</td>
-      <td>${medico.nombre}</td>
-      <td>${medico.apellido}</td>
-      <td><span class="badge bg-info">${medico.especialidad}</span></td>
-      <td>${medico.matricula}</td>
-      <td>${medico.telefono}</td>
-      <td>${medico.email}</td>
-      <td class="text-center">
-        <div class="btn-group btn-group-sm">
-          <button class="btn btn-info" onclick="verMedico(${medico.id})" title="Ver"><i class="bi bi-eye"></i></button>
-          <button class="btn btn-warning" onclick="editarMedico(${medico.id})" title="Editar"><i class="bi bi-pencil"></i></button>
-          <button class="btn btn-danger" onclick="confirmarEliminar(${medico.id})" title="Eliminar"><i class="bi bi-trash"></i></button>
-        </div>
-      </td>
-    </tr>
-  `).join("");
+  medicosTableBody.innerHTML = medicosAMostrar.map(medico => {
+    const esp = especialidades.find(e => e.especialidadId === medico.especialidadId);
+    const nombreEsp = esp ? esp.descripcion : "Sin especialidad";
+
+    return `
+      <tr>
+        <td>
+          <img src="${medico.foto || 'assets/default.png'}" 
+               class="rounded-circle border" 
+               width="50" height="50" 
+               alt="Foto del médico">
+        </td>
+        <td>${medico.id}</td>
+        <td>${medico.nombre}</td>
+        <td>${medico.apellido}</td>
+        <td><span class="badge bg-info">${nombreEsp}</span></td>
+        <td>${medico.matricula}</td>
+        <td>${medico.telefono}</td>
+        <td>${medico.email}</td>
+        <td class="text-center">
+          <div class="btn-group btn-group-sm">
+            <button class="btn btn-info" onclick="verMedico(${medico.id})" title="Ver"><i class="bi bi-eye"></i></button>
+            <button class="btn btn-warning" onclick="editarMedico(${medico.id})" title="Editar"><i class="bi bi-pencil"></i></button>
+            <button class="btn btn-danger" onclick="confirmarEliminar(${medico.id})" title="Eliminar"><i class="bi bi-trash"></i></button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join("");
 }
+
+// ================== FUNCIONES CRUD ==================
 
 // Convertir imagen a Base64
 function convertirABase64(file, callback) {
@@ -92,7 +135,7 @@ function convertirABase64(file, callback) {
   reader.readAsDataURL(file);
 }
 
-// ✅ Preview de imagen (con validación de tipo y fallback a default)
+// Preview de imagen
 if (fotoInput) {
   fotoInput.addEventListener("change", (e) => {
     const file = e.target.files[0];
@@ -127,14 +170,22 @@ searchInput.addEventListener("input", (e) => {
 btnNuevoMedico.addEventListener("click", () => {
   medicoEditando = null;
   medicoForm.reset();
-  previewImg.src = "assets/default.png"; // 👈 imagen por defecto
+  previewImg.src = "assets/default.png";
   medicoModalLabel.innerHTML = '<i class="bi bi-person-plus"></i> Nuevo Médico';
+  document.getElementById("especialidad").value = "";
 });
 
 // Guardar médico
 btnGuardarMedico.addEventListener("click", () => {
   if (!medicoForm.checkValidity()) {
     medicoForm.reportValidity();
+    return;
+  }
+
+  const especialidadId = parseInt(document.getElementById("especialidad").value);
+  
+  if (!especialidad) {
+    showToast("Selecciona una especialidad", "warning");
     return;
   }
 
@@ -146,11 +197,11 @@ btnGuardarMedico.addEventListener("click", () => {
     id: medicoEditando ? medicoEditando.id : generarId(),
     nombre: document.getElementById("nombre").value.trim(),
     apellido: document.getElementById("apellido").value.trim(),
-    especialidad: document.getElementById("especialidad").value.trim(),
+    especialidadId: especialidadId, 
+    especialidadDescripcion: esp.descripcion,
     matricula: document.getElementById("matricula").value.trim(),
     telefono: document.getElementById("telefono").value.trim(),
     email: document.getElementById("email").value.trim(),
-    horario: document.getElementById("horario").value.trim() || "No especificado",
     foto: baseFoto
   };
 
@@ -169,24 +220,22 @@ btnGuardarMedico.addEventListener("click", () => {
 });
 
 // Ver médico
-function verMedico(id) {
+window.verMedico = function(id) {
   const medico = medicos.find(m => m.id === id);
   if (!medico) return;
 
-  document.getElementById("verFoto").src = medico.foto || "assets/default.png";
-  document.getElementById("verNombre").textContent = medico.nombre;
+  
   document.getElementById("verApellido").textContent = medico.apellido;
   document.getElementById("verEspecialidad").textContent = medico.especialidad;
   document.getElementById("verMatricula").textContent = medico.matricula;
   document.getElementById("verTelefono").textContent = medico.telefono;
   document.getElementById("verEmail").textContent = medico.email;
-  document.getElementById("verHorario").textContent = medico.horario;
 
   verMedicoModal.show();
-}
+};
 
 // Editar médico
-function editarMedico(id) {
+window.editarMedico = function(id) {
   const medico = medicos.find(m => m.id === id);
   if (!medico) return;
 
@@ -198,21 +247,20 @@ function editarMedico(id) {
   document.getElementById("matricula").value = medico.matricula;
   document.getElementById("telefono").value = medico.telefono;
   document.getElementById("email").value = medico.email;
-  document.getElementById("horario").value = medico.horario;
   previewImg.src = medico.foto || "assets/default.png";
 
   medicoModalLabel.innerHTML = '<i class="bi bi-pencil"></i> Editar Médico';
   medicoModal.show();
-}
+};
 
 // Confirmar eliminación
-function confirmarEliminar(id) {
+window.confirmarEliminar = function(id) {
   const medico = medicos.find(m => m.id === id);
   if (!medico) return;
   medicoAEliminar = medico;
   document.getElementById("nombreEliminar").textContent = `${medico.nombre} ${medico.apellido}`;
   confirmarEliminarModal.show();
-}
+};
 
 // Eliminar médico
 document.getElementById("btnConfirmarEliminar").addEventListener("click", () => {
@@ -224,6 +272,8 @@ document.getElementById("btnConfirmarEliminar").addEventListener("click", () => 
   confirmarEliminarModal.hide();
   medicoAEliminar = null;
 });
+
+// ================== FUNCIONES DE UTILIDAD ==================
 
 // Generar ID único
 function generarId() {
@@ -238,12 +288,14 @@ function verificarAcceso() {
   }
 }
 
-// Inicializar
+// ================== INICIALIZACIÓN ==================
 document.addEventListener("DOMContentLoaded", () => {
   verificarAcceso();
-  cargarMedicos();
+  cargarEspecialidades();  // Cargar especialidades primero
+  cargarMedicos();          // Luego cargar médicos
 });
 
-window.verMedico = verMedico;
-window.editarMedico = editarMedico;
-window.confirmarEliminar = confirmarEliminar;
+// Hacer funciones globales accesibles desde HTML
+window.verMedico = window.verMedico;
+window.editarMedico = window.editarMedico;
+window.confirmarEliminar = window.confirmarEliminar;

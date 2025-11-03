@@ -13,6 +13,11 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
     />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="./styles/variables.css" />
+  <link rel="stylesheet" href="./styles/index.css" />
+  <link rel="icon" href="Iconos/logo.png" />
+  <title>Clínica IDW S.A.</title>
   </head>
 
   <body class="d-flex flex-column min-vh-100">
@@ -135,11 +140,11 @@
 
     <main>
       <!-- QUIÉNES SOMOS -->
-      <section class="py-5 bg-info-subtle">
+      <section class="py-2 bg-info-subtle">
         <div class="container">
           <div class="row align-items-center">
             <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-              <h1 class="fs-1 fw-bold text-primary text-uppercase">
+              <h1 class="fs-3 fw-bold text-primary text-uppercase">
                 Conocé nuestro Centro Médico
               </h1>
             </div>
@@ -147,7 +152,7 @@
               <img
                 src="assets/clinica.png"
                 alt="Foto de la Clínica Salud"
-                class="img-fluid rounded shadow-sm w-75"
+                class="img-fluid w-50 rounded shadow-sm "
                 style="object-fit: contain"
               />
             </div>
@@ -156,16 +161,16 @@
       </section>
 
       <!-- NUESTRA HISTORIA -->
-      <section class="py-5 bg-warning-subtle">
+      <section class="py-2 bg-warning-subtle">
         <div class="container">
           <div class="row">
             <div class="col-12 text-center">
-              <h3 class="mb-5 fs-2 fw-bold text-primary">Nuestra Historia</h3>
+              <h3 class="mb-4 fs-2 fw-bold text-primary">Nuestra Historia</h3>
             </div>
           </div>
           <div class="row align-items-center">
             <div class="col-md-8 px-4">
-              <p class="mb-3 text-dark fs-5 text-start">
+              <p class="mb-3 text-dark fs-5 fst-italic text-start">
                 En Clínica Salud trabajamos desde nuestros inicios con un
                 objetivo claro: brindar atención médica de calidad, cercana y
                 accesible para cada persona. Fundada en el año 2002, nuestra
@@ -178,7 +183,7 @@
               <img
                 src="assets/clinica2.jpg"
                 alt="Foto interior de la Clínica Salud"
-                class="img-fluid rounded shadow-sm"
+                class="img-fluid w-75 rounded shadow-sm"
                 style="max-height: 260px; object-fit: cover"
               />
             </div>
@@ -187,16 +192,16 @@
       </section>
 
       <!-- MISIÓN, VISIÓN Y VALORES -->
-      <section class="py-5 bg-info-subtle">
+      <section class="py-2 bg-info-subtle">
         <div class="container">
-          <h3 class="text-center mb-4 fs-2 fw-bold text-primary">
+          <h3 class="text-center mb-4 fs-2 fw-bold text-primary"> 
             Misión, Visión y Valores
           </h3>
           <div class="row text-center">
             <article class="col-md-4">
               <section class="p-3 border rounded shadow-sm h-100">
                 <h4 class="fs-4 mb-3 fw-bold text-primary">Misión</h4>
-                <p class="fs-5 mx-auto text-center" style="max-width: 280px">
+                <p class="fs-6 mx-auto fst-italic text-center" style="max-width: 280px">
                   Brindar servicios médicos integrales y de calidad, centrados
                   en las necesidades de cada paciente.
                 </p>
@@ -205,7 +210,7 @@
             <article class="col-md-4">
               <section class="p-3 border rounded shadow-sm h-100">
                 <h4 class="fs-4 mb-3 fw-bold text-primary">Visión</h4>
-                <p class="fs-5 mx-auto text-center" style="max-width: 280px">
+                <p class="fs-6 mx-auto fst-italic text-center" style="max-width: 280px">
                   Ser reconocidos como una clínica líder en salud y bienestar,
                   incorporando innovación y calidez humana.
                 </p>
@@ -214,7 +219,7 @@
             <article class="col-md-4">
               <section class="p-3 border rounded shadow-sm h-100">
                 <h4 class="fs-4 mb-3 fw-bold text-primary">Valores</h4>
-                <p class="fs-5 mx-auto text-center" style="max-width: 280px">
+                <p class="fs-6 mx-auto fst-italic text-center" style="max-width: 280px">
                   Compromiso, respeto, responsabilidad, ética, excelencia.
                 </p>
               </section>
@@ -224,58 +229,53 @@
       </section>
 
       <!-- NUESTRO EQUIPO -->
+      <section class="py-2 bg-warning-subtle">
+        <div class="text-center mb-4">
+          <h3 class="fs-3 fw-bold text-primary">Nuestro Equipo</h3>
+          <p class="fs-5  px-4">
+            Contamos con un equipo interdisciplinario de profesionales altamente
+            capacitados, que trabajan con vocación y compromiso para cuidar lo
+            más importante: tu salud.
+          </p>
+        </div>
 
+        <div class="container">
+          <div id="carouselMedicos" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" id="carouselMedicosInner"></div>
 
-<section class="py-5 bg-warning-subtle">
-  <div class="text-center mb-4">
-    <h3 class="fs-2 fw-bold text-primary">Nuestro Equipo</h3>
-    <p class="fs-5 px-4">
-      Contamos con un equipo interdisciplinario de profesionales altamente
-      capacitados, que trabajan con vocación y compromiso para cuidar lo
-      más importante: tu salud.
-    </p>
-  </div>
-
-  <div class="container">
-    <div id="carouselMedicos" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner" id="carouselMedicosInner"></div>
-
-      <!-- Controles afuera del inner, a los lados -->
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselMedicos"
-        data-bs-slide="prev"
-      >
-        <span
-          class="carousel-control-prev-icon bg-primary rounded-circle p-2"
-          aria-hidden="true"
-        ></span>
-        <span class="visually-hidden">Anterior</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselMedicos"
-        data-bs-slide="next"
-      >
-        <span
-          class="carousel-control-next-icon bg-primary rounded-circle p-2"
-          aria-hidden="true"
-        ></span>
-        <span class="visually-hidden">Siguiente</span>
-      </button>
-    </div>
-  </div>
-</section>
-
-
-
+            <!-- Controles afuera del inner, a los lados -->
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselMedicos"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon bg-primary rounded-circle p-2"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Anterior</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselMedicos"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon bg-primary rounded-circle p-2"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Siguiente</span>
+            </button>
+          </div>
+        </div>
+      </section>
 
       <!-- INSTALACIONES Y TECNOLOGÍA -->
-      <section class="py-5 bg-info-subtle">
+      <section class="py-2 bg-info-subtle">
         <div class="text-center mb-4">
-          <h3 class="fs-2 fw-bold text-primary">Instalaciones y tecnología</h3>
+          <h3 class="fs-3 fw-bold text-primary">Instalaciones y tecnología</h3>
           <p class="fs-5 px-4">
             En Clínica Salud disponemos de modernas instalaciones, consultorios
             equipados y tecnología de última generación para garantizar
@@ -334,7 +334,7 @@
                 <div class="col-4">
                   <img
                     src="assets/instalaciones1.png"
-                    class="img-fluid rounded shadow-sm"
+                    class="img-fluid w-50 rounded shadow-sm "
                     style="max-height: 200px; object-fit: cover"
                     alt="Instalaciones 1"
                   />
@@ -342,7 +342,7 @@
                 <div class="col-4">
                   <img
                     src="assets/instalaciones2.png"
-                    class="img-fluid rounded shadow-sm"
+                    class="img-fluid w-50 rounded shadow-sm"
                     style="max-height: 200px; object-fit: cover"
                     alt="Instalaciones 2"
                   />
@@ -350,7 +350,7 @@
                 <div class="col-4">
                   <img
                     src="assets/instalaciones3.png"
-                    class="img-fluid rounded shadow-sm"
+                    class="img-fluid w-50 rounded shadow-sm"
                     style="max-height: 200px; object-fit: cover"
                     alt="Instalaciones 3"
                   />
@@ -362,7 +362,7 @@
                 <div class="col-4">
                   <img
                     src="assets/instalaciones4.png"
-                    class="img-fluid rounded shadow-sm"
+                    class="img-fluid w-50 rounded shadow-sm"
                     style="max-height: 200px; object-fit: cover"
                     alt="Instalaciones 4"
                   />
@@ -370,7 +370,7 @@
                 <div class="col-4">
                   <img
                     src="assets/instalaciones5.jpg"
-                    class="img-fluid rounded shadow-sm"
+                    class="img-fluid w-50 rounded shadow-sm"
                     style="max-height: 200px; object-fit: cover"
                     alt="Instalaciones 5"
                   />
@@ -378,7 +378,7 @@
                 <div class="col-4">
                   <img
                     src="assets/instalaciones6.jpg"
-                    class="img-fluid rounded shadow-sm"
+                    class="img-fluid w-50 rounded shadow-sm"
                     style="max-height: 200px; object-fit: cover"
                     alt="Instalaciones 6"
                   />
@@ -390,7 +390,7 @@
                 <div class="col-4">
                   <img
                     src="assets/instalaciones7.jpg"
-                    class="img-fluid rounded shadow-sm"
+                    class="img-fluid w-50 rounded shadow-sm"
                     style="max-height: 200px; object-fit: cover"
                     alt="Instalaciones 7"
                   />
@@ -398,7 +398,7 @@
                 <div class="col-4">
                   <img
                     src="assets/instalaciones8.jpg"
-                    class="img-fluid rounded shadow-sm"
+                    class="img-fluid w-50 rounded shadow-sm"
                     style="max-height: 200px; object-fit: cover"
                     alt="Instalaciones 8"
                   />
@@ -406,7 +406,7 @@
                 <div class="col-4">
                   <img
                     src="assets/instalaciones9.jpg"
-                    class="img-fluid rounded shadow-sm"
+                    class="img-fluid w-50 rounded shadow-sm"
                     style="max-height: 200px; object-fit: cover"
                     alt="Instalaciones 9"
                   />
@@ -444,9 +444,9 @@
       </section>
 
       <!-- COMPROMISO CON LA COMUNIDAD -->
-      <section class="py-5 bg-warning-subtle">
+      <section class="py-2 bg-warning-subtle">
         <div class="text-center mb-4">
-          <h3 class="fs-2 fw-bold text-primary">Compromiso con la comunidad</h3>
+          <h3 class="fs-3 fw-bold text-primary">Compromiso con la comunidad</h3>
           <p class="fs-5 px-4">
             Además de brindar atención médica, participamos activamente en
             campañas de prevención, educación en salud y acciones solidarias en
@@ -479,6 +479,7 @@
     <!-- Scripts -->
     <script src="js/auth.js"></script>
     <script src="js/medicosData.js"></script>
+     <script src="js/especialidadesData.js"></script>
     <script src="js/cards.js"></script>
     <script src="js/institucional.js"></script>
   </body>

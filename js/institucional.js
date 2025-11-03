@@ -13,31 +13,49 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function loadStaffCarousel() {
-    if (!carouselInner) return;
+  if (!carouselInner) return;
 
-    const medicosJSON = localStorage.getItem("medicos");
-    const medicos = medicosJSON ? JSON.parse(medicosJSON) : [];
+  const medicosJSON = localStorage.getItem("medicos");
+  const especialidadesJSON = localStorage.getItem("especialidades");
 
-    if (medicos.length === 0) return;
+  const medicos = medicosJSON ? JSON.parse(medicosJSON) : [];
+  const especialidades = especialidadesJSON ? JSON.parse(especialidadesJSON) : [];
 
-    const itemsPerSlide = 4;
-    let carouselHTML = "";
+  if (medicos.length === 0) return;
 
-    for (let i = 0; i < medicos.length; i += itemsPerSlide) {
-      const slice = medicos.slice(i, i + itemsPerSlide);
-      const cardsHTML = slice.map(createStaffCard).join("");
+  const itemsPerSlide = 4;
+  let carouselHTML = "";
 
-      carouselHTML += `
-        <div class="carousel-item ${i === 0 ? "active" : ""}">
-          <div class="row justify-content-center">
-            ${cardsHTML}
-          </div>
+  for (let i = 0; i < medicos.length; i += itemsPerSlide) {
+    const slice = medicos.slice(i, i + itemsPerSlide);
+
+    // 🔹 Genera las cards con la descripción real de la especialidad
+    const cardsHTML = slice.map(medico => {
+      const especialidad = especialidades.find(
+        e => e.especialidadId === medico.especialidadId
+      )?.descripcion || "Especialidad no definida";
+
+      return `
+        <div class="col-6 col-md-3 text-center mb-4">
+          <img src="${medico.foto}" alt="${medico.nombre} ${medico.apellido}" 
+            class="img-fluid rounded shadow-sm" style="max-height: 180px; width: auto">
+          <p class="mt-2 mb-0 fw-bold">${medico.nombre} ${medico.apellido}</p>
+          <small class="text-muted">${especialidad}</small>
         </div>
       `;
-    }
+    }).join("");
 
-    carouselInner.innerHTML = carouselHTML;
+    carouselHTML += `
+      <div class="carousel-item ${i === 0 ? "active" : ""}">
+        <div class="row justify-content-center">
+          ${cardsHTML}
+        </div>
+      </div>
+    `;
   }
+
+  carouselInner.innerHTML = carouselHTML;
+}
 
   loadStaffCarousel();
 });
