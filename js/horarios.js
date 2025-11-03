@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Estado de la aplicación
   let horarios = [];
+<<<<<<< HEAD
   let turnos = [];
   let profesionales = [];
   let hoarioEnEdicion = null;
@@ -101,6 +102,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function guardarTurnos() {
     localStorage.setItem("turnos", JSON.stringify(turnos));
   }
+=======
+  let profesionales = [];
+  let hoarioEnEdicion = null;
+  const dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
 
   // ================== FUNCIONES AUXILIARES ==================
 
@@ -122,7 +128,11 @@ document.addEventListener("DOMContentLoaded", () => {
     toastEl.addEventListener("hidden.bs.toast", () => toastEl.remove());
   }
 
+<<<<<<< HEAD
   // Cargar profesionales 
+=======
+  // Cargar profesionales (simulado o desde localStorage)
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
   function cargarProfesionales() {
     const stored = localStorage.getItem("profesionales");
     if (stored) {
@@ -134,7 +144,11 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: 2, nombre: "Dra. María López", especialidad: "Pediatría" },
         { id: 3, nombre: "Dr. Carlos Rodríguez", especialidad: "Traumatología" },
         { id: 4, nombre: "Dra. Ana Martínez", especialidad: "Dermatología" },
+<<<<<<< HEAD
         { id: 5, nombre: "Dr. Roberto Díaz", especialidad: "Neurología" }   
+=======
+        { id: 5, nombre: "Dr. Roberto Díaz", especialidad: "Neurología" }
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
       ];
       localStorage.setItem("profesionales", JSON.stringify(profesionales));
     }
@@ -169,13 +183,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
   // Obtener días seleccionados
   function getDiasSeleccionados() {
     return Array.from(diasSelection.querySelectorAll(".day-badge.selected")).map(b => b.dataset.day);
   }
 
+<<<<<<< HEAD
   // Establecer días seleccionados 
+=======
+  // Establecer días seleccionados (para edición)
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
   function setDiasSeleccionados(diasArray) {
     diasSelection.querySelectorAll(".day-badge").forEach(badge => {
       badge.classList.remove("selected");
@@ -220,7 +241,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (horarios.length === 0) {
       tablaHorarios.innerHTML = `
         <tr>
+<<<<<<< HEAD
           <td colspan="9" class="text-center py-5 text-muted">
+=======
+          <td colspan="8" class="text-center py-5 text-muted">
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
             <i class="bi bi-inbox"></i> No hay horarios registrados
           </td>
         </tr>
@@ -233,6 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const nombreProf = profesor ? profesor.nombre : "Desconocido";
       const especialidad = profesor ? profesor.especialidad : "N/A";
       const diasTexto = horario.dias.join(", ");
+<<<<<<< HEAD
       
       // Contar turnos disponibles para este horario
       const turnosDelHorario = turnos.filter(t => 
@@ -241,6 +267,8 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       const turnosDisponibles = turnosDelHorario.filter(t => t.estado === "disponible").length;
       
+=======
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
       const estadoBadge = horario.estado === "activo"
         ? '<span class="badge badge-estado-activo">Activo</span>'
         : '<span class="badge badge-estado-inactivo">Inactivo</span>';
@@ -253,7 +281,10 @@ document.addEventListener("DOMContentLoaded", () => {
           <td>${horario.horaEntrada}</td>
           <td>${horario.horaSalida}</td>
           <td>${horario.intervalo} min</td>
+<<<<<<< HEAD
           <td><span class="badge bg-info">${turnosDisponibles} disponibles</span></td>
+=======
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
           <td>${estadoBadge}</td>
           <td>
             <button class="btn btn-sm btn-info btn-action" onclick="verDetalles(${horario.id})">
@@ -289,7 +320,11 @@ document.addEventListener("DOMContentLoaded", () => {
     tablaHorarios.innerHTML = horariosFiltrados.length === 0
       ? `
         <tr>
+<<<<<<< HEAD
           <td colspan="9" class="text-center py-5 text-muted">
+=======
+          <td colspan="8" class="text-center py-5 text-muted">
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
             <i class="bi bi-search"></i> No hay horarios que coincidan con los filtros
           </td>
         </tr>
@@ -299,6 +334,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const nombreProf = profesor ? profesor.nombre : "Desconocido";
         const especialidad = profesor ? profesor.especialidad : "N/A";
         const diasTexto = horario.dias.join(", ");
+<<<<<<< HEAD
         
         // Contar turnos disponibles para este horario
         const turnosDelHorario = turnos.filter(t => 
@@ -307,6 +343,8 @@ document.addEventListener("DOMContentLoaded", () => {
         );
         const turnosDisponibles = turnosDelHorario.filter(t => t.estado === "disponible").length;
         
+=======
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
         const estadoBadge = horario.estado === "activo"
           ? '<span class="badge badge-estado-activo">Activo</span>'
           : '<span class="badge badge-estado-inactivo">Inactivo</span>';
@@ -319,7 +357,10 @@ document.addEventListener("DOMContentLoaded", () => {
             <td>${horario.horaEntrada}</td>
             <td>${horario.horaSalida}</td>
             <td>${horario.intervalo} min</td>
+<<<<<<< HEAD
             <td><span class="badge bg-info">${turnosDisponibles} disponibles</span></td>
+=======
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
             <td>${estadoBadge}</td>
             <td>
               <button class="btn btn-sm btn-info btn-action" onclick="verDetalles(${horario.id})">
@@ -401,6 +442,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const index = horarios.findIndex(h => h.id === hoarioEnEdicion.id);
       if (index !== -1) {
         horarios[index] = nuevoHorario;
+<<<<<<< HEAD
         
         // Regenerar turnos del horario actualizado
         turnos = turnos.filter(t => {
@@ -424,11 +466,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         
         guardarTurnos();
+=======
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
         showToast("✓ Horario actualizado correctamente", "success");
       }
     } else {
       // Agregar nuevo horario
       horarios.push(nuevoHorario);
+<<<<<<< HEAD
       
       // Generar turnos automáticamente para cada día
       nuevoHorario.dias.forEach(dia => {
@@ -443,6 +488,9 @@ document.addEventListener("DOMContentLoaded", () => {
       
       guardarTurnos();
       showToast("✓ Horario y turnos generados correctamente", "success");
+=======
+      showToast("✓ Horario agregado correctamente", "success");
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
     }
 
     guardarHorarios();
@@ -460,6 +508,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const nombreProf = profesor ? profesor.nombre : "Desconocido";
     const especialidad = profesor ? profesor.especialidad : "N/A";
     const diasTexto = horario.dias.join(", ");
+<<<<<<< HEAD
     
     // Contar turnos
     const turnosDelHorario = turnos.filter(t => 
@@ -469,6 +518,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalTurnos = turnosDelHorario.length;
     const turnosDisponibles = turnosDelHorario.filter(t => t.estado === "disponible").length;
     const turnosReservados = turnosDelHorario.filter(t => t.estado === "reservado").length;
+=======
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
 
     const html = `
       <div class="card border-0">
@@ -499,6 +550,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <small class="text-muted d-block">Hora Salida</small>
               <strong>${horario.horaSalida}</strong>
             </div>
+<<<<<<< HEAD
             <div class="col-4">
               <small class="text-muted d-block">Duración Turno</small>
               <strong>${horario.intervalo} minutos</strong>
@@ -518,6 +570,15 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="col-12">
               <small class="text-muted d-block">Almuerzo</small>
               <strong>${HORA_ALMUERZO_INICIO} - ${HORA_ALMUERZO_FIN}</strong>
+=======
+            <div class="col-6">
+              <small class="text-muted d-block">Intervalo Citas</small>
+              <strong>${horario.intervalo} minutos</strong>
+            </div>
+            <div class="col-6">
+              <small class="text-muted d-block">Citas Diarias</small>
+              <strong>${Math.floor((convertirAMinutos(horario.horaSalida) - convertirAMinutos(horario.horaEntrada)) / horario.intervalo)} citas</strong>
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
             </div>
             ${horario.notas ? `
               <div class="col-12">
@@ -568,6 +629,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.eliminarHorario = function() {
     const id = window.idParaEliminar;
+<<<<<<< HEAD
     const horarioAEliminar = horarios.find(h => h.id === id);
     
     if (horarioAEliminar) {
@@ -583,6 +645,8 @@ document.addEventListener("DOMContentLoaded", () => {
       guardarTurnos();
     }
     
+=======
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
     horarios = horarios.filter(h => h.id !== id);
     guardarHorarios();
     showToast("✓ Horario eliminado correctamente", "success");
@@ -590,7 +654,11 @@ document.addEventListener("DOMContentLoaded", () => {
     renderizarTabla();
   };
 
+<<<<<<< HEAD
   // Convertir hora a minutos
+=======
+  // Convertir hora a minutos (auxiliar para cálculos)
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
   function convertirAMinutos(hora) {
     const [h, m] = hora.split(":").map(Number);
     return h * 60 + m;
@@ -621,7 +689,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function inicializar() {
     cargarProfesionales();
     cargarHorarios();
+<<<<<<< HEAD
     cargarTurnos();
+=======
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
     generarSelectorDias();
     llenarSelectProfesionales();
     llenarFiltrosProfesionales();
@@ -629,4 +700,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   inicializar();
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> d2d69052b312fc8bc4c4da163ce50e57e96fe91a
