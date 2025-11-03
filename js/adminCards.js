@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     { 
       id: 3, 
-      image: "assets/turnos.png", 
+      image: "/assets/turnos.png", 
       title: "Turnos",
       description: "Administrar turnos y citas médicas del sistema.",
       link: "abm-turnos.html",
