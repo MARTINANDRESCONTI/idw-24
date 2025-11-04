@@ -104,7 +104,7 @@ document.getElementById("formObraSocial").addEventListener("submit", function(e)
     // Validar repetidos
     const existe = obras.some((o, idx) => o.nombre.toLowerCase() === nombre.toLowerCase() && idx != id);
     if (existe) {
-        alert("❌ Ya existe una obra social con ese nombre");
+        alert("Ya existe una obra social con ese nombre");
         return;
     }
 
