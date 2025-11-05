@@ -134,14 +134,13 @@ btnGuardarEspecialidad.addEventListener("click", () => {
     return;
   }
 
-    const especialidad = {
+  const especialidad = {
     especialidadId: especialidadEditando ? especialidadEditando.especialidadId : generarId(),
     descripcion: descripcion,
     detalles: detalles,
     fechaCreacion: especialidadEditando ? especialidadEditando.fechaCreacion : new Date().toISOString(),
     fechaActualizacion: new Date().toISOString()
   };
-
 
   if (especialidadEditando) {
     // Actualizar especialidad existente
@@ -170,7 +169,7 @@ window.verEspecialidad = function(id) {
   // Contar médicos asociados
   const medicosAsociados = medicos.filter(m => m.especialidadId === especialidad.especialidadId);
 
-  document.getElementById("verDescripcion").textContent = especialidad.especialidadId;
+  document.getElementById("verDescripcion").textContent = especialidad.descripcion;
   document.getElementById("verDetalles").textContent = especialidad.detalles || "No especificado";
   
   // Mostrar médicos asociados
@@ -216,7 +215,7 @@ window.confirmarEliminar = function(id) {
 
   especialidadAEliminar = especialidad;
 
-  const medicosAsociados = medicos.filter(m => m.especialidad === especialidad.descripcion);
+  const medicosAsociados = medicos.filter(m => m.especialidadId === especialidad.especialidadId);
   const cantidadMedicos = medicosAsociados.length;
 
   document.getElementById("nombreEspecialidadEliminar").textContent = especialidad.descripcion;
@@ -239,7 +238,7 @@ window.confirmarEliminar = function(id) {
 document.getElementById("btnConfirmarEliminar").addEventListener("click", () => {
   if (!especialidadAEliminar) return;
 
-  const medicosAsociados = medicos.filter(m => m.especialidad === especialidadAEliminar.descripcion);
+  const medicosAsociados = medicos.filter(m => m.especialidadId === especialidadAEliminar.especialidadId);
 
   if (medicosAsociados.length > 0) {
     showToast(`⚠ No se puede eliminar. Hay ${medicosAsociados.length} médico(s) con esta especialidad`, "warning");
@@ -296,18 +295,9 @@ function generarId() {
     : 1;
 }
 
-
-// Control de acceso
-function verificarAcceso() {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  if (!currentUser || currentUser.role !== "admin") {
-    window.location.href = "admin.html";
-  }
-}
-
 // ================== INICIALIZACIÓN ==================
+// La protección de rutas la maneja auth.js, no duplicar aquí
 document.addEventListener("DOMContentLoaded", () => {
-  verificarAcceso();
   cargarMedicos();
   cargarEspecialidades();
 });
