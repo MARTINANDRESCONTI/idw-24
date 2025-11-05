@@ -19,6 +19,8 @@ const btnNuevoTurno = document.getElementById("btnNuevoTurno");
 const turnoModalLabel = document.getElementById("turnoModalLabel");
 const selectMedico = document.getElementById("medico");
 
+// ================== FUNCIONES AUXILIARES ==================
+
 // Función para mostrar toast
 function showToast(message, color = "success") {
   const toastContainer = document.getElementById("toastContainer");
@@ -37,11 +39,18 @@ function showToast(message, color = "success") {
   toastEl.addEventListener("hidden.bs.toast", () => toastEl.remove());
 }
 
+// ================== CARGA Y ALMACENAMIENTO ==================
+
 // Cargar turnos desde LocalStorage
 function cargarTurnos() {
   const turnosJSON = localStorage.getItem("turnos");
   turnos = turnosJSON ? JSON.parse(turnosJSON) : [];
   renderizarTabla(turnos);
+}
+
+// Guardar turnos en LocalStorage
+function guardarTurnos() {
+  localStorage.setItem("turnos", JSON.stringify(turnos));
 }
 
 // Cargar médicos para el select
@@ -53,16 +62,13 @@ function cargarMedicos() {
   medicos.forEach(medico => {
     const option = document.createElement("option");
     option.value = `${medico.nombre} ${medico.apellido}`;
-    option.textContent = `${medico.nombre} ${medico.apellido} (${medico.especialidad})`;
-    option.dataset.especialidad = medico.especialidad;
+    option.textContent = `${medico.nombre} ${medico.apellido} (${medico.especialidad || 'Sin especialidad'})`;
+    option.dataset.especialidad = medico.especialidad || '';
     selectMedico.appendChild(option);
   });
 }
 
-// Guardar turnos en LocalStorage
-function guardarTurnos() {
-  localStorage.setItem("turnos", JSON.stringify(turnos));
-}
+// ================== FUNCIONES DE TABLA ==================
 
 // Renderizar tabla
 function renderizarTabla(turnosAMostrar) {
@@ -83,7 +89,7 @@ function renderizarTabla(turnosAMostrar) {
         <td>${turno.id}</td>
         <td>${turno.paciente}</td>
         <td>${turno.medico}</td>
-        <td><span class="badge bg-info">${turno.especialidad}</span></td>
+        <td><span class="badge bg-info">${turno.especialidad || 'N/A'}</span></td>
         <td>${turno.fecha}</td>
         <td>${turno.hora}</td>
         <td><span class="badge bg-${estadoBadge}">${turno.estado}</span></td>
@@ -98,6 +104,8 @@ function renderizarTabla(turnosAMostrar) {
     `;
   }).join("");
 }
+
+// ================== FUNCIONES DE BÚSQUEDA Y FILTRADO ==================
 
 // Buscar y filtrar turnos
 searchInput.addEventListener("input", (e) => {
@@ -118,6 +126,8 @@ searchInput.addEventListener("input", (e) => {
 filterEstado.addEventListener("change", () => {
   searchInput.dispatchEvent(new Event("input"));
 });
+
+// ================== FUNCIONES CRUD ==================
 
 // Abrir modal para nuevo turno
 btnNuevoTurno.addEventListener("click", () => {
@@ -149,10 +159,10 @@ btnGuardarTurno.addEventListener("click", () => {
   if (turnoEditando) {
     const index = turnos.findIndex(t => t.id === turnoEditando.id);
     turnos[index] = turno;
-    showToast(`✓ Turno de ${turno.paciente} actualizado`, "success");
+    showToast(`✔ Turno de ${turno.paciente} actualizado`, "success");
   } else {
     turnos.push(turno);
-    showToast(`✓ Turno de ${turno.paciente} creado`, "success");
+    showToast(`✔ Turno de ${turno.paciente} creado`, "success");
   }
 
   guardarTurnos();
@@ -161,13 +171,13 @@ btnGuardarTurno.addEventListener("click", () => {
 });
 
 // Ver turno
-function verTurno(id) {
+window.verTurno = function(id) {
   const turno = turnos.find(t => t.id === id);
   if (!turno) return;
 
   document.getElementById("verPaciente").textContent = turno.paciente;
   document.getElementById("verMedico").textContent = turno.medico;
-  document.getElementById("verEspecialidad").textContent = turno.especialidad;
+  document.getElementById("verEspecialidad").textContent = turno.especialidad || "N/A";
   document.getElementById("verFechaHora").textContent = `${turno.fecha} - ${turno.hora}`;
   document.getElementById("verTelefono").textContent = turno.telefono;
   document.getElementById("verEmail").textContent = turno.email;
@@ -177,10 +187,10 @@ function verTurno(id) {
   document.getElementById("verEstado").innerHTML = `<span class="badge bg-${estadoBadge}">${turno.estado}</span>`;
 
   verTurnoModal.show();
-}
+};
 
 // Editar turno
-function editarTurno(id) {
+window.editarTurno = function(id) {
   const turno = turnos.find(t => t.id === id);
   if (!turno) return;
 
@@ -196,16 +206,16 @@ function editarTurno(id) {
 
   turnoModalLabel.innerHTML = '<i class="bi bi-calendar-check"></i> Editar Turno';
   turnoModal.show();
-}
+};
 
 // Confirmar eliminación
-function confirmarEliminar(id) {
+window.confirmarEliminar = function(id) {
   const turno = turnos.find(t => t.id === id);
   if (!turno) return;
   turnoAEliminar = turno;
   document.getElementById("pacienteEliminar").textContent = turno.paciente;
   confirmarEliminarModal.show();
-}
+};
 
 // Eliminar turno
 document.getElementById("btnConfirmarEliminar").addEventListener("click", () => {
@@ -213,32 +223,21 @@ document.getElementById("btnConfirmarEliminar").addEventListener("click", () => 
   turnos = turnos.filter(t => t.id !== turnoAEliminar.id);
   guardarTurnos();
   cargarTurnos();
-  showToast(`✓ Turno de ${turnoAEliminar.paciente} eliminado`, "danger");
+  showToast(`✔ Turno de ${turnoAEliminar.paciente} eliminado`, "danger");
   confirmarEliminarModal.hide();
   turnoAEliminar = null;
 });
+
+// ================== FUNCIONES DE UTILIDAD ==================
 
 // Generar ID único
 function generarId() {
   return turnos.length > 0 ? Math.max(...turnos.map(t => t.id)) + 1 : 1;
 }
 
-// Control de acceso
-function verificarAcceso() {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  if (!currentUser || currentUser.role !== "admin") {
-    window.location.href = "admin.html";
-  }
-}
-
-// Inicializar
+// ================== INICIALIZACIÓN ==================
+// La protección de rutas la maneja auth.js, no duplicar aquí
 document.addEventListener("DOMContentLoaded", () => {
-  verificarAcceso();
   cargarMedicos();
   cargarTurnos();
 });
-
-// Exponer funciones globales
-window.verTurno = verTurno;
-window.editarTurno = editarTurno;
-window.confirmarEliminar = confirmarEliminar;
