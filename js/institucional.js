@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const cardsHTML = slice.map(medico => {
         const especialidad = especialidades.find(
-          e => e.id === medico.especialidadId
+          e => e.especialidadId === medico.especialidadId
         )?.descripcion || "Especialidad no definida";
 
         return `
