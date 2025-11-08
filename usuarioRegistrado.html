@@ -38,7 +38,7 @@
               <button class="btn btn-light btn-sm" id="loginBtn">Login</button>
             </li>
             <li class="nav-item ms-2">
-              <button class="btn btn-light btn-sm" id="loggedBtn">Logueado</button>
+              <button class="btn btn-light btn-sm" id="loggedBtn">Registrarse</button>
             </li>
           </ul>
         </div>
@@ -73,72 +73,80 @@
 
 
 
-  
-
-
-
-
-
+  <!-- CONTENIDO PRINCIPAL -->
   <main class="flex-grow-1">
-  <div class="container my-5">
+    <section class="container py-5">
+      <h2 class="text-center text-primary mb-4">Registro de Usuario</h2>
 
-    <!-- Título -->
-    <section class="text-center mb-4">
-      <h2 class="seccion-titulo">Perfil</h2>
-    </section>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <form id="registroForm" class="border rounded p-4 bg-light shadow-sm">
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" required>
+            </div>
+            <div class="mb-3">
+              <label for="apellido" class="form-label">Apellido</label>
+              <input type="text" class="form-control" id="apellido" required>
+            </div>
+            <div class="mb-3">
+              <label for="usuario" class="form-label">Nombre de Usuario</label>
+              <input type="text" class="form-control" id="usuario" required>
+            </div>
 
-    <!-- Formulario de perfil -->
-    <section class="p-4 bg-light rounded shadow-sm">
-      <div class="text-center mb-4">
-        <img src="Iconos/user.png" alt="Usuario" class="img-fluid rounded-circle" style="width: 120px; height: 120px;">
+            <!-- Contraseña -->
+            <div class="mb-3 position-relative">
+              <label for="password" class="form-label">Contraseña</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="password" required>
+                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                  <i class="bi bi-eye-slash"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Repetir contraseña -->
+            <div class="mb-3 position-relative">
+              <label for="confirmPassword" class="form-label">Repetir Contraseña</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="confirmPassword" required>
+                <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword">
+                  <i class="bi bi-eye-slash"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="telefono" class="form-label">Teléfono</label>
+              <input type="tel" class="form-control" id="telefono" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+          </form>
+        </div>
       </div>
-
-      <form>
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" value="Juan" readonly>
-          </div>
-          <div class="col-md-6">
-            <label for="apellido" class="form-label">Apellido</label>
-            <input type="text" class="form-control" id="apellido" value="Pérez" readonly>
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" value="juan.perez@email.com" readonly>
-        </div>
-
-        <div class="mb-3">
-          <label for="obraSocial" class="form-label">Obra Social</label>
-          <input type="text" class="form-control" id="obraSocial" value="OSDE" readonly>
-        </div>
-
-        <div class="text-center">
-          <button type="button" class="btn btn-primary">Editar Perfil</button>
-        </div>
-      </form>
     </section>
-
-  </div>
-</main>
-
-
+  </main>
 
   <!-- FOOTER -->
   <footer class="footer-custom py-3 mt-auto">
     <div class="container text-center">
-      <p>&copy; 2025 Clínica. Todos los derechos reservados.</p>
+      <p>&copy; 2025 Clínica IDW S.A. Todos los derechos reservados.</p>
     </div>
   </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Script de usuarios -->
-  <script src="js/users.js"></script>
+  <script src="js/registro.js"></script>
 </body>
 </html>
+
+
+
+
+
+
 
 
 
