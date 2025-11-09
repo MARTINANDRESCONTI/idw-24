@@ -81,7 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     alert(`✔ Usuario ${user.username} registrado correctamente`);
     form.reset();
-  });
+    setTimeout(() => {
+        window.location.href = "index.html";
+      }, 500); // medio segundo después de mostrar el alert
+    });
+
 
   // Validación en tiempo real
   passwordInput.addEventListener('input', () => {
