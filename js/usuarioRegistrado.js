@@ -4,7 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const passwordInput = document.getElementById('password');
   const confirmPasswordInput = document.getElementById('confirmPassword');
 
-  // Validar que la contraseña tenga al menos 8 caracteres, letras y números
+  const nombreInput = document.getElementById('nombre');
+  const apellidoInput = document.getElementById('apellido');
+  const emailInput = document.getElementById('email');
+
+  // La contraseña debe tener al menos 8 caracteres, letras y números
   function isValidPassword(pwd) {
     return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(pwd);
   }
@@ -49,27 +53,40 @@ document.addEventListener('DOMContentLoaded', () => {
       confirmPasswordInput.classList.remove('is-invalid');
     }
 
+    // Validar nombre, apellido y email
+    if (!nombreInput.value.trim() || !apellidoInput.value.trim() || !emailInput.value.trim()) {
+      alert("Por favor complete todos los campos obligatorios.");
+      valid = false;
+    }
     if (!valid) return;
 
-    // Verificar si el usuario ya existe
-    const existingUser = getStoredUsers().find(u => u.username === usernameInput.value.trim());
+    // Verificar si el usuario ya existe por email
+    const existingUser = getStoredUsers().find(u => u.email === emailInput.value.trim());
     if (existingUser) {
-      alert("❌ Usuario ya registrado");
+      alert("❌ Ya existe un usuario registrado con ese correo electrónico.");
       return;
     }
-      
-    // Guardar nuevo usuario
+
+    // Guardar nuevo usuario 
     const user = {
+      firstName: nombreInput.value.trim(),
+      lastName: apellidoInput.value.trim(),
+      email: emailInput.value.trim(),
       username: usernameInput.value.trim(),
       password: passwordInput.value,
-      role: "user" // rol por defecto
+      role: "user", // rol por defecto
+      turnos: [] 
     };
 
     saveUser(user);
 
     alert(`✔ Usuario ${user.username} registrado correctamente`);
     form.reset();
-  });
+    setTimeout(() => {
+        window.location.href = "index.html";
+      }, 500); // medio segundo después de mostrar el alert
+    });
+
 
   // Validación en tiempo real
   passwordInput.addEventListener('input', () => {
