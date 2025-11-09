@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const apellidoInput = document.getElementById('apellido');
   const emailInput = document.getElementById('email');
 
-  // Validar que la contraseña tenga al menos 8 caracteres, letras y números
+  // La contraseña debe tener al menos 8 caracteres, letras y números
   function isValidPassword(pwd) {
     return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(pwd);
   }
@@ -60,21 +60,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (!valid) return;
 
-    // ✅ Verificar si el usuario ya existe (por email)
+    // Verificar si el usuario ya existe por email
     const existingUser = getStoredUsers().find(u => u.email === emailInput.value.trim());
     if (existingUser) {
       alert("❌ Ya existe un usuario registrado con ese correo electrónico.");
       return;
     }
 
-    // ✅ Guardar nuevo usuario con nombres de variables tipo dummyjson
+    // Guardar nuevo usuario 
     const user = {
       firstName: nombreInput.value.trim(),
       lastName: apellidoInput.value.trim(),
       email: emailInput.value.trim(),
       username: usernameInput.value.trim(),
       password: passwordInput.value,
-      role: "user" // rol por defecto
+      role: "user", // rol por defecto
+      turnos: [] 
     };
 
     saveUser(user);
