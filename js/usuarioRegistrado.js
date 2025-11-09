@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const passwordInput = document.getElementById('password');
   const confirmPasswordInput = document.getElementById('confirmPassword');
 
+  const nombreInput = document.getElementById('nombre');
+  const apellidoInput = document.getElementById('apellido');
+  const emailInput = document.getElementById('email');
+
   // Validar que la contraseña tenga al menos 8 caracteres, letras y números
   function isValidPassword(pwd) {
     return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(pwd);
@@ -49,17 +53,25 @@ document.addEventListener('DOMContentLoaded', () => {
       confirmPasswordInput.classList.remove('is-invalid');
     }
 
+    // Validar nombre, apellido y email
+    if (!nombreInput.value.trim() || !apellidoInput.value.trim() || !emailInput.value.trim()) {
+      alert("Por favor complete todos los campos obligatorios.");
+      valid = false;
+    }
     if (!valid) return;
 
-    // Verificar si el usuario ya existe
-    const existingUser = getStoredUsers().find(u => u.username === usernameInput.value.trim());
+    // ✅ Verificar si el usuario ya existe (por email)
+    const existingUser = getStoredUsers().find(u => u.email === emailInput.value.trim());
     if (existingUser) {
-      alert("❌ Usuario ya registrado");
+      alert("❌ Ya existe un usuario registrado con ese correo electrónico.");
       return;
     }
-      
-    // Guardar nuevo usuario
+
+    // ✅ Guardar nuevo usuario con nombres de variables tipo dummyjson
     const user = {
+      firstName: nombreInput.value.trim(),
+      lastName: apellidoInput.value.trim(),
+      email: emailInput.value.trim(),
       username: usernameInput.value.trim(),
       password: passwordInput.value,
       role: "user" // rol por defecto
