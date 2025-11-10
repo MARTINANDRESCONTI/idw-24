@@ -1,83 +1,136 @@
-const PRECIO_PARTICULAR = 50000;
-
-// Cargar desde localStorage
-
+// Cargar obras sociales desde localStorage 
 let obras = JSON.parse(localStorage.getItem("obrasSociales")) || [];
-
-const tabla = document.getElementById("tablaObras");
-const form = document.getElementById("obraForm");
-const select = document.getElementById("obraSelect");
-const infoObra = document.getElementById("infoObra");
 
 // Guardar en localStorage
 
 function guardar() {
-    localStorage.setItem("obrasSociales", JSON.stringify(obras));
+  localStorage.setItem("obrasSociales", JSON.stringify(obras));
 }
 
-// Tabla 
+// ID 
+
+function generarId() {
+  return "OS" + Date.now();
+}
+
+// Descuentos predeterminados
+
+const descuentosFijos = {
+  "OSDE": 20,
+  "IOMA": 30,
+  "Swiss Medical": 15,
+  "Galeno": 25,
+  "Sancor Salud": 18
+};
+
+// Agregar nueva obra social
+
+function agregarObra(nombre) {
+  const porcentaje = descuentosFijos[nombre] || 0; // usa 0 si no está en la lista
+  const nueva = {
+    id: generarId(),
+    nombre: nombre.trim(),
+    porcentaje: porcentaje
+  };
+  obras.push(nueva);
+  guardar();
+}
+
+// Modificar obra social 
+
+function modificarObra(id, nuevoNombre) {
+  const obra = obras.find(o => o.id === id);
+  if (obra) {
+    obra.nombre = nuevoNombre.trim();
+    obra.porcentaje = descuentosFijos[nuevoNombre] || 0;
+    guardar();
+  }
+}
+
+// Eliminar obra social
+
+function eliminarObra(id) {
+  obras = obras.filter(o => o.id !== id);
+  guardar();
+  renderTabla();
+}
+
+// Calcular costo final
+
+const PRECIO_CONSULTA = 50000;
+function calcularCostoFinal(porcentaje) {
+  return PRECIO_CONSULTA - (PRECIO_CONSULTA * porcentaje / 100);
+}
+
+// Tabla
 
 function renderTabla() {
-    tabla.innerHTML = "";
-    obras.forEach((obra) => {
-        let costoFinal = PRECIO_PARTICULAR - (PRECIO_PARTICULAR * obra.descuento / 100);
-        tabla.innerHTML += `
-            <tr>
-                <td>${obra.nombre}</td>
-                <td>${obra.descuento}%</td>
-                <td>$${costoFinal.toLocaleString()}</td>
-            </tr>
-        `;
-    });
-}
+  const tabla = document.getElementById("tablaObras");
+  tabla.innerHTML = "";
 
-// SELECT de obras sociales
-
-function renderSelect() {
-    select.innerHTML = `<option value="">-- Elegir --</option>`;
-    obras.forEach((obra, index) => {
-        select.innerHTML += `<option value="${index}">${obra.nombre}</option>`;
-    });
-}
-
-// Mostrar info al seleccionar obra social
-
-select.addEventListener("change", () => {
-    const index = select.value;
-    
-    if (index === "") {
-        infoObra.classList.add("d-none");
-        infoObra.innerHTML = "";
-        return;
-    }
-
-    const obra = obras[index];
-    const costoFinal = PRECIO_PARTICULAR - (PRECIO_PARTICULAR * obra.descuento / 100);
-
-    infoObra.classList.remove("d-none");
-    infoObra.innerHTML = `
-        <strong>Obra Social:</strong> ${obra.nombre}<br>
-        <strong>Descuento:</strong> ${obra.descuento}%<br>
-        <strong>Costo Final:</strong> $${costoFinal.toLocaleString()}
+  obras.forEach(obra => {
+    const fila = document.createElement("tr");
+    fila.innerHTML = `
+      <td>${obra.nombre}</td>
+      <td>${obra.porcentaje}%</td>
+      <td>$${calcularCostoFinal(obra.porcentaje).toLocaleString()}</td>
+      <td>
+        <button class="btn btn-warning btn-sm me-2" onclick="editarObra('${obra.id}')">
+          <i class="bi bi-pencil-square"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="eliminarObra('${obra.id}')">
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
     `;
+    tabla.appendChild(fila);
+  });
+}
+
+// Cargar 
+
+function editarObra(id) {
+  const obra = obras.find(o => o.id === id);
+  if (obra) {
+    document.getElementById("obraId").value = obra.id;
+    document.getElementById("nombre").value = obra.nombre;
+    document.getElementById("descuento").value = obra.porcentaje;
+  }
+}
+
+
+document.getElementById("formObraSocial").addEventListener("submit", e => {
+  e.preventDefault();
+  const id = document.getElementById("obraId").value;
+  const nombre = document.getElementById("nombre").value;
+
+  if (id) {
+    modificarObra(id, nombre);
+  } else {
+    agregarObra(nombre);
+  }
+
+  e.target.reset();
+  document.getElementById("obraId").value = "";
+  renderTabla();
 });
 
-// Formulario para agregar nuevas
+// Mostrar descuento por nombre
 
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const nueva = {
-        nombre: document.getElementById("nombre").value.trim(),
-        descuento: parseInt(document.getElementById("descuento").value)
-    };
-
-    obras.push(nueva);
-    guardar();
-    renderTabla();
-    renderSelect();
-    form.reset();
+document.getElementById("nombre").addEventListener("change", () => {
+  const nombre = document.getElementById("nombre").value;
+  document.getElementById("descuento").value = descuentosFijos[nombre] || 0;
 });
+
+
+if (obras.length === 0) {
+  obras = [
+    { id: "OS001", nombre: "OSDE", porcentaje: 20 },
+    { id: "OS002", nombre: "IOMA", porcentaje: 30 },
+    { id: "OS003", nombre: "Swiss Medical", porcentaje: 15 }
+  ];
+  guardar();
+}
 
 renderTabla();
-renderSelect();
+
