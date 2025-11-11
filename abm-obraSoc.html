@@ -14,7 +14,8 @@
 
 <body class="d-flex flex-column min-vh-100">
   
-  <!-- NAVBAR -->
+  <!-- Navbar -->
+   
   <header>
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
       <div class="container">
@@ -33,9 +34,8 @@
             <li class="nav-item ms-2">
               <button class="btn btn-light btn-sm" id="loginBtn">Login</button>
             </li>
-            <!-- Registrarse -->
             <li class="nav-item ms-2">
-            <a href="usuarioRegistrado.html" class="btn btn-light btn-sm" id="loggedBtn">Registrarse</a>
+              <a href="usuarioRegistrado.html" class="btn btn-light btn-sm" id="loggedBtn">Registrarse</a>
             </li> 
           </ul>
         </div>
@@ -43,7 +43,6 @@
     </nav>
   </header>
 
-  <!-- MODAL LOGIN -->
   <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -68,25 +67,33 @@
     </div>
   </div>
 
+  <!-- Contenido principal -->
+
   <div class="container my-4">
     <h1 class="text-center text-primary fw-bold mb-4">Obras Sociales</h1>
 
-    <!-- FORMULARIO -->
+    <!-- Formulario -->
 
     <div class="card shadow-sm p-4 mb-4">
       <h5 class="mb-3">Registrar / Editar Obra Social</h5>
-
       <form id="formObraSocial" class="row g-3">
         <input type="hidden" id="obraId">
 
         <div class="col-md-6">
           <label for="nombre" class="form-label">Nombre:</label>
-          <input type="text" id="nombre" class="form-control" required placeholder="Ej: OSDE">
+          <select id="nombre" class="form-select" required>
+            <option value="">Seleccionar...</option>
+            <option value="OSDE">OSDE</option>
+            <option value="IOMA">IOMA</option>
+            <option value="Swiss Medical">Swiss Medical</option>
+            <option value="Galeno">Galeno</option>
+            <option value="Sancor Salud">Sancor Salud</option>
+          </select>
         </div>
 
         <div class="col-md-6">
           <label for="descuento" class="form-label">Descuento (%):</label>
-          <input type="number" id="descuento" class="form-control" min="0" max="100" required placeholder="Ej: 20">
+          <input type="number" id="descuento" class="form-control" readonly>
         </div>
 
         <div class="col-12 text-end">
@@ -97,36 +104,34 @@
       </form>
     </div>
 
-    <!-- TABLA -->
+    <!-- Tabla -->
+
     <div class="card shadow-sm">
       <div class="card-body">
         <h5 class="card-title mb-3">Listado de Obras Sociales</h5>
-
         <table class="table table-striped text-center align-middle">
           <thead class="table-dark">
             <tr>
               <th>Nombre</th>
               <th>Descuento</th>
               <th>Costo Final</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody id="tablaObras"></tbody>
         </table>
       </div>
     </div>
-
   </div>
 
-  <!-- FOOTER -->
-   
+  <!-- Footer -->
   <footer class="bg-primary text-light mt-auto border-top">
     <div class="container p-3 text-center">
       &copy; 2025 Clínica IDW S.A
     </div>
   </footer>
+<script src="js/obraSocAbm.js"></script>
 
-<script src="js/obrasSocAbm.js"></script>
 </body>
 </html>
-
 

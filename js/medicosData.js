@@ -8,7 +8,8 @@ const MEDICOS_INICIALES = [
     matricula: "MP-12345",
     telefono: "341-4567890",
     email: "jperez@clinica.com",
-    foto: "assets/medico1.png"
+    foto: "assets/medico1.png",
+    obrasSociales: []
   },
   {
     id: 2,
@@ -18,7 +19,8 @@ const MEDICOS_INICIALES = [
     matricula: "MP-23456",
     telefono: "341-4567891",
     email: "mgonzalez@clinica.com",
-    foto: "assets/medico3.png"
+    foto: "assets/medico3.png",
+    obrasSociales: []
   },
   {
     id: 3,
@@ -28,7 +30,8 @@ const MEDICOS_INICIALES = [
     matricula: "MP-34567",
     telefono: "341-4567892",
     email: "rmartinez@clinica.com",
-    foto: "assets/medico2.png"
+    foto: "assets/medico2.png",
+    obrasSociales: ["OS001", "OS002"]
   },
   {
     id: 4,
@@ -38,7 +41,8 @@ const MEDICOS_INICIALES = [
     matricula: "MP-45678",
     telefono: "341-4567893",
     email: "arodriguez@clinica.com",
-    foto: "assets/medico5.png"
+    foto: "assets/medico5.png",
+    obrasSociales: ["OS001", "OS002"]
   },
   {
     id: 5,
@@ -48,7 +52,8 @@ const MEDICOS_INICIALES = [
     matricula: "MP-56789",
     telefono: "341-4567894",
     email: "clopez@clinica.com",
-    foto: "assets/medico4.png"
+    foto: "assets/medico4.png",
+    obrasSociales: ["OS001", "OS002"]
   }
 ];
 
