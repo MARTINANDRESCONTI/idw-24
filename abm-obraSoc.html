@@ -15,7 +15,6 @@
 <body class="d-flex flex-column min-vh-100">
   
   <!-- Navbar -->
-   
   <header>
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
       <div class="container">
@@ -43,6 +42,7 @@
     </nav>
   </header>
 
+  <!-- Modal Login -->
   <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -68,12 +68,10 @@
   </div>
 
   <!-- Contenido principal -->
-
   <div class="container my-4">
     <h1 class="text-center text-primary fw-bold mb-4">Obras Sociales</h1>
 
     <!-- Formulario -->
-
     <div class="card shadow-sm p-4 mb-4">
       <h5 class="mb-3">Registrar / Editar Obra Social</h5>
       <form id="formObraSocial" class="row g-3">
@@ -81,19 +79,12 @@
 
         <div class="col-md-6">
           <label for="nombre" class="form-label">Nombre:</label>
-          <select id="nombre" class="form-select" required>
-            <option value="">Seleccionar...</option>
-            <option value="OSDE">OSDE</option>
-            <option value="IOMA">IOMA</option>
-            <option value="Swiss Medical">Swiss Medical</option>
-            <option value="Galeno">Galeno</option>
-            <option value="Sancor Salud">Sancor Salud</option>
-          </select>
+          <input type="text" id="nombre" class="form-control" placeholder="Ej: OSDE, IOMA, etc." required>
         </div>
 
         <div class="col-md-6">
           <label for="descuento" class="form-label">Descuento (%):</label>
-          <input type="number" id="descuento" class="form-control" readonly>
+          <input type="number" id="descuento" class="form-control" placeholder="Ej: 10" min="0" max="100" required>
         </div>
 
         <div class="col-12 text-end">
@@ -105,7 +96,6 @@
     </div>
 
     <!-- Tabla -->
-
     <div class="card shadow-sm">
       <div class="card-body">
         <h5 class="card-title mb-3">Listado de Obras Sociales</h5>
@@ -130,8 +120,9 @@
       &copy; 2025 Clínica IDW S.A
     </div>
   </footer>
-<script src="js/obraSocAbm.js"></script>
 
+  <script src="js/obraSocAbm.js"></script>
 </body>
 </html>
+
 

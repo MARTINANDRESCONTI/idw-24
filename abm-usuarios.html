@@ -18,7 +18,7 @@
         <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
             <div class="container">
                 <a class="navbar-brand fw-bold" href="index.html">Centro Médico Integral S.A.</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarID" aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarID">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarID">
@@ -27,10 +27,17 @@
                         <li class="nav-item"><a class="nav-link" href="institucional.html">Institucional</a></li>
                         <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
                         <li class="nav-item d-none" id="adminLink">
-                            <a class="nav-link" href="admin.html"><i class="bi bi-gear-fill"></i> Admin</a>
+                            <a class="nav-link" href="admin.html">Admin</a>
                         </li>
                         <li class="nav-item ms-2">
-                            <button class="btn btn-light btn-sm" id="loginBtn">Login</button>
+                            <!-- BOTÓN LOGIN CORREGIDO -->
+                            <button 
+                                class="btn btn-light btn-sm" 
+                                id="loginBtn" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#loginModal">
+                                Login
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -44,7 +51,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-primary text-light">
                     <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <form id="loginForm">
@@ -66,11 +73,10 @@
     <!-- TOASTS -->
     <div id="toastContainer" class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999"></div>
 
-    <!-- CONTENIDO PRINCIPAL - ABM USUARIOS -->
+    <!-- CONTENIDO -->
     <main class="flex-grow-1">
         <section class="py-4 bg-light">
             <div class="container">
-                <!-- Breadcrumb -->
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
@@ -79,47 +85,39 @@
                     </ol>
                 </nav>
 
-                <!-- Título -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="text-primary">
-                        <i class="bi bi-people"></i> Gestión de Usuarios
-                    </h2>
+                    <h2 class="text-primary">Gestión de Usuarios</h2>
                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#usuarioModal" id="btnNuevoUsuario">
-                        <i class="bi bi-plus-circle"></i> Nuevo Usuario
+                        Nuevo Usuario
                     </button>
                 </div>
 
-                <!-- Buscador -->
                 <div class="row mb-4">
                     <div class="col-md-6">
                         <div class="input-group">
-                            <span class="input-group-text"><i class="bi bi-search"></i></span>
-                            <input type="text" class="form-control" id="searchInput" placeholder="Buscar por nombre o email...">
+                            <span class="input-group-text">Buscar</span>
+                            <input type="text" class="form-control" id="searchInput" placeholder="Nombre o email...">
                         </div>
                     </div>
                 </div>
 
-                <!-- Tabla de Usuarios -->
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover table-striped align-middle">
+                            <table class="table table-hover">
                                 <thead class="table-primary">
                                     <tr>
                                         <th>ID</th>
                                         <th>Nombre</th>
                                         <th>Email</th>
                                         <th>Turnos</th>
-                                        <th class="text-center">Acciones</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody id="usuariosTableBody">
-                                    <!-- Filas generadas dinámicamente -->
-                                </tbody>
+                                <tbody id="usuariosTableBody"></tbody>
                             </table>
                         </div>
                         <div id="noResults" class="text-center text-muted py-4 d-none">
-                            <i class="bi bi-inbox fs-1"></i>
                             <p>No se encontraron usuarios</p>
                         </div>
                     </div>
@@ -128,20 +126,17 @@
         </section>
     </main>
 
-    <!-- MODAL CREAR/EDITAR USUARIO -->
-    <div class="modal fade" id="usuarioModal" tabindex="-1" aria-labelledby="usuarioModalLabel" aria-hidden="true">
+    <!-- MODAL USUARIO -->
+    <div class="modal fade" id="usuarioModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-light">
-                    <h5 class="modal-title" id="usuarioModalLabel">
-                        <i class="bi bi-person-plus"></i> Nuevo Usuario
-                    </h5>
+                    <h5 class="modal-title" id="usuarioModalLabel">Nuevo Usuario</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <form id="usuarioForm">
                         <input type="hidden" id="usuarioId">
-
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="nombre" class="form-label">Nombre *</label>
@@ -169,67 +164,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="btnGuardarUsuario">
-                        <i class="bi bi-save"></i> Guardar
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL VISUALIZAR USUARIO -->
-    <div class="modal fade" id="verUsuarioModal" tabindex="-1" aria-labelledby="verUsuarioModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-info text-light">
-                    <h5 class="modal-title" id="verUsuarioModalLabel">
-                        <i class="bi bi-eye"></i> Detalle del Usuario
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                
-                <div class="modal-body">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <strong>Nombre:</strong>
-                            <p id="verNombre" class="text-muted"></p>
-                        </div>
-                        <div class="col-md-6">
-                            <strong>Email:</strong>
-                            <p id="verEmail" class="text-muted"></p>
-                        </div>
-                        <div class="col-12">
-                            <strong>Turnos:</strong>
-                            <p id="verTurnos" class="text-muted"></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL CONFIRMAR ELIMINACIÓN -->
-    <div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-danger text-light">
-                    <h5 class="modal-title" id="confirmarEliminarLabel">
-                        <i class="bi bi-exclamation-triangle"></i> Confirmar Eliminación
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p>¿Está seguro que desea eliminar al usuario <strong id="nombreEliminar"></strong>?</p>
-                    <p class="text-muted small">Esta acción no se puede deshacer.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger" id="btnConfirmarEliminar">
-                        <i class="bi bi-trash"></i> Eliminar
-                    </button>
+                    <button type="button" class="btn btn-primary" id="btnGuardarUsuario">Guardar</button>
                 </div>
             </div>
         </div>
@@ -240,19 +175,20 @@
         <div class="container p-3">
             <div class="row">
                 <div class="col-12 col-md-6 text-md-start text-center mb-2 mb-md-0">
-                    &copy; 2025 By IDW S.A. - UNER IDW Grupo 24
+                    © 2025 By IDW S.A. - UNER IDW Grupo 24
                 </div>
                 <div class="col-12 col-md-6 text-md-end text-center">
-                    <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="text-light me-3"><i class="bi bi-twitter-x"></i></a>
-                    <a href="#" class="text-light"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-light me-3">Facebook</a>
+                    <a href="#" class="text-light me-3">Twitter</a>
+                    <a href="#" class="text-light">Instagram</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="js/usuariosData.js"></script> <!-- Asegura que se cargue primero -->
+    <!-- SCRIPTS -->
+    <script src="js/auth.js"></script>
+    <script src="js/usuariosData.js"></script>
     <script src="js/usuariosAbm.js"></script>
 </body>
 </html>
