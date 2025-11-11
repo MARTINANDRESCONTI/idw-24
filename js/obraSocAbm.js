@@ -77,28 +77,35 @@ renderTabla();
 // Tabla
 
 function renderTabla() {
-const tabla = document.getElementById("tablaObras");
-tabla.innerHTML = "";
+    const tabla = document.getElementById("tablaObras");
+    tabla.innerHTML = "";
 
-obras.forEach(obra => {
-const fila = document.createElement("tr");
-    
-    
-fila.innerHTML = `
-<td>${obra.nombre}</td>
-<td>${obra.porcentaje}%</td>
-      <td></td> <td>
-<button class="btn btn-warning btn-sm me-2" onclick="editarObra('${obra.id}')">
-<i class="bi bi-pencil-square"></i>
-</button>
-<button class="btn btn-danger btn-sm" onclick="eliminarObra('${obra.id}')">
-<i class="bi bi-trash"></i>
-</button>
-  </td>
-`;
-tabla.appendChild(fila);
-});
+    const medicos = JSON.parse(localStorage.getItem("medicos")) || [];
+
+    obras.forEach(obra => {
+        const fila = document.createElement("tr");
+
+  // Buscar médico relacionado
+  const medico = medicos.find(m => m.obraSocialId === obra.id); 
+  const precioConsulta = medico ? medico.precioConsulta : "—";
+
+  fila.innerHTML = `
+    <td>${obra.nombre}</td>
+    <td>${obra.porcentaje}%</td>
+    <td>${precioConsulta}</td>
+      <td>
+      <button class="btn btn-warning btn-sm me-2" onclick="editarObra('${obra.id}')">
+        <i class="bi bi-pencil-square"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="eliminarObra('${obra.id}')">
+        <i class="bi bi-trash"></i>
+        </button>
+            </td>
+        `;
+  tabla.appendChild(fila);
+    });
 }
+
 
 // Editar
 
