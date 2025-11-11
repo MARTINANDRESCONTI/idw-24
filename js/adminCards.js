@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     { 
       id: 3, 
-      image: "assets/turnos.png", 
+      image: "/assets/turnos.png", 
       title: "Turnos",
       description: "Administrar turnos y citas médicas del sistema.",
       link: "abm-turnos.html",
@@ -43,9 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
     { 
       id: 6, 
       image: "assets/reportes.png", 
-      title: "Reportes",
+      title: "Reportes de Usuarios",
       description: "Visualizar reportes y estadísticas del sistema.",
-      link: "abm-reportes.html",
+      link: "users.html",
       icon: "bi-graph-up"
     },
   ];
@@ -84,8 +84,8 @@ function createAdminCard(module) {
 
 
   function loadAdminCards() {
-    // Verificar si hay un usuario admin logueado
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    // Verificar si hay un usuario admin logueado (usando sessionStorage)
+    const currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
     
     if (!currentUser || currentUser.role !== "admin") {
       container.innerHTML = '';

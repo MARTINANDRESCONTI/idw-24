@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="./styles/variables.css" />
   <link rel="stylesheet" href="./styles/index.css" />
   <link rel="icon" href="Iconos/logo.png" />
-  <title>Panel de Administración - Clínica IDW S.A.</title>
+  <title>Obras Sociales - Clínica IDW S.A.</title>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -28,19 +28,15 @@
             <li class="nav-item"><a class="nav-link" href="institucional.html">Institucional</a></li>
             <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
             <li class="nav-item d-none" id="adminLink">
-              <a class="nav-link active" href="admin.html"><i class="bi bi-gear-fill"></i> Admin</a>
+              <a class="nav-link" href="admin.html"><i class="bi bi-gear-fill"></i> Admin</a>
             </li>
-            <li class="nav-item d-none" id="reservasLink">
-              <a class="nav-link" href="#">Reservas</a>
-            </li>
-
             <li class="nav-item ms-2">
               <button class="btn btn-light btn-sm" id="loginBtn">Login</button>
             </li>
             <!-- Registrarse -->
             <li class="nav-item ms-2">
             <a href="usuarioRegistrado.html" class="btn btn-light btn-sm" id="loggedBtn">Registrarse</a>
-            </li>
+            </li> 
           </ul>
         </div>
       </div>
@@ -72,53 +68,65 @@
     </div>
   </div>
 
-  <!-- TOASTS -->
-  <div id="toastContainer" class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999"></div>
+  <div class="container my-4">
+    <h1 class="text-center text-primary fw-bold mb-4">Obras Sociales</h1>
 
-  <!-- CONTENIDO PRINCIPAL - PANEL ADMIN -->
-  <main class="flex-grow-1">
-    <section class="py-5 bg-light">
-      <div class="container">
-        <div class="text-center mb-5">
-          <h2 class="display-5 fw-bold text-primary">
-            <i class="bi bi-shield-lock-fill"></i> Panel de Administración
-          </h2>
-          <p class="lead text-dark">Gestión de datos del sistema</p>
+    <!-- FORMULARIO -->
+
+    <div class="card shadow-sm p-4 mb-4">
+      <h5 class="mb-3">Registrar / Editar Obra Social</h5>
+
+      <form id="formObraSocial" class="row g-3">
+        <input type="hidden" id="obraId">
+
+        <div class="col-md-6">
+          <label for="nombre" class="form-label">Nombre:</label>
+          <input type="text" id="nombre" class="form-control" required placeholder="Ej: OSDE">
         </div>
 
-        <!-- Mensaje de acceso restringido (se oculta si hay admin logueado) -->
-        <div id="accessDenied" class="alert alert-warning text-center d-none">
-          <i class="bi bi-exclamation-triangle-fill fs-3"></i>
-          <p class="mt-2 mb-0">Acceso restringido. Por favor, inicie sesión como administrador.</p>
+        <div class="col-md-6">
+          <label for="descuento" class="form-label">Descuento (%):</label>
+          <input type="number" id="descuento" class="form-control" min="0" max="100" required placeholder="Ej: 20">
         </div>
 
-        <!-- Container para las cards de administración -->
-        <div id="adminCardsContainer" class="row g-4">
-          <!-- Las cards se inyectan dinámicamente desde adminCards.js -->
+        <div class="col-12 text-end">
+          <button type="submit" class="btn btn-success">
+            <i class="bi bi-check-circle"></i> Guardar
+          </button>
         </div>
+      </form>
+    </div>
+
+    <!-- TABLA -->
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Listado de Obras Sociales</h5>
+
+        <table class="table table-striped text-center align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th>Nombre</th>
+              <th>Descuento</th>
+              <th>Costo Final</th>
+            </tr>
+          </thead>
+          <tbody id="tablaObras"></tbody>
+        </table>
       </div>
-    </section>
-  </main>
+    </div>
+
+  </div>
 
   <!-- FOOTER -->
+   
   <footer class="bg-primary text-light mt-auto border-top">
-    <div class="container p-3">
-      <div class="row">
-        <div class="col-12 col-md-6 text-md-start text-center mb-2 mb-md-0">
-          &copy; 2025 By IDW S.A. - UNER IDW Grupo 24
-        </div>
-        <div class="col-12 col-md-6 text-md-end text-center">
-          <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="text-light me-3"><i class="bi bi-twitter-x"></i></a>
-          <a href="#" class="text-light"><i class="bi bi-instagram"></i></a>
-        </div>
-      </div>
+    <div class="container p-3 text-center">
+      &copy; 2025 Clínica IDW S.A
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="js/auth.js"></script>
-  <script src="js/adminCards.js"></script>
-  <script src="js/adminAccess.js"></script>
+<script src="js/obrasSocAbm.js"></script>
 </body>
 </html>
+
+

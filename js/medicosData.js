@@ -4,58 +4,54 @@ const MEDICOS_INICIALES = [
     id: 1,
     nombre: "Juan Carlos",
     apellido: "Pérez",
-    especialidad: "Cardiología",
+    especialidadId: 1,
     matricula: "MP-12345",
     telefono: "341-4567890",
     email: "jperez@clinica.com",
-    horario: "Lunes a Viernes 9:00-17:00",
     foto: "assets/medico1.png"
   },
   {
     id: 2,
     nombre: "María Laura",
     apellido: "González",
-    especialidad: "Pediatría",
+    especialidadId: 2,
     matricula: "MP-23456",
     telefono: "341-4567891",
     email: "mgonzalez@clinica.com",
-    horario: "Lunes a Viernes 8:00-14:00",
-    foto: "assets/medico2.png"
+    foto: "assets/medico3.png"
   },
   {
     id: 3,
     nombre: "Roberto",
-    apellido: "Martínez",
-    especialidad: "Traumatología",
+    apellido: "Martínez", 
+    especialidadId: 3,
     matricula: "MP-34567",
     telefono: "341-4567892",
     email: "rmartinez@clinica.com",
-    horario: "Martes y Jueves 14:00-20:00",
-    foto: "assets/medico3.png"
+    foto: "assets/medico2.png"
   },
   {
     id: 4,
     nombre: "Ana",
     apellido: "Rodríguez",
-    especialidad: "Ginecología",
+    especialidadId: 4,
     matricula: "MP-45678",
     telefono: "341-4567893",
     email: "arodriguez@clinica.com",
-    horario: "Lunes, Miércoles y Viernes 10:00-16:00",
-    foto: "assets/medico4.png"
+    foto: "assets/medico5.png"
   },
   {
     id: 5,
     nombre: "Carlos",
     apellido: "López",
-    especialidad: "Clínica Médica",
+    especialidadId: 5,
     matricula: "MP-56789",
     telefono: "341-4567894",
     email: "clopez@clinica.com",
-    horario: "Lunes a Viernes 8:00-12:00",
-    foto: "assets/medico5.png"
+    foto: "assets/medico4.png"
   }
 ];
+
 
 // Inicializar LocalStorage si no existe
 function inicializarMedicos() {
@@ -67,3 +63,4 @@ function inicializarMedicos() {
 
 // Ejecutar al cargar el script
 inicializarMedicos();
+

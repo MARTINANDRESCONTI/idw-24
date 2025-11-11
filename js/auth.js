@@ -1,14 +1,11 @@
-// auth.js adaptado al index.html que me pasaste
+// auth.js - adaptado: admin hardcodeado + DummyJSON para el resto (sessionStorage)
 
-// Usuarios de ejemplo
-const users = [
-  { username: "admin", password: "admin123", role: "admin" },
-  { username: "visitante", password: "visitante123", role: "visitor" },
-];
+// Usuario admin hardcodeado (para la corrección)
+const ADMIN_CRED = { username: "admin", password: "admin123", role: "admin" };
 
 // Esperar a que exista el DOM
 document.addEventListener("DOMContentLoaded", () => {
-  // Elementos del DOM (según tu HTML)
+  // Elementos del DOM (ajustá ids si son distintos)
   const loginBtn = document.getElementById("loginBtn");
   const adminLink = document.getElementById("adminLink");
   const reservasLink = document.getElementById("reservasLink");
@@ -17,11 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const passwordInput = document.getElementById("passwordInput");
   const loginModalEl = document.getElementById("loginModal");
   const toastContainer = document.getElementById("toastContainer");
+  const usersListContainer = document.getElementById("usersList"); // contenedor en admin.html para la tabla
 
-  // Crear instancia del modal (Bootstrap)
   const loginModal = loginModalEl ? new bootstrap.Modal(loginModalEl) : null;
 
-  // Función para mostrar toast centrado
+  // ================== TOAST SIMPLE ==================
   function showToast(message, color = "primary") {
     if (!toastContainer) return;
     const toastEl = document.createElement("div");
@@ -41,90 +38,234 @@ document.addEventListener("DOMContentLoaded", () => {
     toastEl.addEventListener("hidden.bs.toast", () => toastEl.remove());
   }
 
-  // Actualizar navbar según usuario (muestra/oculta enlaces y cambia texto del botón)
+  // ================== ACTUALIZAR NAVBAR ==================
   function updateNavbar(user) {
+    if (!loginBtn) return;
     if (user) {
-      // Mostrar rol en el botón (Logout)
       loginBtn.textContent = "Logout";
-      // Mostrar/ocultar links según rol
       if (user.role === "admin") {
-        if (adminLink) adminLink.classList.remove("d-none");
-        if (reservasLink) reservasLink.classList.add("d-none");
-      } else if (user.role === "visitor") {
-        if (reservasLink) reservasLink.classList.remove("d-none");
-        if (adminLink) adminLink.classList.add("d-none");
+        adminLink?.classList.remove("d-none");
+        reservasLink?.classList.add("d-none");
+      } else if (user.role === "visitor" || user.role === "user") {
+        reservasLink?.classList.remove("d-none");
+        adminLink?.classList.add("d-none");
       } else {
-        // Por defecto ocultar ambos si rol desconocido
-        if (adminLink) adminLink.classList.add("d-none");
-        if (reservasLink) reservasLink.classList.add("d-none");
+        adminLink?.classList.add("d-none");
+        reservasLink?.classList.add("d-none");
       }
     } else {
-      // Sin usuario: mostrar Login y ocultar links
       loginBtn.textContent = "Login";
-      if (adminLink) adminLink.classList.add("d-none");
-      if (reservasLink) reservasLink.classList.add("d-none");
+      adminLink?.classList.add("d-none");
+      reservasLink?.classList.add("d-none");
     }
   }
 
-  // Leer usuario al cargar y actualizar navbar
-  const stored = localStorage.getItem("currentUser");
+  // Leer usuario al cargar desde sessionStorage
+  const stored = sessionStorage.getItem("currentUser");
   const currentUser = stored ? JSON.parse(stored) : null;
   updateNavbar(currentUser);
 
-  // Si el botón no existe por alguna razón, no continuar
   if (!loginBtn) return;
 
-  // Click en loginBtn: abre modal si no hay sesión, o hace logout si hay sesión
-loginBtn.addEventListener("click", () => {
-  const cur = JSON.parse(localStorage.getItem("currentUser"));
-  if (cur) {
-    // Hacer logout
-    localStorage.removeItem("currentUser");
-    updateNavbar(null);
-    showToast("✔ Sesión cerrada", "primary");
+  // ================== LOGIN / LOGOUT ==================
+  loginBtn.addEventListener("click", () => {
+    const cur = JSON.parse(sessionStorage.getItem("currentUser"));
+    if (cur) {
+      // Logout
+      sessionStorage.removeItem("currentUser");
+      sessionStorage.removeItem("token");
+      updateNavbar(null);
+      showToast("✔ Sesión cerrada", "primary");
 
-// Si estás en una página de administración (admin o subpáginas), volver al index
-const currentPage = window.location.pathname.split("/").pop();
-if (currentPage.startsWith("admin") || currentPage.startsWith("abm-")) {
-  window.location.href = "index.html";
-}
+      // Si estás en una página de admin, volver al index
+      const currentPage = window.location.pathname.split("/").pop();
+      if (currentPage.startsWith("admin") || currentPage.startsWith("abm-")) {
+        window.location.href = "index.html";
+      }
+    } else {
+      if (loginModal) loginModal.show();
+    }
+  });
 
-  } else {
-    // Abrir modal de login
-    if (loginModal) loginModal.show();
-  }
-});
-
-
-  // Si el formulario o inputs no existen, salir (evita errores)
   if (!loginForm || !usernameInput || !passwordInput) return;
 
-  // Manejar submit del form
-  loginForm.addEventListener("submit", (e) => {
+  // ================== LOGIN FORM ==================
+  loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const username = usernameInput.value.trim();
     const password = passwordInput.value;
 
-    const user = users.find(u => u.username === username && u.password === password);
-
-    if (user) {
-      localStorage.setItem("currentUser", JSON.stringify(user));
-      updateNavbar(user);
-      if (loginModal) loginModal.hide();
+    // 1) Verificar admin hardcodeado
+    if (username === ADMIN_CRED.username && password === ADMIN_CRED.password) {
+      const adminUser = { username: ADMIN_CRED.username, role: "admin", source: "local" };
+      sessionStorage.setItem("currentUser", JSON.stringify(adminUser));
+      sessionStorage.setItem("token", "ADMIN_LOCAL_TOKEN");
+      updateNavbar(adminUser);
+      loginModal?.hide();
       loginForm.reset();
-      showToast(`✔ Bienvenido ${user.username}`, "primary");
-    } else {
-      showToast(`❌ Usuario o contraseña incorrecta`, "danger");
+      showToast(`✔ Bienvenido ${adminUser.username} (admin)`, "primary");
+      return;
+    }
+
+    // 2) Login DummyJSON
+    try {
+      const res = await fetch("https://dummyjson.com/user/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!res.ok) {
+        showToast("❌ Usuario o contraseña incorrecta (DummyJSON)", "danger");
+        return;
+      }
+
+      const data = await res.json();
+      const userFromApi = {
+        username: data.username,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        role: data.role || "user",
+        id: data.id,
+        source: "dummyjson"
+      };
+
+      sessionStorage.setItem("currentUser", JSON.stringify(userFromApi));
+      if (data.accessToken) sessionStorage.setItem("token", data.accessToken);
+
+      updateNavbar(userFromApi);
+      loginModal?.hide();
+      loginForm.reset();
+      showToast(`✔ Bienvenido ${userFromApi.username}`, "primary");
+    } catch (err) {
+      console.error("Error fetch login:", err);
+      showToast("❌ Error de conexión al autenticar", "danger");
     }
   });
 
-  // Protección básica si se accede a páginas internas (opcional)
-  // Si estás en admin.html y no hay usuario logueado, te manda al index
-  const paginaActual = window.location.pathname.split("/").pop();
-  const usuarioLogueado = JSON.parse(localStorage.getItem("currentUser"));
-  if (!usuarioLogueado && (paginaActual === "admin.html" || paginaActual === "reservas.html")) {
-    // No redirigimos agresivamente para que puedas depurar; mostramos aviso y opcionalmente redirigimos:
-    // alert("Debes iniciar sesión para acceder a esta página.");
-    // window.location.href = "index.html";
+  // ================== CARGAR USUARIOS DummyJSON ==================
+  async function loadDummyUsers() {
+    if (!usersListContainer) {
+      console.warn("usersList container no encontrado. Agregar un elemento con id='usersList' en admin.html");
+      return;
+    }
+
+    usersListContainer.innerHTML = "Cargando usuarios...";
+    try {
+      const res = await fetch("https://dummyjson.com/users?limit=100");
+      if (!res.ok) throw new Error("No se pudo traer usuarios");
+      const json = await res.json();
+      const users = json.users || [];
+
+      let html = `
+        <div class="table-responsive">
+          <table class="table table-sm table-striped">
+            <thead>
+              <tr>
+                <th>#</th><th>Username</th><th>Password</th><th>Nombre</th><th>Rol</th><th>Acción</th>
+              </tr>
+            </thead><tbody>
+      `;
+      users.forEach((u, idx) => {
+        html += `
+          <tr>
+            <td>${idx + 1}</td>
+            <td>${u.username}</td>
+            <td>${u.password || ""}</td>
+            <td>${(u.firstName || "") + " " + (u.lastName || "")}</td>
+            <td>${u.role || "user"}</td>
+            <td>
+              <button class="btn btn-sm btn-outline-primary btn-copy" data-username="${u.username}" data-password="${u.password}">Copiar cred.</button>
+              <button class="btn btn-sm btn-outline-success btn-login-as" data-username="${u.username}" data-password="${u.password}">Entrar</button>
+            </td>
+          </tr>`;
+      });
+      html += "</tbody></table></div>";
+      usersListContainer.innerHTML = html;
+
+      usersListContainer.querySelectorAll(".btn-copy").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const u = e.currentTarget.dataset.username;
+          const p = e.currentTarget.dataset.password;
+          navigator.clipboard?.writeText(`username: ${u}, password: ${p}`);
+          showToast("Credenciales copiadas al portapapeles", "primary");
+        });
+      });
+
+      usersListContainer.querySelectorAll(".btn-login-as").forEach(btn => {
+        btn.addEventListener("click", async (e) => {
+          const username = e.currentTarget.dataset.username;
+          const password = e.currentTarget.dataset.password;
+          try {
+            const res = await fetch("https://dummyjson.com/user/login", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username, password }),
+            });
+            if (!res.ok) {
+              showToast("❌ No se pudo loguear con estas credenciales", "danger");
+              return;
+            }
+            const data = await res.json();
+            const userFromApi = {
+              username: data.username,
+              firstName: data.firstName,
+              lastName: data.lastName,
+              role: data.role || "user",
+              id: data.id,
+              source: "dummyjson"
+            };
+            sessionStorage.setItem("currentUser", JSON.stringify(userFromApi));
+            if (data.accessToken) sessionStorage.setItem("token", data.accessToken);
+            updateNavbar(userFromApi);
+            showToast(`✔ Entraste como ${userFromApi.username}`, "primary");
+          } catch (err) {
+            console.error(err);
+            showToast("❌ Error al intentar loguear", "danger");
+          }
+        });
+      });
+    } catch (err) {
+      console.error("Error loadDummyUsers:", err);
+      usersListContainer.innerHTML = "<p class='text-danger'>Error al cargar usuarios.</p>";
+    }
   }
+
+  // Exponer al scope global
+  window.loadDummyUsers = loadDummyUsers;
+
+  // ================== PROTECCIÓN DE RUTAS ASÍNCRONA ==================
+  (async () => {
+    async function esperarUsuario() {
+      let user = JSON.parse(sessionStorage.getItem("currentUser"));
+      let intentos = 0;
+      while (!user && intentos < 10) {
+        await new Promise(resolve => requestAnimationFrame(resolve));
+        user = JSON.parse(sessionStorage.getItem("currentUser"));
+        intentos++;
+      }
+      return user;
+    }
+
+    const paginaActual = window.location.pathname.split("/").pop();
+    const usuarioLogueado = await esperarUsuario();
+
+    if (
+      (paginaActual.startsWith("admin") ||
+        paginaActual.startsWith("abm-") ||
+        paginaActual.startsWith("users")) &&
+      (!usuarioLogueado || usuarioLogueado.role !== "admin")
+    ) {
+      alert("❌ No tienes permiso para acceder a esta página");
+      window.location.href = "index.html";
+    }
+
+    if (
+      paginaActual === "reservas.html" &&
+      (!usuarioLogueado || (usuarioLogueado.role !== "visitor" && usuarioLogueado.role !== "user"))
+    ) {
+      alert("❌ Debes iniciar sesión para acceder a reservas");
+      window.location.href = "index.html";
+    }
+  })();
 });

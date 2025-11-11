@@ -1,6 +1,6 @@
 // adminAccess.js - Verificar permisos en página admin
 document.addEventListener('DOMContentLoaded', function() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
     const accessDenied = document.getElementById('accessDenied');
     const adminCardsContainer = document.getElementById('adminCardsContainer');
     
