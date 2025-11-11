@@ -14,31 +14,40 @@
 
   <body class="d-flex flex-column min-vh-100">
     <header>
-      <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
-        <div class="container">
-          <a class="navbar-brand fw-bold" href="index.html">Centro Médico Integral S.A.</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarID" aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarID">
-            <ul class="navbar-nav ms-auto text-center">
-              <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-              <li class="nav-item"><a class="nav-link active" href="institucional.html">Institucional</a></li>
-              <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
-              <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
-              <li class="nav-item d-none" id="adminLink">
-                <a class="nav-link" href="admin.html"><i class="bi bi-gear-fill"></i> Admin</a>
-              </li>
-              <li class="nav-item d-none" id="reservasLink">
-                <a class="nav-link" href="#">Reservas</a>
-              </li>
-              <li class="nav-item ms-2">
-                <button class="btn btn-light btn-sm" id="loginBtn">Login</button>
-              </li>
-            </ul>
-          </div>
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">Centro Médico Integral S.A.</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarID" aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarID">
+          <ul class="navbar-nav ms-auto text-center">
+            <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="institucional.html">Institucional</a></li>
+            <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+            <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
+            
+            <!-- Botón RESERVAR TURNO -->
+            <li class="nav-item ms-2">
+              <a href="gestionTurnos.html" class="btn btn-warning fw-bold text-dark">
+                RESERVAR TURNO
+              </a>
+            </li>
+
+            <li class="nav-item d-none" id="adminLink">
+              <a class="nav-link" href="admin.html"><i class="bi bi-gear-fill"></i> Admin</a>
+            </li>
+            <li class="nav-item d-none" id="reservasLink">
+              <a class="nav-link" href="#">Reservas</a>
+            </li>
+            <!-- Botón de login/logout -->
+            <li class="nav-item ms-2">
+              <button class="btn btn-light btn-sm" id="loginBtn">Login</button>
+            </li>
+          </ul>
         </div>
-      </nav>
+      </div>
+    </nav>
     </header>
 
     <!-- MODAL LOGIN -->
@@ -66,10 +75,6 @@
       </div>
     </div>
 
-<<<<<<< HEAD
-    <!-- TOASTS -->
-    <div id="toastContainer" class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999"></div>
-=======
       <!-- Modal: Verificar Usuario antes de gestionar turnos -->
     <div
       class="modal fade"
@@ -135,7 +140,6 @@
 
   <!-- TOASTS -->
   <div id="toastContainer" class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999"></div>
->>>>>>> obrasSociales
 
     <main>
       <!-- QUIÉNES SOMOS -->
