@@ -1,6 +1,7 @@
 // ================== VARIABLES GLOBALES ==================
 let medicos = [];
 let especialidades = [];
+let obrasSociales = [];
 let medicoEditando = null;
 let medicoAEliminar = null;
 
@@ -64,6 +65,25 @@ function llenarSelectEspecialidades() {
   });
 }
 
+// ====== NUEVO: CARGA DE OBRAS SOCIALES ======
+function cargarObrasSociales() {
+  const obrasJSON = localStorage.getItem("obrasSociales");
+  obrasSociales = obrasJSON ? JSON.parse(obrasJSON) : [];
+  llenarSelectObras();
+}
+
+function llenarSelectObras() {
+  const select = document.getElementById("obrasSociales");
+  if (!select) return;
+  select.innerHTML = "";
+  obrasSociales.forEach(o => {
+    const opt = document.createElement("option");
+    opt.value = o.id;
+    opt.textContent = o.nombre;
+    select.appendChild(opt);
+  });
+}
+
 // ================== TABLA ==================
 function renderizarTabla(lista) {
   if (!lista || lista.length === 0) {
@@ -77,6 +97,12 @@ function renderizarTabla(lista) {
   medicosTableBody.innerHTML = lista.map(medico => {
     const esp = especialidades.find(e => e.especialidadId === medico.especialidadId);
     const nombreEsp = esp ? esp.descripcion : "Sin especialidad";
+    const obrasAtendidas = medico.obrasSociales?.length
+      ? medico.obrasSociales.map(id => {
+          const o = obrasSociales.find(os => os.id === id);
+          return o ? o.nombre : "";
+        }).join(", ")
+      : "Particular";
     return `
       <tr>
         <td><img src="${medico.foto || 'assets/default.png'}" class="rounded-circle border" width="50" height="50"></td>
@@ -87,6 +113,7 @@ function renderizarTabla(lista) {
         <td>${medico.matricula}</td>
         <td>${medico.telefono}</td>
         <td>${medico.email}</td>
+        <td>${obrasAtendidas}</td>
         <td class="text-center">
           <div class="btn-group btn-group-sm">
             <button class="btn btn-info" onclick="verMedico(${medico.id})"><i class="bi bi-eye"></i></button>
@@ -156,6 +183,10 @@ btnGuardarMedico.addEventListener("click", () => {
   const esp = especialidades.find(e => e.especialidadId === especialidadId);
   const baseFoto = previewImg.src || "assets/default.png";
 
+  const obrasSeleccionadas = Array.from(
+    document.getElementById("obrasSociales").selectedOptions
+  ).map(opt => opt.value);
+
   const medico = {
     id: medicoEditando ? medicoEditando.id : generarId(),
     nombre: document.getElementById("nombre").value.trim(),
@@ -164,7 +195,8 @@ btnGuardarMedico.addEventListener("click", () => {
     matricula: document.getElementById("matricula").value.trim(),
     telefono: document.getElementById("telefono").value.trim(),
     email: document.getElementById("email").value.trim(),
-    foto: baseFoto
+    foto: baseFoto,
+    obrasSociales: obrasSeleccionadas
   };
 
   if (medicoEditando) {
@@ -194,6 +226,15 @@ window.verMedico = function (id) {
   document.getElementById("verTelefono").textContent = medico.telefono;
   document.getElementById("verEmail").textContent = medico.email;
 
+  const obrasAtendidas = medico.obrasSociales?.length
+    ? medico.obrasSociales.map(id => {
+        const o = obrasSociales.find(os => os.id === id);
+        return o ? o.nombre : "";
+      }).join(", ")
+    : "Solo consultas particulares";
+
+  document.getElementById("verObrasSociales").textContent = obrasAtendidas;
+
   verMedicoModal.show();
 };
 
@@ -210,6 +251,11 @@ window.editarMedico = function (id) {
   document.getElementById("telefono").value = medico.telefono;
   document.getElementById("email").value = medico.email;
   previewImg.src = medico.foto || "assets/default.png";
+
+  const selectObras = document.getElementById("obrasSociales");
+  Array.from(selectObras.options).forEach(opt => {
+    opt.selected = medico.obrasSociales?.includes(opt.value);
+  });
 
   medicoModalLabel.innerHTML = '<i class="bi bi-pencil"></i> Editar Médico';
   medicoModal.show();
@@ -241,8 +287,7 @@ function generarId() {
 
 // ================== INICIO ==================
 document.addEventListener("DOMContentLoaded", () => {
-  // La protección de rutas ya la maneja auth.js
-  // No duplicamos lógica aquí
   cargarEspecialidades();
+  cargarObrasSociales(); // nuevo
   cargarMedicos();
 });

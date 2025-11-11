@@ -118,6 +118,7 @@
                     <th>Matrícula</th>
                     <th>Teléfono</th>
                     <th>Email</th>
+                    <th>Obras Sociales</th>
                     <th class="text-center">Acciones</th>
                   </tr>
                 </thead>
@@ -129,7 +130,7 @@
             <div id="noResults" class="text-center text-muted py-4 d-none">
               <i class="bi bi-inbox fs-1"></i>
               <p>No se encontraron médicos</p>
-            </div>
+            </div> 
           </div>
         </div>
       </div>
@@ -182,13 +183,15 @@
               <div class="col-md-6">
                 <label for="email" class="form-label">Email *</label>
                 <input type="email" class="form-control" id="email" required>
-              </div>
-               <!--
+              </div> 
               <div class="col-12">
-                <label for="horario" class="form-label">Horario de Atención</label>
-                <textarea class="form-control" id="horario" rows="2" placeholder="Ej: Lunes a Viernes 9:00-17:00"></textarea>
-              </div>
-             -->
+                <label for="obrasSociales" class="form-label">Obras Sociales que atiende</label>
+                <select id="obrasSociales" class="form-select" multiple>
+                </select>
+                <small class="text-muted">
+                  Si no selecciona ninguna, el médico atenderá solo consultas particulares.
+                </small>
+              </div>             
             </div>
           </form>
         </div>
@@ -239,12 +242,10 @@
               <strong>Email:</strong>
               <p id="verEmail" class="text-muted"></p>
             </div>
-               <!-- 
             <div class="col-12">
-              <strong>Horario de Atención:</strong>
-              <p id="verHorario" class="text-muted"></p>
+              <strong>Obras Sociales que atiende:</strong>
+              <p id="verObrasSociales" class="text-muted"></p>
             </div>
-              -->
           </div>
         </div>
         <div class="modal-footer">
