@@ -40,7 +40,7 @@ function cargarUsuarios() {
     const storedUsuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     usuarios = storedUsuarios;
     renderizarTabla(usuarios);
-    console.log("Usuarios cargados:", usuarios); // Depuración
+    console.log("Usuarios cargados:", usuarios);
 }
 
 // Renderizar tabla
@@ -142,7 +142,7 @@ btnGuardarUsuario.addEventListener("click", () => {
     } else {
         usuarios.push({ id, firstName: nombre, email, turnos });
     }
-    localStorage.setItem("usuarios", JSON.stringify(usuarios)); // Guarda todos los usuarios
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
     showToast(usuarioExistente ? "Usuario actualizado" : "Usuario creado", "success");
     usuarioModal.hide();
     cargarUsuarios();
@@ -160,8 +160,8 @@ document.getElementById("btnConfirmarEliminar").addEventListener("click", () => 
     if (!usuarioAEliminar) return;
 
     usuarios = usuarios.filter(u => u.id !== usuarioAEliminar.id);
-    localStorage.setItem("usuarios", JSON.stringify(usuarios)); // Actualiza la lista
-    showToast(`Usuario ${usuarioAEliminar.nombre} eliminado`, "danger");
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+    showToast(`Usuario ${usuarioAEliminar.nombre} eliminado, "danger"`);
     confirmarEliminarModal.hide();
     cargarUsuarios();
     usuarioAEliminar = null;
@@ -188,14 +188,15 @@ btnNuevoUsuario.addEventListener("click", () => {
 
 // Verificar acceso y cargar datos
 document.addEventListener("DOMContentLoaded", () => {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    if (!currentUser || currentUser.role !== "admin") {
-        showToast("Acceso restringido. Solo para administradores. Configura un usuario admin con localStorage.setItem('currentUser', JSON.stringify({ role: 'admin' }));", "warning");
-        // Evitar redirección automática para depuración con Live Server
-        // window.location.href = "index.html";
-        return;
-    }
-    cargarUsuarios();
+    setTimeout(() => {
+        const currentUser = JSON.parse(sessionStorage.getItem("currentUser")); // ← sessionStorage
+        if (!currentUser || currentUser.role !== "admin") {
+            showToast("Acceso restringido. Solo para administradores.", "danger");
+            setTimeout(() => location.href = "index.html", 1500); // ← redirección
+            return;
+        }
+        cargarUsuarios();
+    }, 100); // ← espera a usuariosData.js
 });
 
 // Generar ID único
