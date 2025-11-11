@@ -39,7 +39,7 @@ function inicializarUsuarios() {
     if (!usuariosEnStorage) {
         // Primera carga: inicializa con datos nuevos
         localStorage.setItem("usuarios", JSON.stringify(USUARIOS_INICIALES));
-        console.log("✅ Usuarios inicializados en LocalStorage:", USUARIOS_INICIALES);
+        console.log("Usuarios inicializados en LocalStorage:", USUARIOS_INICIALES);
     } else {
         // Ya hay datos: FUSIONA con nuevos datos 
         const usuariosGuardados = JSON.parse(usuariosEnStorage);
@@ -64,9 +64,11 @@ function inicializarUsuarios() {
 
         // Actualizar localStorage con la fusión
         localStorage.setItem("usuarios", JSON.stringify(usuariosActualizados));
-        console.log("✅ Usuarios actualizados en LocalStorage:", usuariosActualizados);
+        console.log("Usuarios actualizados en LocalStorage:", usuariosActualizados);
     }
 }
 
-// Ejecutar al cargar el script
-inicializarUsuarios();
+// Ejecutar al cargar el DOM
+document.addEventListener("DOMContentLoaded", () => {
+    inicializarUsuarios();
+});
