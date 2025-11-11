@@ -1,4 +1,5 @@
-// Constante exportada con datos iniciales de médicos
+// ================== DATOS INICIALES DE MÉDICOS ==================
+
 const MEDICOS_INICIALES = [
   {
     id: 1,
@@ -8,7 +9,9 @@ const MEDICOS_INICIALES = [
     matricula: "MP-12345",
     telefono: "341-4567890",
     email: "jperez@clinica.com",
-    foto: "assets/medico1.png"
+    valorConsulta: 500,
+    foto: "assets/medico1.png",
+    obrasSociales: ["OS001", "OS002"]
   },
   {
     id: 2,
@@ -18,7 +21,9 @@ const MEDICOS_INICIALES = [
     matricula: "MP-23456",
     telefono: "341-4567891",
     email: "mgonzalez@clinica.com",
-    foto: "assets/medico3.png"
+    valorConsulta: 450,
+    foto: "assets/medico3.png",
+    obrasSociales: ["OS001"]
   },
   {
     id: 3,
@@ -28,7 +33,9 @@ const MEDICOS_INICIALES = [
     matricula: "MP-34567",
     telefono: "341-4567892",
     email: "rmartinez@clinica.com",
-    foto: "assets/medico2.png"
+    valorConsulta: 550,
+    foto: "assets/medico2.png",
+    obrasSociales: ["OS001", "OS002", "OS003"]
   },
   {
     id: 4,
@@ -38,7 +45,9 @@ const MEDICOS_INICIALES = [
     matricula: "MP-45678",
     telefono: "341-4567893",
     email: "arodriguez@clinica.com",
-    foto: "assets/medico5.png"
+    valorConsulta: 600,
+    foto: "assets/medico5.png",
+    obrasSociales: ["OS001", "OS002"]
   },
   {
     id: 5,
@@ -48,19 +57,22 @@ const MEDICOS_INICIALES = [
     matricula: "MP-56789",
     telefono: "341-4567894",
     email: "clopez@clinica.com",
-    foto: "assets/medico4.png"
+    valorConsulta: 480,
+    foto: "assets/medico4.png",
+    obrasSociales: ["OS001", "OS002", "OS003"]
   }
 ];
 
+
+// ================== INICIALIZACIÓN ==================
 
 // Inicializar LocalStorage si no existe
 function inicializarMedicos() {
   if (!localStorage.getItem("medicos")) {
     localStorage.setItem("medicos", JSON.stringify(MEDICOS_INICIALES));
-    console.log("Médicos inicializados en LocalStorage con imágenes");
+    console.log("✓ Médicos inicializados en LocalStorage con valores de consulta");
   }
 }
 
 // Ejecutar al cargar el script
 inicializarMedicos();
-

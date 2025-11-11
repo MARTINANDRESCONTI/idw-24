@@ -27,6 +27,7 @@
             <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
             <li class="nav-item"><a class="nav-link" href="institucional.html">Institucional</a></li>
             <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+            <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
             <li class="nav-item d-none" id="adminLink">
               <a class="nav-link" href="admin.html"><i class="bi bi-gear-fill"></i> Admin</a>
             </li>
@@ -120,8 +121,10 @@
                     <th>Apellido</th>
                     <th>Especialidad</th>
                     <th>Matrícula</th>
+                    <th>Valor Consulta</th>
                     <th>Teléfono</th>
                     <th>Email</th>
+                    <th>Obras Sociales</th>
                     <th class="text-center">Acciones</th>
                   </tr>
                 </thead>
@@ -133,7 +136,7 @@
             <div id="noResults" class="text-center text-muted py-4 d-none">
               <i class="bi bi-inbox fs-1"></i>
               <p>No se encontraron médicos</p>
-            </div>
+            </div> 
           </div>
         </div>
       </div>
@@ -187,12 +190,21 @@
                 <label for="email" class="form-label">Email *</label>
                 <input type="email" class="form-control" id="email" required>
               </div>
-               <!--
-              <div class="col-12">
-                <label for="horario" class="form-label">Horario de Atención</label>
-                <textarea class="form-control" id="horario" rows="2" placeholder="Ej: Lunes a Viernes 9:00-17:00"></textarea>
+              <div class="col-md-6">
+                <label for="valorConsulta" class="form-label">Valor de Consulta ($) *</label>
+                <input type="number" class="form-control" id="valorConsulta" min="0" step="0.01" required>
               </div>
-             -->
+              <div class="col-12">
+                <label class="form-label">Obras Sociales que atiende</label>
+                <div id="obrasSocialesCheckboxes" class="border rounded p-3 bg-light">
+                  <!-- Los checkboxes se generan dinámicamente desde JavaScript -->
+                </div>
+                <small class="text-muted d-block mt-2">
+                  <i class="bi bi-info-circle"></i> 
+                  Selecciona todas las obras sociales que el médico atiende.
+                  <br>Si no selecciona ninguna, el médico atenderá solo consultas particulares.
+                </small>
+              </div>             
             </div>
           </form>
         </div>
@@ -243,12 +255,14 @@
               <strong>Email:</strong>
               <p id="verEmail" class="text-muted"></p>
             </div>
-               <!-- 
-            <div class="col-12">
-              <strong>Horario de Atención:</strong>
-              <p id="verHorario" class="text-muted"></p>
+            <div class="col-md-6">
+              <strong>Valor de Consulta:</strong>
+              <p id="verValorConsulta" class="text-muted"></p>
             </div>
-              -->
+            <div class="col-12">
+              <strong>Obras Sociales que atiende:</strong>
+              <p id="verObrasSociales" class="text-muted"></p>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
