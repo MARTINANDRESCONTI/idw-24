@@ -27,6 +27,7 @@
             <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
             <li class="nav-item"><a class="nav-link" href="institucional.html">Institucional</a></li>
             <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+            <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
             <li class="nav-item d-none" id="adminLink">
               <a class="nav-link" href="admin.html"><i class="bi bi-gear-fill"></i> Admin</a>
             </li>
@@ -120,6 +121,7 @@
                     <th>Apellido</th>
                     <th>Especialidad</th>
                     <th>Matrícula</th>
+                    <th>Valor Consulta</th>
                     <th>Teléfono</th>
                     <th>Email</th>
                     <th>Obras Sociales</th>
@@ -187,13 +189,20 @@
               <div class="col-md-6">
                 <label for="email" class="form-label">Email *</label>
                 <input type="email" class="form-control" id="email" required>
-              </div> 
+              </div>
+              <div class="col-md-6">
+                <label for="valorConsulta" class="form-label">Valor de Consulta ($) *</label>
+                <input type="number" class="form-control" id="valorConsulta" min="0" step="0.01" required>
+              </div>
               <div class="col-12">
-                <label for="obrasSociales" class="form-label">Obras Sociales que atiende</label>
-                <select id="obrasSociales" class="form-select" multiple>
-                </select>
-                <small class="text-muted">
-                  Si no selecciona ninguna, el médico atenderá solo consultas particulares.
+                <label class="form-label">Obras Sociales que atiende</label>
+                <div id="obrasSocialesCheckboxes" class="border rounded p-3 bg-light">
+                  <!-- Los checkboxes se generan dinámicamente desde JavaScript -->
+                </div>
+                <small class="text-muted d-block mt-2">
+                  <i class="bi bi-info-circle"></i> 
+                  Selecciona todas las obras sociales que el médico atiende.
+                  <br>Si no selecciona ninguna, el médico atenderá solo consultas particulares.
                 </small>
               </div>             
             </div>
@@ -245,6 +254,10 @@
             <div class="col-md-6">
               <strong>Email:</strong>
               <p id="verEmail" class="text-muted"></p>
+            </div>
+            <div class="col-md-6">
+              <strong>Valor de Consulta:</strong>
+              <p id="verValorConsulta" class="text-muted"></p>
             </div>
             <div class="col-12">
               <strong>Obras Sociales que atiende:</strong>

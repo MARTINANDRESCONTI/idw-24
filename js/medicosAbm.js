@@ -65,7 +65,7 @@ function llenarSelectEspecialidades() {
   });
 }
 
-// ====== NUEVO: CARGA DE OBRAS SOCIALES ======
+// ====== CARGA DE OBRAS SOCIALES ======
 function cargarObrasSociales() {
   const obrasJSON = localStorage.getItem("obrasSociales");
   obrasSociales = obrasJSON ? JSON.parse(obrasJSON) : [];
@@ -73,14 +73,26 @@ function cargarObrasSociales() {
 }
 
 function llenarSelectObras() {
-  const select = document.getElementById("obrasSociales");
-  if (!select) return;
-  select.innerHTML = "";
+  const container = document.getElementById("obrasSocialesCheckboxes");
+  if (!container) return;
+  
+  container.innerHTML = "";
+  
+  if (obrasSociales.length === 0) {
+    container.innerHTML = '<p class="text-muted mb-0">No hay obras sociales cargadas</p>';
+    return;
+  }
+  
   obrasSociales.forEach(o => {
-    const opt = document.createElement("option");
-    opt.value = o.id;
-    opt.textContent = o.nombre;
-    select.appendChild(opt);
+    const div = document.createElement("div");
+    div.className = "form-check";
+    div.innerHTML = `
+      <input class="form-check-input obra-checkbox" type="checkbox" value="${o.id}" id="obra_${o.id}">
+      <label class="form-check-label" for="obra_${o.id}">
+        ${o.nombre} <span class="badge bg-secondary">${o.porcentaje}% desc.</span>
+      </label>
+    `;
+    container.appendChild(div);
   });
 }
 
@@ -111,6 +123,7 @@ function renderizarTabla(lista) {
         <td>${medico.apellido}</td>
         <td><span class="badge bg-info">${nombreEsp}</span></td>
         <td>${medico.matricula}</td>
+        <td>$${parseFloat(medico.valorConsulta || 0).toFixed(2)}</td>
         <td>${medico.telefono}</td>
         <td>${medico.email}</td>
         <td>${obrasAtendidas}</td>
@@ -164,6 +177,12 @@ btnNuevoMedico.addEventListener("click", () => {
   medicoEditando = null;
   medicoForm.reset();
   previewImg.src = "assets/default.png";
+  
+  // Desmarcar todos los checkboxes
+  document.querySelectorAll(".obra-checkbox").forEach(cb => {
+    cb.checked = false;
+  });
+  
   medicoModalLabel.innerHTML = '<i class="bi bi-person-plus"></i> Nuevo Médico';
 });
 
@@ -180,12 +199,19 @@ btnGuardarMedico.addEventListener("click", () => {
     return;
   }
 
+  const valorConsulta = parseFloat(document.getElementById("valorConsulta").value);
+  if (!valorConsulta || valorConsulta <= 0) {
+    showToast("Ingresa un valor de consulta válido", "warning");
+    return;
+  }
+
   const esp = especialidades.find(e => e.especialidadId === especialidadId);
   const baseFoto = previewImg.src || "assets/default.png";
 
+  // Capturar checkboxes seleccionados
   const obrasSeleccionadas = Array.from(
-    document.getElementById("obrasSociales").selectedOptions
-  ).map(opt => opt.value);
+    document.querySelectorAll(".obra-checkbox:checked")
+  ).map(cb => cb.value);
 
   const medico = {
     id: medicoEditando ? medicoEditando.id : generarId(),
@@ -195,6 +221,7 @@ btnGuardarMedico.addEventListener("click", () => {
     matricula: document.getElementById("matricula").value.trim(),
     telefono: document.getElementById("telefono").value.trim(),
     email: document.getElementById("email").value.trim(),
+    valorConsulta: valorConsulta,
     foto: baseFoto,
     obrasSociales: obrasSeleccionadas
   };
@@ -225,6 +252,7 @@ window.verMedico = function (id) {
   document.getElementById("verMatricula").textContent = medico.matricula;
   document.getElementById("verTelefono").textContent = medico.telefono;
   document.getElementById("verEmail").textContent = medico.email;
+  document.getElementById("verValorConsulta").textContent = `$${parseFloat(medico.valorConsulta || 0).toFixed(2)}`;
 
   const obrasAtendidas = medico.obrasSociales?.length
     ? medico.obrasSociales.map(id => {
@@ -250,11 +278,12 @@ window.editarMedico = function (id) {
   document.getElementById("matricula").value = medico.matricula;
   document.getElementById("telefono").value = medico.telefono;
   document.getElementById("email").value = medico.email;
+  document.getElementById("valorConsulta").value = medico.valorConsulta;
   previewImg.src = medico.foto || "assets/default.png";
 
-  const selectObras = document.getElementById("obrasSociales");
-  Array.from(selectObras.options).forEach(opt => {
-    opt.selected = medico.obrasSociales?.includes(opt.value);
+  // Marcar los checkboxes correspondientes
+  document.querySelectorAll(".obra-checkbox").forEach(cb => {
+    cb.checked = medico.obrasSociales?.includes(cb.value) || false;
   });
 
   medicoModalLabel.innerHTML = '<i class="bi bi-pencil"></i> Editar Médico';
@@ -288,6 +317,6 @@ function generarId() {
 // ================== INICIO ==================
 document.addEventListener("DOMContentLoaded", () => {
   cargarEspecialidades();
-  cargarObrasSociales(); // nuevo
+  cargarObrasSociales();
   cargarMedicos();
 });
