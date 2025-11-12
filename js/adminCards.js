@@ -18,15 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     { 
       id: 3, 
-      image: "/assets/turnos.png", 
-      title: "Turnos",
-      description: "Administrar turnos y citas médicas del sistema.",
-      link: "abm-turnos.html",
-      icon: "bi-calendar-check"
-    },
-
-    { 
-      id: 4, 
       image: "assets/horarios.jpg", 
       title: "Horarios",
       description: "Configurar horarios de atención de los profesionales.",
@@ -34,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
       icon: "bi-clock"
     },
     { 
-      id: 5, 
+      id: 4, 
       image: "assets/reportes.png", 
       title: "Reportes de Usuarios",
       description: "Visualizar reportes y estadísticas del sistema.",
@@ -42,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
       icon: "bi-graph-up"
     },
     { 
-      id: 6, 
+      id: 5, 
       image: "assets/obraSocial.jpg", 
       title: "Reportes de Usuarios",
       description: "Visualizar reportes y estadísticas del sistema.",
