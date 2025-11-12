@@ -26,7 +26,7 @@ const ADMIN_CRED = { username: "admin", password: "admin123", role: "admin" };
     if (
         (paginaActual.startsWith("admin") ||
             paginaActual.startsWith("abm-") ||
-            paginaActual.startsWith("gestion") ||
+            //paginaActual.startsWith("gestion") ||
             paginaActual.startsWith("users")) &&
         (!usuarioLogueado || usuarioLogueado.role !== "admin")
     ) {
