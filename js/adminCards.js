@@ -48,6 +48,14 @@ document.addEventListener("DOMContentLoaded", () => {
       link: "users.html",
       icon: "bi-graph-up"
     },
+    { 
+      id: 7, 
+      image: "assets/obraSocial.jpg", 
+      title: "Reportes de Usuarios",
+      description: "Visualizar reportes y estadísticas del sistema.",
+      link: "abm-obraSoc.html",
+      icon: "bi-graph-up"
+    },
   ];
 
   const container = document.getElementById("adminCardsContainer");
