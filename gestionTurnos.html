@@ -8,6 +8,8 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
     <style>
       body {
         min-height: 100vh;
@@ -36,7 +38,6 @@
     </style>
   </head>
   <body>
-    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
       <div class="container">
         <a class="navbar-brand fw-bold" href="index.html">Centro Médico Integral S.A.</a>
@@ -68,26 +69,23 @@
       </div>
     </nav>
 
-    <!-- FORMULARIO RESERVAS -->
     <main>
       <form id="formTurno">
         <h2 class="text-center fw-bold text-primary mb-4">Reservar Turno</h2>
+        
         <div class="row g-3">
-          <!-- Especialidad -->
           <div class="col-md-4">
             <label for="especialidad" class="form-label fw-semibold">Especialidad</label>
             <select id="especialidad" class="form-select" required>
               <option value="">Seleccione una especialidad</option>
             </select>
           </div>
-          <!-- Médico -->
           <div class="col-md-4">
             <label for="medico" class="form-label fw-semibold">Médico</label>
             <select id="medico" class="form-select" required>
               <option value="">Seleccione primero una especialidad</option>
             </select>
           </div>
-          <!-- Obra Social -->
           <div class="col-md-4">
             <label for="obraSocial" class="form-label fw-semibold">Obra Social</label>
             <select id="obraSocial" class="form-select" required>
@@ -96,18 +94,30 @@
           </div>
         </div>
 
+        <div class="row g-3 mt-4">
+            <div class="col-md-6">
+                <label for="documento" class="form-label fw-semibold">Documento / Identificador</label>
+                <input type="text" id="documento" class="form-control" required />
+            </div>
+            <div class="col-md-6">
+                <label for="apellidoNombre" class="form-label fw-semibold">Apellido y Nombre del paciente</label>
+                <input type="text" id="apellidoNombre" class="form-control" required />
+            </div>
+        </div>
+        
         <div class="row g-3 mt-3">
-          <!-- Fecha -->
           <div class="col-md-4">
             <label for="fecha" class="form-label fw-semibold">Fecha</label>
-            <select id="fecha" class="form-select" required></select>
+            <select id="fecha" class="form-select" required>
+              <option value="">Seleccione médico</option>
+            </select>
           </div>
-          <!-- Hora -->
           <div class="col-md-4">
             <label for="hora" class="form-label fw-semibold">Hora</label>
-            <select id="hora" class="form-select" required></select>
+            <select id="hora" class="form-select" required>
+              <option value="">Seleccione fecha</option>
+            </select>
           </div>
-          <!-- Valor Consulta -->
           <div class="col-md-4">
             <label for="valorConsulta" class="form-label fw-semibold">Valor de la consulta</label>
             <input type="text" id="valorConsulta" class="form-control readonly-input" readonly />
@@ -115,32 +125,41 @@
         </div>
 
         <div class="row g-3 mt-3">
-          <!-- A cargo obra social -->
           <div class="col-md-6">
             <label for="aCargoObraSocial" class="form-label fw-semibold">A cargo obra social</label>
             <input type="text" id="aCargoObraSocial" class="form-control readonly-input" readonly />
           </div>
-          <!-- A cargo paciente -->
           <div class="col-md-6">
             <label for="aCargoPaciente" class="form-label fw-semibold">A cargo paciente</label>
             <input type="text" id="aCargoPaciente" class="form-control readonly-input" readonly />
           </div>
         </div>
+        
+        <div id="resultadoFinal"></div>
 
         <div class="mt-4 text-end">
-          <button type="submit" id="btnGuardarTurno" class="btn btn-success px-4">Guardar Turno</button>
+          <button type="submit" id="btnGuardarTurno" class="btn btn-success px-4">
+            <i class="bi bi-calendar-check"></i> Guardar Turno
+          </button>
         </div>
       </form>
     </main>
 
-    <!-- FOOTER -->
     <footer class="bg-primary text-white text-center py-3 mt-auto">
       <p class="mb-0">&copy; 2025 Clínica Salud+. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- SCRIPTS -->
     <script src="js/auth.js"></script>
+    
+    <script src="js/especialidadesData.js"></script>
+    <script src="js/medicosData.js"></script>
+    <script src="js/obraSocAbm.js"></script>
+    <script src="js/turnosData.js"></script> 
+    
+    <script type="module" src="js/utils/turnosStorage.js"></script>
+
     <script type="module" src="js/reservas.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
