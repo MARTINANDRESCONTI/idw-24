@@ -5,8 +5,6 @@ const ADMIN_CRED = { username: "admin", password: "admin123", role: "admin" };
 
 // ====================================================================
 // 🚀 PROTECCIÓN DE RUTAS (EJECUCIÓN INMEDIATA)
-// Esta lógica se ejecuta tan pronto como el script es cargado por el navegador
-// para evitar que el usuario vea el contenido antes de la verificación.
 // ====================================================================
 (async () => {
     async function esperarUsuario() {
@@ -32,7 +30,6 @@ const ADMIN_CRED = { username: "admin", password: "admin123", role: "admin" };
             paginaActual.startsWith("users")) &&
         (!usuarioLogueado || usuarioLogueado.role !== "admin")
     ) {
-        // En este punto es mejor solo redirigir, sin alerta bloqueante
         window.location.href = "index.html";
         return; // Detiene la ejecución posterior
     }
@@ -42,7 +39,6 @@ const ADMIN_CRED = { username: "admin", password: "admin123", role: "admin" };
         paginaActual === "reservas.html" &&
         (!usuarioLogueado || (usuarioLogueado.role !== "visitor" && usuarioLogueado.role !== "user"))
     ) {
-        // En este punto es mejor solo redirigir, sin alerta bloqueante
         window.location.href = "index.html";
         return; // Detiene la ejecución posterior
     }
@@ -51,7 +47,6 @@ const ADMIN_CRED = { username: "admin", password: "admin123", role: "admin" };
 
 // ====================================================================
 // 💻 LÓGICA DE INTERFAZ Y FUNCIONALIDAD (EJECUCIÓN DESPUÉS DEL DOM)
-// Esto espera a que exista el DOM para manipular elementos.
 // ====================================================================
 document.addEventListener("DOMContentLoaded", () => {
     // Elementos del DOM (ajustá ids si son distintos)
@@ -156,7 +151,37 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // 2) Login DummyJSON
+        // 2) Verificar usuarios registrados en LocalStorage (NUEVA LÓGICA)
+        const storedUsersJSON = localStorage.getItem("usuarios"); 
+        if (storedUsersJSON) {
+            const users = JSON.parse(storedUsersJSON);
+            // Buscar al usuario por username
+            const localUser = users.find(u => u.username === username);
+
+            if (localUser) {
+                // Comprobar la contraseña
+                if (localUser.password === password) { 
+                    // Autenticación LOCAL exitosa
+                    const userForSession = { 
+                        username: localUser.username, 
+                        firstName: localUser.firstName, 
+                        lastName: localUser.lastName, 
+                        role: localUser.role || "user", 
+                        source: "local-storage" 
+                    };
+                    sessionStorage.setItem("currentUser", JSON.stringify(userForSession));
+                    sessionStorage.setItem("token", "LOCAL_STORAGE_TOKEN"); // Token simbólico
+                    
+                    updateNavbar(userForSession);
+                    loginModal?.hide();
+                    loginForm.reset();
+                    showToast(`✔ Bienvenido ${userForSession.username}`, "primary");
+                    return; // Detener la ejecución, el login fue exitoso
+                }
+            }
+        }
+        
+        // 3) Login DummyJSON (Si el usuario no fue encontrado localmente ni es admin)
         try {
             const res = await fetch("https://dummyjson.com/user/login", {
                 method: "POST",
@@ -165,7 +190,8 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (!res.ok) {
-                showToast("❌ Usuario o contraseña incorrecta (DummyJSON)", "danger");
+                // Si falla el admin, falla el local y falla DummyJSON
+                showToast("❌ Usuario o contraseña incorrecta", "danger");
                 return;
             }
 

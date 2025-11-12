@@ -24,16 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
       link: "abm-turnos.html",
       icon: "bi-calendar-check"
     },
+
     { 
       id: 4, 
-      image: "assets/pacientes.jpg", 
-      title: "Pacientes",
-      description: "Gestionar información de pacientes registrados.",
-      link: "abm-pacientes.html",
-      icon: "bi-people"
-    },
-    { 
-      id: 5, 
       image: "assets/horarios.jpg", 
       title: "Horarios",
       description: "Configurar horarios de atención de los profesionales.",
@@ -41,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       icon: "bi-clock"
     },
     { 
-      id: 6, 
+      id: 5, 
       image: "assets/reportes.png", 
       title: "Reportes de Usuarios",
       description: "Visualizar reportes y estadísticas del sistema.",
@@ -49,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
       icon: "bi-graph-up"
     },
     { 
-      id: 7, 
+      id: 6, 
       image: "assets/obraSocial.jpg", 
       title: "Reportes de Usuarios",
       description: "Visualizar reportes y estadísticas del sistema.",
