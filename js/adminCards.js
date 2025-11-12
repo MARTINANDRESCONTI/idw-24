@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { 
       id: 3, 
       image: "assets/horarios.jpg", 
-      title: "Horarios",
+      title: "Generación de Turnos",
       description: "Configurar horarios de atención de los profesionales.",
       link: "abm-horarios.html",
       icon: "bi-clock"
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { 
       id: 4, 
       image: "assets/reportes.png", 
-      title: "Reportes de Usuarios",
+      title: "Reportes de Usuarios y Turnos",
       description: "Visualizar reportes y estadísticas del sistema.",
       link: "users.html",
       icon: "bi-graph-up"
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { 
       id: 5, 
       image: "assets/obraSocial.jpg", 
-      title: "Reportes de Usuarios",
+      title: "Obras Sociales",
       description: "Visualizar reportes y estadísticas del sistema.",
       link: "abm-obraSoc.html",
       icon: "bi-graph-up"
