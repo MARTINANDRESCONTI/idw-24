@@ -13,42 +13,76 @@
   </head>
 
   <body class="d-flex flex-column min-vh-100">
+ <!-- NAVBAR -->
     <header>
-    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="index.html">Centro Médico Integral S.A.</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarID" aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarID">
-          <ul class="navbar-nav ms-auto text-center">
-            <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
-            <li class="nav-item"><a class="nav-link" href="institucional.html">Institucional</a></li>
-            <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
-            <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
-            
-            <!-- Botón RESERVAR TURNO -->
-            <li class="nav-item ms-2">
-              <a href="gestionTurnos.html" class="btn btn-warning fw-bold text-dark">
-                RESERVAR TURNO
-              </a>
-            </li>
-
-            <li class="nav-item d-none" id="adminLink">
-              <a class="nav-link" href="admin.html"><i class="bi bi-gear-fill"></i> Admin</a>
-            </li>
-            <li class="nav-item d-none" id="reservasLink">
-              <a class="nav-link" href="#">Reservas</a>
-            </li>
-            <!-- Botón de login/logout -->
-            <li class="nav-item ms-2">
-              <button class="btn btn-light btn-sm" id="loginBtn">Login</button>
-            </li>
-          </ul>
+      <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+        <div class="container">
+          <a class="navbar-brand fw-bold" href="index.html"
+            >Centro Médico Integral S.A.</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarID"
+            aria-controls="navbarID"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarID">
+            <ul class="navbar-nav ms-auto text-center">
+              <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+              <li class="nav-item">
+                <a class="nav-link active" href="institucional.html">Institucional</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contacto.html">Contacto</a>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
+              <li class="nav-item d-none" id="adminLink">
+                <a class="nav-link" href="admin.html"
+                  ><i class="bi bi-gear-fill"></i> Admin</a
+                >
+              </li>
+              <li class="nav-item d-none" id="reservasLink">
+                <a class="nav-link" href="#">Reservas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="gestionTurnos.html" id="turnosLink"
+                  >Gestión de Turnos</a
+                >
+              </li>
+              <!-- Botón de login/logout -->
+              <li class="nav-item ms-2">
+                <button class="btn btn-light btn-sm" id="loginBtn">
+                  Login
+                </button>
+              </li>
+              <!-- Registrarse -->
+              <li class="nav-item ms-2">
+                <a
+                  href="usuarioRegistrado.html"
+                  class="btn btn-light btn-sm"
+                  id="loggedBtn"
+                  >Registrarse</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </nav>
     </header>
+
+    <!-- TOASTS -->
+    <div
+      id="toastContainer"
+      class="position-fixed top-50 start-50 translate-middle"
+      style="z-index: 9999"
+    ></div>
+
 
     <!-- MODAL LOGIN -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -75,71 +109,8 @@
       </div>
     </div>
 
-      <!-- Modal: Verificar Usuario antes de gestionar turnos -->
-    <div
-      class="modal fade"
-      id="checkUserModal"
-      tabindex="-1"
-      aria-labelledby="checkUserModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="checkUserModalLabel">
-              <i class="bi bi-person-check"></i> Verificar Usuario
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Cerrar"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <p>
-              Ingrese su correo electrónico para continuar con la gestión de
-              turnos o registrese:
-            </p>
-            <input
-              type="email"
-              id="checkUserEmail"
-              class="form-control"
-              placeholder="Correo electrónico"
-            />
-            <div id="checkUserError" class="text-danger mt-2 d-none">
-              ⚠ Usuario no encontrado
-            </div>
-
-            <!-- Contenedor del enlace de registro (siempre visible) -->
-            <div id="registerLinkContainer" class="mt-3 text-center">
-              <a href="usuarioRegistrado.html" class="btn btn-danger w-100">
-                <i class="bi bi-person-plus-fill"></i> Registrar nuevo usuario
-              </a>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              id="btnCheckUser"
-              class="btn btn-success w-100"
-            >
-              <i class="bi bi-box-arrow-in-right"></i> Gestionar Turno
-            </button>
-            <button
-              type="button"
-              id="btnRegister"
-              class="btn btn-primary w-100"
-            >
-              <i class="bi bi-box-arrow-in-right"></i> Registrarse
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  <!-- TOASTS -->
-  <div id="toastContainer" class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999"></div>
+    <!-- TOASTS -->
+    <div id="toastContainer" class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999"></div>
 
     <main>
       <!-- QUIÉNES SOMOS -->
