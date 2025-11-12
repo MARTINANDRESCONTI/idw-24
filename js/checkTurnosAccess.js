@@ -1,7 +1,8 @@
+// checkTurnosAccess.js
 document.addEventListener("DOMContentLoaded", () => {
   const turnosLinks = document.querySelectorAll('a[href="gestionTurnos.html"]');
 
-  // Modal de advertencia
+  // Modal de advertencia (lo dejamos por compatibilidad, aunque ya no se usa)
   const loginWarningModalEl = document.createElement("div");
   loginWarningModalEl.innerHTML = `
     <div class="modal fade" id="loginWarningModal" tabindex="-1" aria-labelledby="loginWarningModalLabel" aria-hidden="true">
@@ -38,23 +39,17 @@ document.addEventListener("DOMContentLoaded", () => {
     sessionStorage.setItem("redirectAfterLogin", "gestionTurnos.html");
   });
 
-  // Manejo de enlaces a gestión de turnos
+  // 🔹 Manejo de enlaces a gestión de turnos (MODIFICADO)
+  // Antes: bloqueaba acceso si no había usuario logueado.
+  // Ahora: cualquier visitante puede entrar directamente.
   turnosLinks.forEach(link => {
     link.addEventListener("click", e => {
       e.preventDefault();
-
-      const currentUserStr = sessionStorage.getItem("currentUser");
-      if (currentUserStr) {
-        // Usuario logueado: redirigir directo
-        window.location.href = "gestionTurnos.html";
-      } else {
-        // Usuario no logueado: mostrar modal
-        loginWarningModal.show();
-      }
+      window.location.href = "gestionTurnos.html";
     });
   });
 
-  // Detectar login exitoso y redirigir si estaba intentando acceder
+  // 🔹 Detectar login exitoso y redirigir si estaba intentando acceder
   const loginBtn = document.getElementById("loginBtn");
   document.getElementById("loginForm")?.addEventListener("submit", (e) => {
     e.preventDefault();
