@@ -87,12 +87,12 @@ function renderTabla() {
 
   // Buscar médico relacionado
   const medico = medicos.find(m => m.obraSocialId === obra.id); 
-  const precioConsulta = medico ? medico.precioConsulta : "—";
+  
 
   fila.innerHTML = `
     <td>${obra.nombre}</td>
     <td>${obra.porcentaje}%</td>
-    <td>${precioConsulta}</td>
+    
       <td>
       <button class="btn btn-warning btn-sm me-2" onclick="editarObra('${obra.id}')">
         <i class="bi bi-pencil-square"></i>
