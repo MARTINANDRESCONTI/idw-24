@@ -14,8 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function checkEmail(email) {
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    return usuarios.find(u => u.email && u.email.toLowerCase() === email.toLowerCase());
+    // const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    // return usuarios.find(u => u.email && u.email.toLowerCase() === email.toLowerCase());
+    return true
   }
 
   function resetModal() {
@@ -34,17 +35,17 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   btnCheck.addEventListener("click", () => {
-    const email = emailInput.value.trim();
-    if (!email) return;
+    // const email = emailInput.value.trim();
+    // if (!email) return;
 
-    const usuario = checkEmail(email);
+    // const usuario = checkEmail(email);
 
-    if (usuario) {
-      sessionStorage.setItem("currentUserEmail", email);
-      modal.hide();
-      window.location.href = "gestionTurnos.html";
-    } else {
-      errorMsg.classList.remove("d-none");
-    }
+    // if (usuario) {
+    //   sessionStorage.setItem("currentUserEmail", email);
+    //   modal.hide();
+    window.location.href = "gestionTurnos.html";
+    // } else {
+    //   errorMsg.classList.remove("d-none");
+    // }
   });
 });

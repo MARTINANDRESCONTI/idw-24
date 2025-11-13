@@ -18,180 +18,39 @@
     <title>Clínica IDW S.A.</title>
   </head>
 
-  <body class="d-flex flex-column min-vh-100">
-    <!-- NAVBAR -->
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- NAVBAR -->
     <header>
-      <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
-        <div class="container">
-          <a class="navbar-brand fw-bold" href="index.html"
-            >Centro Médico Integral S.A.</a
-          >
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarID"
-            aria-controls="navbarID"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarID">
-            <ul class="navbar-nav ms-auto text-center">
-              <li class="nav-item">
-                <a class="nav-link active" href="index.html">Inicio</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="institucional.html">Institucional</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contacto.html">Contacto</a>
-              </li>
-              <li class="nav-item d-none" id="adminLink">
-                <a class="nav-link" href="admin.html"
-                  ><i class="bi bi-gear-fill"></i> Admin</a
-                >
-              </li>
-              <li class="nav-item d-none" id="reservasLink">
-                <a class="nav-link" href="#">Reservas</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="gestionTurnos.html" id="turnosLink"
-                  >Gestión de Turnos</a
-                >
-              </li>
-              <!-- Botón de login/logout -->
-              <li class="nav-item ms-2">
-                <button class="btn btn-light btn-sm" id="loginBtn">
-                  Login
-                </button>
-              </li>
-              <!-- Registrarse -->
-              <li class="nav-item ms-2">
-                <a
-                  href="usuarioRegistrado.html"
-                  class="btn btn-light btn-sm"
-                  id="loggedBtn"
-                  >Registrarse</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-
-    <!-- MODAL LOGIN -->
-    <div
-      class="modal fade"
-      id="loginModal"
-      tabindex="-1"
-      aria-labelledby="loginModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header bg-primary text-light">
-            <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
-            <button
-              type="button"
-              class="btn-close btn-close-white"
-              data-bs-dismiss="modal"
-              aria-label="Cerrar"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form id="loginForm">
-              <div class="mb-3">
-                <label for="usernameInput" class="form-label">Usuario</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="usernameInput"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="passwordInput" class="form-label">Contraseña</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="passwordInput"
-                  required
-                />
-              </div>
-              <button type="submit" class="btn btn-primary w-100">
-                Ingresar
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal: Verificar Usuario antes de gestionar turnos -->
-    <div
-      class="modal fade"
-      id="checkUserModal"
-      tabindex="-1"
-      aria-labelledby="checkUserModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="checkUserModalLabel">
-              <i class="bi bi-person-check"></i> Verificar Usuario
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Cerrar"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <p>
-              Ingrese su correo electrónico para continuar con la gestión de
-              turnos o registrese:
-            </p>
-            <input
-              type="email"
-              id="checkUserEmail"
-              class="form-control"
-              placeholder="Correo electrónico"
-            />
-            <div id="checkUserError" class="text-danger mt-2 d-none">
-              ⚠ Usuario no encontrado
-            </div>
-
-            <!-- Contenedor del enlace de registro (siempre visible) -->
-            <div id="registerLinkContainer" class="mt-3 text-center">
-              <a href="usuarioRegistrado.html" class="btn btn-danger w-100">
-                <i class="bi bi-person-plus-fill"></i> Registrar nuevo usuario
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">Centro Médico Integral S.A.</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarID" aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarID">
+          <ul class="navbar-nav ms-auto text-center">
+            <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="institucional.html">Institucional</a></li>
+            <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+            <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
+            <li class="nav-item ms-2">
+              <a href="gestionTurnos.html" class="btn btn-warning fw-bold text-dark">
+                RESERVAR TURNO
               </a>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              id="btnCheckUser"
-              class="btn btn-success w-100"
-            >
-              <i class="bi bi-box-arrow-in-right"></i> Gestionar Turno
-            </button>
-            <button
-              type="button"
-              id="btnRegister"
-              class="btn btn-primary w-100"
-            >
-              <i class="bi bi-box-arrow-in-right"></i> Registrarse
-            </button>
-          </div>
+            </li>
+            <li class="nav-item d-none" id="adminLink">
+              <a class="nav-link" href="admin.html"><i class="bi bi-gear-fill"></i> Admin</a>
+            </li>
+
+            <li class="nav-item ms-2">
+              <button class="btn btn-light btn-sm" id="loginBtn">Login</button>
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
+    </nav>
+  </header>
 
     <!-- TOASTS -->
     <div
@@ -200,48 +59,173 @@
       style="z-index: 9999"
     ></div>
 
-    <!-- PORTADA / SECCIÓN PRINCIPAL -->
-    <main>
-      <section class="py-5 bg-light" style="min-height: 80vh">
-        <div class="container">
-          <div class="text-center mb-5">
-            <h2 class="display-5 fw-bold text-primary">
-              En Centro Médico Integral
-            </h2>
-            <p class="lead text-dark">
-              Brindamos atención médica integral con la más alta calidad
-            </p>
+    <!-- MODAL LOGIN -->
+<div
+  class="modal fade"
+  id="loginModal"
+  tabindex="-1"
+  aria-labelledby="loginModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-light">
+        <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="loginForm">
+          <div class="mb-3">
+            <label for="usernameInput" class="form-label">Usuario</label>
+            <input
+              type="text"
+              class="form-control"
+              id="usernameInput"
+              required
+            />
           </div>
+          <div class="mb-3">
+            <label for="passwordInput" class="form-label">Contraseña</label>
+            <input
+              type="password"
+              class="form-control"
+              id="passwordInput"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary w-100">
+            Ingresar
+          </button>
+        </form>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <p class="mb-0 text-center">
+          ¿No estás registrado?
+          <a href="usuarioRegistrado.html" class="fw-bold text-primary">Regístrate aquí</a>
+        </p>
+      </div>
+      </div>
+  </div>
+</div>
+  </div>
 
-          <!-- Container for dynamically loaded cards -->
-          <div id="servicesContainer" class="row g-4"></div>
+  <!-- Modal: Verificar Usuario antes de gestionar turnos -->
+  <div
+    class="modal fade"
+    id="checkUserModal"
+    tabindex="-1"
+    aria-labelledby="checkUserModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="checkUserModalLabel">
+            <i class="bi bi-person-check"></i> Verificar Usuario
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Cerrar"
+          ></button>
         </div>
-      </section>
-    </main>
+        <div class="modal-body">
+          <p>
+            Ingrese su correo electrónico para continuar con la gestión de
+            turnos o registrese:
+          </p>
+          <input
+            type="email"
+            id="checkUserEmail"
+            class="form-control"
+            placeholder="Correo electrónico"
+          />
+          <div id="checkUserError" class="text-danger mt-2 d-none">
+            ⚠ Usuario no encontrado
+          </div>
 
-    <!-- FOOTER -->
-    <footer class="bg-primary text-light mt-auto border-top">
-      <div class="container p-3">
-        <div class="row">
-          <div class="col-12 col-md-6 text-md-start text-center mb-2 mb-md-0">
-            &copy; 2025 By IDW S.A. - UNER IDW Grupo 24
+          <!-- Contenedor del enlace de registro (siempre visible) -->
+          <div id="registerLinkContainer" class="mt-3 text-center">
+            <a href="usuarioRegistrado.html" class="btn btn-danger w-100">
+              <i class="bi bi-person-plus-fill"></i> Registrar nuevo usuario
+            </a>
           </div>
-          <div class="col-12 col-md-6 text-md-end text-center">
-            <a href="#" class="text-light me-3"
-              ><i class="bi bi-facebook"></i
-            ></a>
-            <a href="#" class="text-light me-3"
-              ><i class="bi bi-twitter-x"></i
-            ></a>
-            <a href="#" class="text-light"><i class="bi bi-instagram"></i></a>
-          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            id="btnCheckUser"
+            class="btn btn-success w-100"
+          >
+            <i class="bi bi-box-arrow-in-right"></i> Gestionar Turno
+          </button>
+          <button
+            type="button"
+            id="btnRegister"
+            class="btn btn-primary w-100"
+          >
+            <i class="bi bi-box-arrow-in-right"></i> Registrarse
+          </button>
         </div>
       </div>
-    </footer>
+    </div>
+  </div>
 
-    <!-- Scripts -->
-    <script type="module" src="js/auth.js"></script>
-    <script type="module" src="js/checkTurnosAccess.js"></script>
-    <script src="js/cards.js"></script>
-  </body>
+  <!-- TOASTS -->
+  <div
+    id="toastContainer"
+    class="position-fixed top-50 start-50 translate-middle"
+    style="z-index: 9999"
+  ></div>
+
+  <!-- PORTADA / SECCIÓN PRINCIPAL -->
+  <main>
+    <section class="py-5 bg-light" style="min-height: 80vh">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="display-5 fw-bold text-primary">
+            En Centro Médico Integral
+          </h2>
+          <p class="lead text-dark">
+            Brindamos atención médica integral con la más alta calidad
+          </p>
+        </div>
+
+        <!-- Container for dynamically loaded cards -->
+        <div id="servicesContainer" class="row g-4"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-primary text-light mt-auto border-top">
+    <div class="container p-3">
+      <div class="row">
+        <div class="col-12 col-md-6 text-md-start text-center mb-2 mb-md-0">
+          &copy; 2025 By IDW S.A. - UNER IDW Grupo 24
+        </div>
+        <div class="col-12 col-md-6 text-md-end text-center">
+          <a href="#" class="text-light me-3"
+            ><i class="bi bi-facebook"></i
+          ></a>
+          <a href="#" class="text-light me-3"
+            ><i class="bi bi-twitter-x"></i
+          ></a>
+          <a href="#" class="text-light"><i class="bi bi-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/checkTurnosAccess.js"></script>
+  <script src="js/cards.js"></script>
+</body>
 </html>

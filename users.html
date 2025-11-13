@@ -15,55 +15,58 @@
     <link rel="stylesheet" href="./styles/variables.css" />
     <link rel="stylesheet" href="./styles/index.css" />
     <link rel="icon" href="Iconos/logo.png" />
-    <title>Clínica IDW S.A.</title>
+    <title>Reportes - Clínica IDW S.A.</title>
+    <style>
+      /* Corrección de márgenes globales */
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+
+      header, footer {
+        margin: 0;
+        padding: 0;
+      }
+
+      main {
+        flex-grow: 1;
+      }
+    </style>
   </head>
 
-  <body class="d-flex flex-column min-vh-100">
+  <body class="d-flex flex-column min-vh-100 bg-light">
+
     <!-- NAVBAR -->
-    <header>
-      <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+    <header class="m-0 p-0">
+      <nav class="navbar navbar-expand-lg bg-primary navbar-dark mb-0">
         <div class="container">
-          <a class="navbar-brand fw-bold" href="index.html"
-            >Centro Médico Integral S.A.</a
-          >
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarID"
-            aria-controls="navbarID"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
+          <a class="navbar-brand fw-bold" href="index.html">Centro Médico Integral S.A.</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarID" aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarID">
             <ul class="navbar-nav ms-auto text-center">
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">Inicio</a>
+              <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
+              <li class="nav-item"><a class="nav-link" href="institucional.html">Institucional</a></li>
+              <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+              <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
+              
+              <li class="nav-item ms-2">
+                <a href="gestionTurnos.html" class="btn btn-warning fw-bold text-dark">
+                  RESERVAR TURNO
+                </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="institucional.html">Institucional</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contacto.html">Contacto</a>
-              </li>
+
               <li class="nav-item d-none" id="adminLink">
-                <a class="nav-link" href="admin.html"
-                  ><i class="bi bi-gear-fill"></i> Admin</a
-                >
+                <a class="nav-link" href="admin.html"><i class="bi bi-gear-fill"></i> Admin</a>
               </li>
               <li class="nav-item d-none" id="reservasLink">
                 <a class="nav-link" href="#">Reservas</a>
               </li>
-              <!-- Botón de login/logout -->
               <li class="nav-item ms-2">
-                <button class="btn btn-light btn-sm" id="loginBtn">
-                  Login
-                </button>
+                <button class="btn btn-light btn-sm" id="loginBtn">Login</button>
               </li>
-               <!-- Registrarse -->
-             <li class="nav-item"><a class="nav-link" href="usuarioRegistrado.html">Registrarse</a></li>
             </ul>
           </div>
         </div>
@@ -118,61 +121,112 @@
       </div>
     </div>
 
-    <!-- TOASTS -->
+    <!-- TOAST -->
     <div
       id="toastContainer"
       class="position-fixed top-50 start-50 translate-middle"
       style="z-index: 9999"
     ></div>
 
-    <!-- PORTADA / SECCIÓN PRINCIPAL -->
-    <main>
-      <div class="container mt-5 text-center ">
+    <!-- MAIN -->
+    <main class="flex-grow-1">
+      <div class="container py-4">
 
-      <table class="table table-bordered table-striped table-hover mt-3 align-middle shadow-sm" id="tablaUsuarios">
-      <h2>Lista de usuarios</h2>
-        <thead>
-          <tr>
-            <td>Nombre</td>
-            <td>Usuario</td>
-            <td>Contraseña</td>
-            <td>Email</td>
-            <td>Telefono</td>
-            <td>Role</td>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+        <h3 class="text-primary fw-bold mb-3">
+          <i class="bi bi-person-lines-fill"></i> Reporte de Usuarios Registrados
+        </h3>
 
+        <div class="card shadow-sm mb-4">
+          <div class="card-body p-0">
+            <table class="table table-bordered table-striped table-hover align-middle mb-0" id="tablaUsuarios">
+              <thead>
+                <tr>
+                  <td>Nombre</td>
+                  <td>Usuario</td>
+                  <td>Contraseña</td>
+                  <td>Email</td>
+                  <td>Teléfono</td>
+                  <td>Rol</td>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
 
-        
+        <hr class="my-4" />
+
+        <h3 class="text-primary fw-bold mb-3">
+          <i class="bi bi-calendar-x"></i> Reporte de Turnos Ocupados
+        </h3>
+
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <div class="row g-3 mb-3 align-items-end">
+              <div class="col-md-6">
+                <label for="filterMedicoReporte" class="form-label fw-bold">Filtrar por Médico</label>
+                <select class="form-select" id="filterMedicoReporte">
+                  <option value="">Todos los Médicos</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <button class="btn btn-outline-secondary w-100" id="btnLimpiarReporte">
+                  <i class="bi bi-arrow-clockwise"></i> Limpiar Filtro
+                </button>
+              </div>
+            </div>
+            
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0">
+                <thead class="table-primary">
+                  <tr>
+                    <th>Fecha y Hora</th>
+                    <th>Médico</th>
+                    <th>Especialidad</th>
+                    <th>Paciente</th>
+                    <th>Costo Paciente</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody id="tablaTurnosReservados"></tbody>
+              </table>
+            </div>
+            <div id="noTurnos" class="text-center text-muted py-4 d-none">
+              <p>No se encontraron turnos ocupados.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
-
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-primary text-light mt-auto border-top">
-      <div class="container p-3">
-        <div class="row">
+    <footer class="bg-primary text-light border-top py-2">
+      <div class="container">
+        <div class="row align-items-center">
           <div class="col-12 col-md-6 text-md-start text-center mb-2 mb-md-0">
             &copy; 2025 By IDW S.A. - UNER IDW Grupo 24
           </div>
           <div class="col-12 col-md-6 text-md-end text-center">
-            <a href="#" class="text-light me-3"
-              ><i class="bi bi-facebook"></i
-            ></a>
-            <a href="#" class="text-light me-3"
-              ><i class="bi bi-twitter-x"></i
-            ></a>
+            <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="text-light me-3"><i class="bi bi-twitter-x"></i></a>
             <a href="#" class="text-light"><i class="bi bi-instagram"></i></a>
           </div>
         </div>
       </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="js/auth.js"></script>
-    <script src="js/cards.js"></script>
-    <script src="js/users.js"></script>
+    <!-- SCRIPTS -->
+<script src="js/auth.js"></script>
+<script src="js/users.js"></script> 
+<script src="js/cards.js"></script>
+
+<script src="js/especialidadesData.js"></script>
+<script src="js/medicosData.js"></script>
+<script src="js/obrasocialesData.js"></script> 
+
+<script type="module" src="js/utils/turnosStorage.js"></script> 
+<script type="module" src="js/reporteTurnos.js"></script>
+
   </body>
 </html>

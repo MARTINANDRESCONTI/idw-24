@@ -1,6 +1,7 @@
 // ================== VARIABLES GLOBALES ==================
 let medicos = [];
 let especialidades = [];
+let obrasSociales = [];
 let medicoEditando = null;
 let medicoAEliminar = null;
 
@@ -64,6 +65,37 @@ function llenarSelectEspecialidades() {
   });
 }
 
+// ====== CARGA DE OBRAS SOCIALES ======
+function cargarObrasSociales() {
+  const obrasJSON = localStorage.getItem("obrasSociales");
+  obrasSociales = obrasJSON ? JSON.parse(obrasJSON) : [];
+  llenarSelectObras();
+}
+
+function llenarSelectObras() {
+  const container = document.getElementById("obrasSocialesCheckboxes");
+  if (!container) return;
+  
+  container.innerHTML = "";
+  
+  if (obrasSociales.length === 0) {
+    container.innerHTML = '<p class="text-muted mb-0">No hay obras sociales cargadas</p>';
+    return;
+  }
+  
+  obrasSociales.forEach(o => {
+    const div = document.createElement("div");
+    div.className = "form-check";
+    div.innerHTML = `
+      <input class="form-check-input obra-checkbox" type="checkbox" value="${o.id}" id="obra_${o.id}">
+      <label class="form-check-label" for="obra_${o.id}">
+        ${o.nombre} <span class="badge bg-secondary">${o.porcentaje}% desc.</span>
+      </label>
+    `;
+    container.appendChild(div);
+  });
+}
+
 // ================== TABLA ==================
 function renderizarTabla(lista) {
   if (!lista || lista.length === 0) {
@@ -77,6 +109,12 @@ function renderizarTabla(lista) {
   medicosTableBody.innerHTML = lista.map(medico => {
     const esp = especialidades.find(e => e.especialidadId === medico.especialidadId);
     const nombreEsp = esp ? esp.descripcion : "Sin especialidad";
+    const obrasAtendidas = medico.obrasSociales?.length
+      ? medico.obrasSociales.map(id => {
+          const o = obrasSociales.find(os => os.id === id);
+          return o ? o.nombre : "";
+        }).join(", ")
+      : "Particular";
     return `
       <tr>
         <td><img src="${medico.foto || 'assets/default.png'}" class="rounded-circle border" width="50" height="50"></td>
@@ -85,8 +123,10 @@ function renderizarTabla(lista) {
         <td>${medico.apellido}</td>
         <td><span class="badge bg-info">${nombreEsp}</span></td>
         <td>${medico.matricula}</td>
+        <td>$${parseFloat(medico.valorConsulta || 0).toFixed(2)}</td>
         <td>${medico.telefono}</td>
         <td>${medico.email}</td>
+        <td>${obrasAtendidas}</td>
         <td class="text-center">
           <div class="btn-group btn-group-sm">
             <button class="btn btn-info" onclick="verMedico(${medico.id})"><i class="bi bi-eye"></i></button>
@@ -137,6 +177,12 @@ btnNuevoMedico.addEventListener("click", () => {
   medicoEditando = null;
   medicoForm.reset();
   previewImg.src = "assets/default.png";
+  
+  // Desmarcar todos los checkboxes
+  document.querySelectorAll(".obra-checkbox").forEach(cb => {
+    cb.checked = false;
+  });
+  
   medicoModalLabel.innerHTML = '<i class="bi bi-person-plus"></i> Nuevo Médico';
 });
 
@@ -153,8 +199,19 @@ btnGuardarMedico.addEventListener("click", () => {
     return;
   }
 
+  const valorConsulta = parseFloat(document.getElementById("valorConsulta").value);
+  if (!valorConsulta || valorConsulta <= 0) {
+    showToast("Ingresa un valor de consulta válido", "warning");
+    return;
+  }
+
   const esp = especialidades.find(e => e.especialidadId === especialidadId);
   const baseFoto = previewImg.src || "assets/default.png";
+
+  // Capturar checkboxes seleccionados
+  const obrasSeleccionadas = Array.from(
+    document.querySelectorAll(".obra-checkbox:checked")
+  ).map(cb => cb.value);
 
   const medico = {
     id: medicoEditando ? medicoEditando.id : generarId(),
@@ -164,7 +221,9 @@ btnGuardarMedico.addEventListener("click", () => {
     matricula: document.getElementById("matricula").value.trim(),
     telefono: document.getElementById("telefono").value.trim(),
     email: document.getElementById("email").value.trim(),
-    foto: baseFoto
+    valorConsulta: valorConsulta,
+    foto: baseFoto,
+    obrasSociales: obrasSeleccionadas
   };
 
   if (medicoEditando) {
@@ -193,6 +252,16 @@ window.verMedico = function (id) {
   document.getElementById("verMatricula").textContent = medico.matricula;
   document.getElementById("verTelefono").textContent = medico.telefono;
   document.getElementById("verEmail").textContent = medico.email;
+  document.getElementById("verValorConsulta").textContent = `$${parseFloat(medico.valorConsulta || 0).toFixed(2)}`;
+
+  const obrasAtendidas = medico.obrasSociales?.length
+    ? medico.obrasSociales.map(id => {
+        const o = obrasSociales.find(os => os.id === id);
+        return o ? o.nombre : "";
+      }).join(", ")
+    : "Solo consultas particulares";
+
+  document.getElementById("verObrasSociales").textContent = obrasAtendidas;
 
   verMedicoModal.show();
 };
@@ -209,7 +278,13 @@ window.editarMedico = function (id) {
   document.getElementById("matricula").value = medico.matricula;
   document.getElementById("telefono").value = medico.telefono;
   document.getElementById("email").value = medico.email;
+  document.getElementById("valorConsulta").value = medico.valorConsulta;
   previewImg.src = medico.foto || "assets/default.png";
+
+  // Marcar los checkboxes correspondientes
+  document.querySelectorAll(".obra-checkbox").forEach(cb => {
+    cb.checked = medico.obrasSociales?.includes(cb.value) || false;
+  });
 
   medicoModalLabel.innerHTML = '<i class="bi bi-pencil"></i> Editar Médico';
   medicoModal.show();
@@ -241,8 +316,7 @@ function generarId() {
 
 // ================== INICIO ==================
 document.addEventListener("DOMContentLoaded", () => {
-  // La protección de rutas ya la maneja auth.js
-  // No duplicamos lógica aquí
   cargarEspecialidades();
+  cargarObrasSociales();
   cargarMedicos();
 });

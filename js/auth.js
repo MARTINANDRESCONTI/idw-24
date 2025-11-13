@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       loginBtn.textContent = "Login";
       adminLink?.classList.add("d-none");
-      reservasLink?.classList.add("d-none");
+      reservasLink?.classList.remove("d-none"); // 👈 se deja visible para todos
     }
   }
 
@@ -250,6 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const paginaActual = window.location.pathname.split("/").pop();
     const usuarioLogueado = await esperarUsuario();
 
+    // 🔒 Admins
     if (
       (paginaActual.startsWith("admin") ||
         paginaActual.startsWith("abm-") ||
@@ -260,12 +261,8 @@ document.addEventListener("DOMContentLoaded", () => {
       window.location.href = "index.html";
     }
 
-    if (
-      paginaActual === "reservas.html" &&
-      (!usuarioLogueado || (usuarioLogueado.role !== "visitor" && usuarioLogueado.role !== "user"))
-    ) {
-      alert("❌ Debes iniciar sesión para acceder a reservas");
-      window.location.href = "index.html";
-    }
+    // ✅ Reservas ahora es pública (se eliminó el bloqueo)
+    // Antes pedía login, ahora todos pueden acceder.
+    console.log("Acceso libre permitido a reservas.html para visitantes y usuarios.");
   })();
 });

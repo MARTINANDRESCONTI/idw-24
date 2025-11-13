@@ -24,21 +24,19 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarID">
           <ul class="navbar-nav ms-auto text-center">
-            <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
             <li class="nav-item"><a class="nav-link" href="institucional.html">Institucional</a></li>
             <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+            <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
             <li class="nav-item d-none" id="adminLink">
               <a class="nav-link" href="admin.html"><i class="bi bi-gear-fill"></i> Admin</a>
             </li>
             <li class="nav-item d-none" id="reservasLink">
               <a class="nav-link" href="#">Reservas</a>
             </li>
+            <!-- Botón de login/logout -->
             <li class="nav-item ms-2">
               <button class="btn btn-light btn-sm" id="loginBtn">Login</button>
-            </li>
-            <!-- Registrarse -->
-            <li class="nav-item ms-2">
-            <a href="usuarioRegistrado.html" class="btn btn-light btn-sm" id="loggedBtn">Registrarse</a>
             </li>
           </ul>
         </div>
@@ -47,29 +45,58 @@
   </header>
 
   <!-- MODAL LOGIN -->
-  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header bg-primary text-light">
-          <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-        </div>
-        <div class="modal-body">
-          <form id="loginForm">
-            <div class="mb-3">
-              <label for="usernameInput" class="form-label">Usuario</label>
-              <input type="text" class="form-control" id="usernameInput" required />
-            </div>
-            <div class="mb-3">
-              <label for="passwordInput" class="form-label">Contraseña</label>
-              <input type="password" class="form-control" id="passwordInput" required />
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
-          </form>
-        </div>
+<div
+  class="modal fade"
+  id="loginModal"
+  tabindex="-1"
+  aria-labelledby="loginModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-light">
+        <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
       </div>
-    </div>
+      <div class="modal-body">
+        <form id="loginForm">
+          <div class="mb-3">
+            <label for="usernameInput" class="form-label">Usuario</label>
+            <input
+              type="text"
+              class="form-control"
+              id="usernameInput"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="passwordInput" class="form-label">Contraseña</label>
+            <input
+              type="password"
+              class="form-control"
+              id="passwordInput"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary w-100">
+            Ingresar
+          </button>
+        </form>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <p class="mb-0 text-center">
+          ¿No estás registrado?
+          <a href="usuarioRegistrado.html" class="fw-bold text-primary">Regístrate aquí</a>
+        </p>
+      </div>
+      </div>
   </div>
+</div>
 
   <!-- TOASTS -->
   <div id="toastContainer" class="position-fixed top-50 start-50 translate-middle" style="z-index: 9999"></div>
@@ -120,8 +147,10 @@
                     <th>Apellido</th>
                     <th>Especialidad</th>
                     <th>Matrícula</th>
+                    <th>Valor Consulta</th>
                     <th>Teléfono</th>
                     <th>Email</th>
+                    <th>Obras Sociales</th>
                     <th class="text-center">Acciones</th>
                   </tr>
                 </thead>
@@ -133,7 +162,7 @@
             <div id="noResults" class="text-center text-muted py-4 d-none">
               <i class="bi bi-inbox fs-1"></i>
               <p>No se encontraron médicos</p>
-            </div>
+            </div> 
           </div>
         </div>
       </div>
@@ -187,12 +216,21 @@
                 <label for="email" class="form-label">Email *</label>
                 <input type="email" class="form-control" id="email" required>
               </div>
-               <!--
-              <div class="col-12">
-                <label for="horario" class="form-label">Horario de Atención</label>
-                <textarea class="form-control" id="horario" rows="2" placeholder="Ej: Lunes a Viernes 9:00-17:00"></textarea>
+              <div class="col-md-6">
+                <label for="valorConsulta" class="form-label">Valor de Consulta ($) *</label>
+                <input type="number" class="form-control" id="valorConsulta" min="0" step="0.01" required>
               </div>
-             -->
+              <div class="col-12">
+                <label class="form-label">Obras Sociales que atiende</label>
+                <div id="obrasSocialesCheckboxes" class="border rounded p-3 bg-light">
+                  <!-- Los checkboxes se generan dinámicamente desde JavaScript -->
+                </div>
+                <small class="text-muted d-block mt-2">
+                  <i class="bi bi-info-circle"></i> 
+                  Selecciona todas las obras sociales que el médico atiende.
+                  <br>Si no selecciona ninguna, el médico atenderá solo consultas particulares.
+                </small>
+              </div>             
             </div>
           </form>
         </div>
@@ -243,12 +281,14 @@
               <strong>Email:</strong>
               <p id="verEmail" class="text-muted"></p>
             </div>
-               <!-- 
-            <div class="col-12">
-              <strong>Horario de Atención:</strong>
-              <p id="verHorario" class="text-muted"></p>
+            <div class="col-md-6">
+              <strong>Valor de Consulta:</strong>
+              <p id="verValorConsulta" class="text-muted"></p>
             </div>
-              -->
+            <div class="col-12">
+              <strong>Obras Sociales que atiende:</strong>
+              <p id="verObrasSociales" class="text-muted"></p>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
