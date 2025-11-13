@@ -8,7 +8,10 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
 
     <style>
       body {
@@ -28,7 +31,7 @@
         background-color: #fff;
         padding: 30px;
         border-radius: 12px;
-        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         width: 100%;
         max-width: 900px;
       }
@@ -40,23 +43,46 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
       <div class="container">
-        <a class="navbar-brand fw-bold" href="index.html">Centro Médico Integral S.A.</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarID" aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand fw-bold" href="index.html"
+          >Centro Médico Integral S.A.</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarID"
+          aria-controls="navbarID"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarID">
           <ul class="navbar-nav ms-auto text-center">
-            <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
-            <li class="nav-item"><a class="nav-link" href="institucional.html">Institucional</a></li>
-            <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
-            <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="institucional.html">Institucional</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contacto.html">Contacto</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="catalogo.html">Catálogo</a>
+            </li>
             <li class="nav-item ms-2">
-              <a href="gestionTurnos.html" class="btn btn-warning fw-bold text-dark">
+              <a
+                href="gestionTurnos.html"
+                class="btn btn-warning fw-bold text-dark"
+              >
                 RESERVAR TURNO
               </a>
             </li>
             <li class="nav-item d-none" id="adminLink">
-              <a class="nav-link" href="admin.html"><i class="bi bi-gear-fill"></i> Admin</a>
+              <a class="nav-link" href="admin.html"
+                ><i class="bi bi-gear-fill"></i> Admin</a
+              >
             </li>
             <li class="nav-item d-none" id="reservasLink">
               <a class="nav-link" href="#">Reservas</a>
@@ -72,10 +98,12 @@
     <main>
       <form id="formTurno">
         <h2 class="text-center fw-bold text-primary mb-4">Reservar Turno</h2>
-        
+
         <div class="row g-3">
           <div class="col-md-4">
-            <label for="especialidad" class="form-label fw-semibold">Especialidad</label>
+            <label for="especialidad" class="form-label fw-semibold"
+              >Especialidad</label
+            >
             <select id="especialidad" class="form-select" required>
               <option value="">Seleccione una especialidad</option>
             </select>
@@ -87,7 +115,9 @@
             </select>
           </div>
           <div class="col-md-4">
-            <label for="obraSocial" class="form-label fw-semibold">Obra Social</label>
+            <label for="obraSocial" class="form-label fw-semibold"
+              >Obra Social</label
+            >
             <select id="obraSocial" class="form-select" required>
               <option value="particular">Consulta Particular</option>
             </select>
@@ -95,16 +125,25 @@
         </div>
 
         <div class="row g-3 mt-4">
-            <div class="col-md-6">
-                <label for="documento" class="form-label fw-semibold">Documento / Identificador</label>
-                <input type="text" id="documento" class="form-control" required />
-            </div>
-            <div class="col-md-6">
-                <label for="apellidoNombre" class="form-label fw-semibold">Apellido y Nombre del paciente</label>
-                <input type="text" id="apellidoNombre" class="form-control" required />
-            </div>
+          <div class="col-md-6">
+            <label for="documento" class="form-label fw-semibold"
+              >Documento / Identificador</label
+            >
+            <input type="text" id="documento" class="form-control" required />
+          </div>
+          <div class="col-md-6">
+            <label for="apellidoNombre" class="form-label fw-semibold"
+              >Apellido y Nombre del paciente</label
+            >
+            <input
+              type="text"
+              id="apellidoNombre"
+              class="form-control"
+              required
+            />
+          </div>
         </div>
-        
+
         <div class="row g-3 mt-3">
           <div class="col-md-4">
             <label for="fecha" class="form-label fw-semibold">Fecha</label>
@@ -119,26 +158,51 @@
             </select>
           </div>
           <div class="col-md-4">
-            <label for="valorConsulta" class="form-label fw-semibold">Valor de la consulta</label>
-            <input type="text" id="valorConsulta" class="form-control readonly-input" readonly />
+            <label for="valorConsulta" class="form-label fw-semibold"
+              >Valor de la consulta</label
+            >
+            <input
+              type="text"
+              id="valorConsulta"
+              class="form-control readonly-input"
+              readonly
+            />
           </div>
         </div>
 
         <div class="row g-3 mt-3">
           <div class="col-md-6">
-            <label for="aCargoObraSocial" class="form-label fw-semibold">A cargo obra social</label>
-            <input type="text" id="aCargoObraSocial" class="form-control readonly-input" readonly />
+            <label for="aCargoObraSocial" class="form-label fw-semibold"
+              >A cargo obra social</label
+            >
+            <input
+              type="text"
+              id="aCargoObraSocial"
+              class="form-control readonly-input"
+              readonly
+            />
           </div>
           <div class="col-md-6">
-            <label for="aCargoPaciente" class="form-label fw-semibold">A cargo paciente</label>
-            <input type="text" id="aCargoPaciente" class="form-control readonly-input" readonly />
+            <label for="aCargoPaciente" class="form-label fw-semibold"
+              >A cargo paciente</label
+            >
+            <input
+              type="text"
+              id="aCargoPaciente"
+              class="form-control readonly-input"
+              readonly
+            />
           </div>
         </div>
-        
+
         <div id="resultadoFinal"></div>
 
         <div class="mt-4 text-end">
-          <button type="submit" id="btnGuardarTurno" class="btn btn-success px-4">
+          <button
+            type="submit"
+            id="btnGuardarTurno"
+            class="btn btn-success px-4"
+          >
             <i class="bi bi-calendar-check"></i> Guardar Turno
           </button>
         </div>
@@ -146,20 +210,22 @@
     </main>
 
     <footer class="bg-primary text-white text-center py-3 mt-auto">
-      <p class="mb-0">&copy; 2025 Clínica Salud+. Todos los derechos reservados.</p>
+      <p class="mb-0">
+        &copy; 2025 Clínica Salud+. Todos los derechos reservados.
+      </p>
     </footer>
 
     <script src="js/auth.js"></script>
-    
+
     <script src="js/especialidadesData.js"></script>
     <script src="js/medicosData.js"></script>
     <script src="js/obraSocAbm.js"></script>
-    <script src="js/turnosData.js"></script> 
-    
+    <script src="js/turnosData.js"></script>
+
     <script type="module" src="js/utils/turnosStorage.js"></script>
 
     <script type="module" src="js/reservas.js"></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
