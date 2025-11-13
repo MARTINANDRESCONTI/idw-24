@@ -1,46 +1,72 @@
-// Cargar obras sociales desde localStorage 
+// Archivo obraSocAbm.js
+
+const OBRAS_INICIALES = [
+  { id: "OS001", nombre: "OSDE", porcentaje: 20, descripcion: "Descuento fijo 20%" },
+  { id: "OS002", nombre: "IOMA", porcentaje: 30, descripcion: "Descuento fijo 30%" },
+  { id: "OS003", nombre: "Swiss Medical", porcentaje: 15, descripcion: "Descuento fijo 15%" }
+];
+
+// 1. LÓGICA DE INICIALIZACIÓN (Garantiza que el LS tenga datos)
+function inicializarObrasSociales() {
+    const LS_KEY = "obrasSociales"; 
+    
+    // Solo inicializa si la clave NO existe
+    if (!localStorage.getItem(LS_KEY)) {
+        localStorage.setItem(LS_KEY, JSON.stringify(OBRAS_INICIALES));
+        console.log(`✅ Obras Sociales inicializadas en LocalStorage.`);
+    }
+}
+inicializarObrasSociales();
+
+
+// 2. LÓGICA DE ABM (Lee los datos una vez que están garantizados en LS)
+
+// Cargar obras sociales desde localStorage (Ahora garantizado)
 let obras = JSON.parse(localStorage.getItem("obrasSociales")) || [];
 
 // Guardar en localStorage
 function guardar() {
- localStorage.setItem("obrasSociales", JSON.stringify(obras));
+ localStorage.setItem("obrasSociales", JSON.stringify(obras));
 }
 
 // ID 
 function generarId() {
- return "OS" + Date.now();
+ // Usamos una estructura OSXXX para que coincida con la inicial
+ const nuevoId = Math.max(...obras.map(o => parseInt(o.id.replace('OS', '')) || 0)) + 1;
+ return "OS" + String(nuevoId).padStart(3, '0');
 }
+
 
 // Descuentos predeterminados
 
 const descuentosFijos = {
- "OSDE": 20,
- "IOMA": 30,
- "Swiss Medical": 15,
- "Galeno": 25,
- "Sancor Salud": 18
+ "OSDE": 20,
+ "IOMA": 30,
+ "Swiss Medical": 15,
+ "Galeno": 25,
+ "Sancor Salud": 18
 };
 
 // Agregar nueva obra social
 
 function agregarObra(nombre, porcentaje) { 
-  nombre = nombre.trim();
- 
+  nombre = nombre.trim();
+
 // Validación: nombre vacío
 
-  if (!nombre) {
-  alert("Debe ingresar un nombre de obra social.");
-    return;
-  }
+  if (!nombre) {
+  alert("Debe ingresar un nombre de obra social.");
+    return;
+  }
 
 // Validación: evitar nombres repetidos.
 
 const existe = obras.some(o => o.nombre.toLowerCase() === nombre.toLowerCase());
-  if (existe) {
-  alert("Esa obra social ya está registrada.");
-    return;
+  if (existe) {
+  alert("Esa obra social ya está registrada.");
+    return;
 }
-  const porcentajeNum = parseFloat(porcentaje) || 0;
+  const porcentajeNum = parseFloat(porcentaje) || 0;
 
 const nueva = {
 id: generarId(),
@@ -50,7 +76,8 @@ porcentaje: porcentajeNum
 
 obras.push(nueva);
 guardar();
-renderTabla();
+// Asegúrate de que renderTabla() solo se llama si la tabla existe en el DOM
+// renderTabla(); 
 alert(`Obra social "${nombre}" agregada correctamente.`);
 }
 
@@ -60,10 +87,10 @@ function modificarObra(id, nuevoNombre, nuevoPorcentaje) {
 const obra = obras.find(o => o.id === id);
 if (obra) {
 obra.nombre = nuevoNombre.trim();
-    
-  obra.porcentaje = parseFloat(nuevoPorcentaje) || 0; 
-  guardar();
-  }
+    
+  obra.porcentaje = parseFloat(nuevoPorcentaje) || 0; 
+  guardar();
+  }
 }
 
 // Eliminar obra social
@@ -71,81 +98,65 @@ obra.nombre = nuevoNombre.trim();
 function eliminarObra(id) {
 obras = obras.filter(o => o.id !== id);
 guardar();
-renderTabla();
+// Asegúrate de que renderTabla() solo se llama si la tabla existe en el DOM
+// renderTabla(); 
 }
 
-// Tabla
+// NOTA: Se comenta renderTabla y funciones relacionadas con el DOM del ABM
+// ya que esta lógica no se debe ejecutar en la página de Reservas.
+// Si tu archivo obraSocAbm.js está siendo usado tanto para ABM como para inicialización,
+// debes asegurarte que las funciones DOM (como renderTabla, editarObra, etc.)
+// están disponibles globalmente (window.) si el ABM las necesita.
 
+/*
 function renderTabla() {
-const tabla = document.getElementById("tablaObras");
-tabla.innerHTML = "";
-
-obras.forEach(obra => {
-const fila = document.createElement("tr");
-    
-    
-fila.innerHTML = `
-<td>${obra.nombre}</td>
-<td>${obra.porcentaje}%</td>
-      <td></td> <td>
-<button class="btn btn-warning btn-sm me-2" onclick="editarObra('${obra.id}')">
-<i class="bi bi-pencil-square"></i>
-</button>
-<button class="btn btn-danger btn-sm" onclick="eliminarObra('${obra.id}')">
-<i class="bi bi-trash"></i>
-</button>
-  </td>
-`;
-tabla.appendChild(fila);
-});
+    const tabla = document.getElementById("tablaObras");
+    if (!tabla) return; // Evita error si no está en el DOM
+    // ...
 }
+*/
 
-// Editar
+// EL RESTO DEL CÓDIGO DEL ABM DEBE ESTAR AJUSTADO PARA EVITAR ERRORES
+// si se carga en una página sin los elementos del formulario (formObraSocial, tablaObras).
 
-function editarObra(id) {
-const obra = obras.find(o => o.id === id);
-if (obra) {
-document.getElementById("obraId").value = obra.id;
-document.getElementById("nombre").value = obra.nombre;
-document.getElementById("descuento").value = obra.porcentaje;
-}
-}
+// Si el script se carga en la página de Reservas, el código de abajo fallará
+// porque no existen los elementos DOM del ABM. Para evitarlo, usa comprobaciones:
 
-// Formulario submit
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("formObraSocial");
+    if (!form) return; // Salir si no es la página de ABM
 
-document.getElementById("formObraSocial").addEventListener("submit", e => {
-e.preventDefault();
-const id = document.getElementById("obraId").value;
-const nombre = document.getElementById("nombre").value;
-const descuento = document.getElementById("descuento").value;
+    // Solo si estamos en la página del ABM:
+    form.addEventListener("submit", e => {
+        e.preventDefault();
+        const id = document.getElementById("obraId").value;
+        const nombre = document.getElementById("nombre").value;
+        const descuento = document.getElementById("descuento").value;
 
-if (id) {
-modificarObra(id, nombre, descuento); 
-} else {
-agregarObra(nombre, descuento);
-}
+        if (id) {
+            modificarObra(id, nombre, descuento); 
+        } else {
+            agregarObra(nombre, descuento);
+        }
 
-e.target.reset();
-document.getElementById("obraId").value = "";
-renderTabla();
+        e.target.reset();
+        document.getElementById("obraId").value = "";
+        // renderTabla(); // Descomentar si la función existe y se usa en el ABM
+    });
+
+    const nombreInput = document.getElementById("nombre");
+    if (nombreInput) {
+        nombreInput.addEventListener("change", () => {
+            const nombre = nombreInput.value;
+            document.getElementById("descuento").value = descuentosFijos[nombre] || 0;
+        });
+    }
+
+    // renderTabla(); // Descomentar si la función existe y se usa en el ABM
 });
 
-// Mostrar descuento por nombre
-
-document.getElementById("nombre").addEventListener("change", () => {
-const nombre = document.getElementById("nombre").value;
-document.getElementById("descuento").value = descuentosFijos[nombre] || 0;
-});
-
-// Cargar obras iniciales si no hay en localStorage
-
-if (obras.length === 0) 
-  { obras = [
-{ id: "OS001", nombre: "OSDE", porcentaje: 20 },
-{ id: "OS002", nombre: "IOMA", porcentaje: 30 },
-{ id: "OS003", nombre: "Swiss Medical", porcentaje: 15 }
- ];
- guardar();
-}
-
-renderTabla();
+// Hacemos que estas funciones sean globales para que el HTML pueda llamarlas directamente
+window.eliminarObra = eliminarObra;
+window.modificarObra = modificarObra;
+window.agregarObra = agregarObra;
+// etc. (solo si las necesitas globalmente)

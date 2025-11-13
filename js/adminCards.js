@@ -18,34 +18,26 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     { 
       id: 3, 
-      image: "/assets/turnos.png", 
-      title: "Turnos",
-      description: "Administrar turnos y citas médicas del sistema.",
-      link: "abm-turnos.html",
-      icon: "bi-calendar-check"
-    },
-    { 
-      id: 4, 
-      image: "assets/pacientes.jpg", 
-      title: "Pacientes",
-      description: "Gestionar información de pacientes registrados.",
-      link: "abm-pacientes.html",
-      icon: "bi-people"
-    },
-    { 
-      id: 5, 
       image: "assets/horarios.jpg", 
-      title: "Horarios",
+      title: "Generación de Turnos",
       description: "Configurar horarios de atención de los profesionales.",
       link: "abm-horarios.html",
       icon: "bi-clock"
     },
     { 
-      id: 6, 
+      id: 4, 
       image: "assets/reportes.png", 
-      title: "Reportes de Usuarios",
+      title: "Reportes de Usuarios y Turnos",
       description: "Visualizar reportes y estadísticas del sistema.",
       link: "users.html",
+      icon: "bi-graph-up"
+    },
+    { 
+      id: 5, 
+      image: "assets/obraSocial.jpg", 
+      title: "Obras Sociales",
+      description: "Visualizar reportes y estadísticas del sistema.",
+      link: "abm-obraSoc.html",
       icon: "bi-graph-up"
     },
   ];
